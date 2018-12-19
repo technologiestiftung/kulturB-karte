@@ -52,6 +52,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@turf/helpers": "^6.1.4",
+    "d3-dsv": "^1.0.10",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "styled-components": "^4.1.3",
