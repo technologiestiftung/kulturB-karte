@@ -33,7 +33,7 @@ function parseRow(row, i) {
     categories,
     name: row.Institution,
     address: row.Adresse,
-    plz: row.PLZ,
+    zipcode: row.PLZ,
     city: row.Ort,
     website: row.Webseite,
   };

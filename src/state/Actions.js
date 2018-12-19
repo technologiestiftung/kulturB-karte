@@ -5,7 +5,7 @@ const loadData = Store => async () => {
 
   let data = null;
   try {
-    const res = await fetch('public/data/sample.json');
+    const res = await fetch('public/data/data.geojson');
     data = await res.json();
   } catch (err) {
     console.log(err);
