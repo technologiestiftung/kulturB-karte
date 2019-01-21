@@ -30,12 +30,13 @@ function parseRow(row, i) {
 
   const properties = {
     id: row.ID,
-    categories,
+    category: categories,
     name: row.Institution,
     address: row.Adresse,
     zipcode: row.PLZ,
     city: row.Ort,
     website: row.Webseite,
+    type: row.Typ,
   };
 
   return new TurfHelpers.point([+row.lon, +row.lat], properties);
