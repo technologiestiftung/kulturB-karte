@@ -30,12 +30,19 @@ function parseRow(row, i) {
 
   const properties = {
     id: row.ID,
-    category: categories,
     name: row.Institution,
+    description: '',
+    website: row.Webseite,
+    socialNetworks: [],
+    email: '',
+    telephone: '',
+    logo: '',
+    legalName: '',
     address: row.Adresse,
     zipcode: row.PLZ,
     city: row.Ort,
-    website: row.Webseite,
+    location: [+row.lon, +row.lat],
+    category: categories,
     type: row.Typ,
   };
 
