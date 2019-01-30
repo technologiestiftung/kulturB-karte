@@ -6,7 +6,7 @@ import Actions from '~/state/Actions';
 import { Layer, Feature } from 'react-mapbox-gl';
 
 const paintProp = {
-  'circle-radius': 4,
+  'circle-radius': 6,
   'circle-color': ['get', 'color']
 };
 
@@ -15,12 +15,10 @@ const getRandomColor = () => (
 );
 
 class MarkerLayer extends PureComponent {
-  handleMouseEnter({ properties = {} }) {
-    this.props.setTooltipData(properties);
-  }
-
-  handleClick({ geometry: { coordinates } = [] }) {
+  handleClick({ geometry: { coordinates } = [], properties = {} }) {
     this.props.setMapView({ center: coordinates, zoom: 14 });
+    this.props.setTooltipPos(coordinates);
+    this.props.setTooltipData(properties);
   }
 
   render() {
@@ -39,7 +37,6 @@ class MarkerLayer extends PureComponent {
           <Feature
             coordinates={feat.geometry.coordinates}
             key={feat.properties.name}
-            onMouseEnter={() => this.handleMouseEnter(feat)}
             onClick={() => this.handleClick(feat)}
             properties={feat.properties}
           />

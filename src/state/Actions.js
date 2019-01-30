@@ -28,9 +28,14 @@ const setTooltipData = (state, tooltipData) => (
   { tooltipData }
 );
 
+const setTooltipPos = (state, tooltipPos) => (
+  { tooltipPos }
+);
+
 export default Store => ({
   loadData: loadData(Store),
   setMapCenter,
-  setTooltipData,
   setMapView,
+  setTooltipData,
+  setTooltipPos,
 });

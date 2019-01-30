@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import ReactMapboxGl from 'react-mapbox-gl';
 
 import Actions from '~/state/Actions';
+
+import Tooltip from './Tooltip';
 import MarkerLayer from './Layers/MarkerLayer';
 
 const MapGL = ReactMapboxGl({});
@@ -17,7 +19,7 @@ const MapWrapper = styled.div`
 
 class Map extends PureComponent {
   state = {
-    isLoading: false // set to true later
+    isLoading: true
   }
 
   componentDidMount() {
@@ -44,6 +46,7 @@ class Map extends PureComponent {
           flyToOptions={config.map.flyToOptions}
         >
           <MarkerLayer data={this.props.data} />
+          <Tooltip />
         </MapGL>
       </MapWrapper>
     );
