@@ -13,6 +13,24 @@ const loadData = Store => async () => {
   return { data, isLoading: false };
 };
 
+const setMapCenter = (state, mapCenter) => (
+  { mapCenter }
+);
+
+const setMapView = (state, viewObject) => (
+  {
+    mapCenter: viewObject.center || state.mapCenter,
+    mapZoom: [viewObject.zoom] || state.mapZoom,
+  }
+);
+
+const setTooltipData = (state, tooltipData) => (
+  { tooltipData }
+);
+
 export default Store => ({
-  loadData: loadData(Store)
+  loadData: loadData(Store),
+  setMapCenter,
+  setTooltipData,
+  setMapView,
 });

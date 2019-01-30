@@ -1,32 +1,49 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
+import ReactMapboxGl from 'react-mapbox-gl';
 
 import Actions from '~/state/Actions';
+import MarkerLayer from './Layers/MarkerLayer';
 
-import MapGL from '~/components/MapGL';
-import GeoJSON from '~/components/MapGL/Layers/GeoJSON';
+const MapGL = ReactMapboxGl({});
 
 const MapWrapper = styled.div`
   height: 100vh;
   width: 100vw;
   position: relative;
+  opacity: ${props => (props.isLoading ? 0 : 1)};
 `;
 
 class Map extends PureComponent {
+  state = {
+    isLoading: false // set to true later
+  }
+
   componentDidMount() {
     this.props.loadData();
   }
 
+  onStyleLoad(map) {
+    map.resize();
+    this.setState({ isLoading: false });
+  }
+
   render() {
+    const { mapZoom, mapCenter } = this.props;
+    const isLoading = this.props.isLoading || this.state.isLoading;
+
     return (
-      <MapWrapper>
+      <MapWrapper isLoading={isLoading}>
         <MapGL
-          zoom={10}
-          center={[13.4124999, 52.5040961]}
-          styleUrl="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC"
+          zoom={mapZoom}
+          center={mapCenter}
+          style="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC" // eslint-disable-line
+          containerStyle={{ height: '100%', width: '100%' }}
+          onStyleLoad={map => this.onStyleLoad(map)}
+          flyToOptions={config.map.flyToOptions}
         >
-          <GeoJSON data={this.props.data} />
+          <MarkerLayer data={this.props.data} />
         </MapGL>
       </MapWrapper>
     );

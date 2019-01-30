@@ -43,6 +43,7 @@ function parseRow(row, i) {
     city: row.Ort,
     location: [+row.lon, +row.lat],
     category: categories,
+    mainCategory: categories[0],
     type: row.Typ,
   };
 

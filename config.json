@@ -3,5 +3,16 @@
     "description": "Kulturakteure in Berlin",
     "viewport": "width=device-width, initial-scale=1",
     "robots": "noindex,nofollow"
+  },
+  "colors": [
+    "#7ED321",
+    "#F5A623",
+    "#4A90E2",
+    "#E4342B"
+  ],
+  "map": {
+    "flyToOptions": {
+      "speed": 0.8
+    }
   }
 }

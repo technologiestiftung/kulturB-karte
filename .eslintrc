@@ -4,9 +4,12 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "comma-dangle": ["error", {
-        "functions": "ignore"
-      }
-    ],
+      "arrays": "ignore",
+      "objects": "ignore",
+      "imports": "ignore",
+      "exports": "ignore",
+      "functions": "ignore"
+    }],
     "react/prop-types": 0,
     "no-console": 0,
     "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
