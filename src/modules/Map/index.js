@@ -7,6 +7,7 @@ import Actions from '~/state/Actions';
 
 import Tooltip from './Tooltip';
 import MarkerLayer from './Layers/MarkerLayer';
+import ChoroplethLayer from './Layers/ChoroplethLayer';
 
 const MapGL = ReactMapboxGl({});
 
@@ -45,7 +46,8 @@ class Map extends PureComponent {
           onStyleLoad={map => this.onStyleLoad(map)}
           flyToOptions={config.map.flyToOptions}
         >
-          <MarkerLayer data={this.props.data} />
+          <ChoroplethLayer before="culturePoints" topoJsonSrc="public/data/lor_planungsraeume.json" />
+          <MarkerLayer layerId="culturePoints" data={this.props.data} />
           <Tooltip />
         </MapGL>
       </MapWrapper>

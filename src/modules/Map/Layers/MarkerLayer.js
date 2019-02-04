@@ -6,12 +6,15 @@ import Actions from '~/state/Actions';
 import { Layer, Feature } from 'react-mapbox-gl';
 
 const paintProp = {
-  'circle-radius': 6,
-  'circle-color': ['get', 'color']
+  'circle-radius': 4,
+  'circle-color': ['get', 'color'],
+  'circle-stroke-color': '#fff',
+  'circle-stroke-width': 1,
+  'circle-stroke-opacity': 0.7
 };
 
 const getRandomColor = () => (
-  config.colors[Math.floor(Math.random() * config.colors.length)]
+  '#111'
 );
 
 class MarkerLayer extends PureComponent {
@@ -22,7 +25,7 @@ class MarkerLayer extends PureComponent {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, layerId } = this.props;
 
     if (!data) {
       return null;
@@ -32,7 +35,7 @@ class MarkerLayer extends PureComponent {
     data.features.forEach((feat) => { feat.properties.color = getRandomColor() }); // eslint-disable-line
 
     return (
-      <Layer type="circle" paint={paintProp}>
+      <Layer id={layerId} type="circle" paint={paintProp}>
         {data.features.map(feat => (
           <Feature
             coordinates={feat.geometry.coordinates}
