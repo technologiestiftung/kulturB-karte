@@ -4,12 +4,18 @@ import styled from 'styled-components';
 import ReactMapboxGl from 'react-mapbox-gl';
 
 import Actions from '~/state/Actions';
+import MapUtils from './MapUtils';
 
 import Tooltip from './Tooltip';
 import MarkerLayer from './Layers/MarkerLayer';
-import ChoroplethLayer from './Layers/ChoroplethLayer';
+import LorLayer from './Layers/LorLayer';
+import DistrictsLayer from './Layers/DistrictsLayer';
+import RadiusLayer from './Layers/RadiusLayer';
+import HeatmapLayer from './Layers/HeatmapLayer';
 
 const MapGL = ReactMapboxGl({});
+
+const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer'];
 
 const MapWrapper = styled.div`
   height: 100vh;
@@ -20,8 +26,10 @@ const MapWrapper = styled.div`
 
 class Map extends PureComponent {
   state = {
-    isLoading: true
-  }
+    isLoading: true,
+  };
+
+  lastLayerIds = '';
 
   componentDidMount() {
     this.props.loadData();
@@ -30,6 +38,16 @@ class Map extends PureComponent {
   onStyleLoad(map) {
     map.resize();
     this.setState({ isLoading: false });
+  }
+
+  onData(map) {
+    const layerIds = Object.keys(map.style._layers).join(''); // eslint-disable-line
+
+    if (layerIds !== this.lastLayerIds) {
+      MapUtils.orderLayers(map, LayerOrder);
+    }
+
+    this.lastLayerIds = layerIds;
   }
 
   render() {
@@ -45,9 +63,13 @@ class Map extends PureComponent {
           containerStyle={{ height: '100%', width: '100%' }}
           onStyleLoad={map => this.onStyleLoad(map)}
           flyToOptions={config.map.flyToOptions}
+          onData={map => this.onData(map)}
         >
-          <ChoroplethLayer before="culturePoints" topoJsonSrc="public/data/lor_planungsraeume.json" />
-          <MarkerLayer layerId="culturePoints" data={this.props.data} />
+          <MarkerLayer data={this.props.data} />
+          { /* <RadiusLayer data={this.props.data} radius={700} /> */ }
+          <DistrictsLayer />
+          { /* <LorLayer /> */ }
+          { /* <HeatmapLayer data={this.props.data} /> */ }
           <Tooltip />
         </MapGL>
       </MapWrapper>

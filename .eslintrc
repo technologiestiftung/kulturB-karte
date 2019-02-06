@@ -11,13 +11,15 @@
       "functions": "ignore"
     }],
     "react/prop-types": 0,
+    "no-plusplus": 0,
     "no-console": 0,
     "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
     "react/destructuring-assignment": 0,
     "_comment": "remove after https://github.com/babel/babel-eslint/issues/530 fix",
     "template-curly-spacing" : "off",
     "indent": "off",
-    "consistent-return": 0
+    "consistent-return": 0,
+    "no-floating-decimal": 0
   },
   "env": {
     "browser": true
