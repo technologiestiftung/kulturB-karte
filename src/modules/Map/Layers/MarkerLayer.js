@@ -6,10 +6,10 @@ import Actions from '~/state/Actions';
 import { Layer, Feature } from 'react-mapbox-gl';
 
 const paintProp = {
-  'circle-radius': 5,
+  'circle-radius': 2,
   'circle-color': ['get', 'color'],
   'circle-stroke-color': '#fff',
-  'circle-stroke-width': 1
+  'circle-stroke-width': 0
 };
 
 const getRandomColor = () => (

@@ -3,8 +3,8 @@ import { GeoJSONLayer } from 'react-mapbox-gl';
 import MapUtils from '../MapUtils';
 
 const paintProps = {
-  'fill-color': '#00f',
-  'fill-opacity': .4,
+  'fill-color': '#4A90E2',
+  'fill-opacity': 0.5,
 };
 
 class RadiusLayer extends PureComponent {

@@ -66,7 +66,7 @@ class Map extends PureComponent {
           onData={map => this.onData(map)}
         >
           <MarkerLayer data={this.props.data} />
-          { /* <RadiusLayer data={this.props.data} radius={700} /> */ }
+          <RadiusLayer data={this.props.data} radius={800} />
           <DistrictsLayer />
           { /* <LorLayer /> */ }
           { /* <HeatmapLayer data={this.props.data} /> */ }

@@ -6,11 +6,14 @@ const paintProps = {
   'line-width': 2
 };
 
+const filterProps = ['==', 'Gemeinde_name', 'Neukölln'];
+
 export default props => (
   <TopoJSONLayer
     {...props}
     source="public/data/bezirksgrenzen.json"
     linePaint={paintProps}
     id="DistrictsLayer"
+    // layerOptions={{ filter: filterProps }}
   />
 );
