@@ -1,18 +1,16 @@
 import React, { PureComponent } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'unistore/react';
-import styled from 'styled-components';
 
 import Actions from '~/state/Actions';
 import Map from '~/modules/Map';
 
-const AppWrapper = styled.div``;
-
 class App extends PureComponent {
   render() {
     return (
-      <AppWrapper>
+      <Router>
         <Map />
-      </AppWrapper>
+      </Router>
     );
   }
 }

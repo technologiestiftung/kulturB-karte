@@ -12,7 +12,7 @@ function orderLayers(map, order) {
   });
 }
 
-function getPolygonFeature(center, radius, points = 50) {
+function getPolygonFeature(center, radius, points = 50, props = {}) {
   const km = radius / 1000;
   const distanceX = km / (111.320 * Math.cos(center[1] * Math.PI / 180));
   const distanceY = km / 110.574;
@@ -33,7 +33,8 @@ function getPolygonFeature(center, radius, points = 50) {
     geometry: {
       type: 'Polygon',
       coordinates: [coords],
-    }
+    },
+    properties: props,
   };
 }
 

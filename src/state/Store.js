@@ -2,7 +2,7 @@ import createStore from 'unistore';
 
 const Store = createStore({
   isLoading: true,
-  data: false,
+  data: { features: [] },
   mapCenter: [13.4124999, 52.5040961],
   mapZoom: [10],
   tooltipData: false,

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Route } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
 import ReactMapboxGl from 'react-mapbox-gl';
@@ -6,12 +7,8 @@ import ReactMapboxGl from 'react-mapbox-gl';
 import Actions from '~/state/Actions';
 import MapUtils from './MapUtils';
 
-import Tooltip from './Tooltip';
-import MarkerLayer from './Layers/MarkerLayer';
-import LorLayer from './Layers/LorLayer';
-import DistrictsLayer from './Layers/DistrictsLayer';
-import RadiusLayer from './Layers/RadiusLayer';
-import HeatmapLayer from './Layers/HeatmapLayer';
+import FilterView from './MapViews/FilterView';
+import AnalysisView from './MapViews/AnalysisView';
 
 const MapGL = ReactMapboxGl({});
 
@@ -30,10 +27,6 @@ class Map extends PureComponent {
   };
 
   lastLayerIds = '';
-
-  componentDidMount() {
-    this.props.loadData();
-  }
 
   onStyleLoad(map) {
     map.resize();
@@ -65,12 +58,8 @@ class Map extends PureComponent {
           flyToOptions={config.map.flyToOptions}
           onData={map => this.onData(map)}
         >
-          <MarkerLayer data={this.props.data} />
-          <RadiusLayer data={this.props.data} radius={800} />
-          <DistrictsLayer />
-          { /* <LorLayer /> */ }
-          { /* <HeatmapLayer data={this.props.data} /> */ }
-          <Tooltip />
+          <Route path="/filter" component={FilterView} />
+          <Route path="/analysis" component={AnalysisView} />
         </MapGL>
       </MapWrapper>
     );
