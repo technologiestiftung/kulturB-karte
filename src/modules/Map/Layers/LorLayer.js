@@ -2,7 +2,7 @@ import React from 'react';
 import TopoJSONLayer from '~/components/TopoJSONLayer';
 import { scaleLinear } from 'd3-scale';
 
-const colorScale = scaleLinear().domain([0, 1]).range(['#444', '#fefefe']);
+const colorScale = scaleLinear().domain([0, 1]).range(['#ffffcc', '#2c7fb8']);
 
 const fillPaint = {
   'fill-color': ['get', 'color'],

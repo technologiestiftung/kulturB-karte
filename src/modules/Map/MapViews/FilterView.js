@@ -3,6 +3,7 @@ import { connect } from 'unistore/react';
 
 import Actions from '~/state/Actions';
 
+import DistrictLayer from '../Layers/DistrictsLayer';
 import MarkerLayer from '../Layers/MarkerLayer';
 
 class FilterView extends PureComponent {
@@ -15,6 +16,7 @@ class FilterView extends PureComponent {
 
     return (
       <Fragment>
+        <DistrictLayer />
         <MarkerLayer data={data} />
       </Fragment>
     );

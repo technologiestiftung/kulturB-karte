@@ -1,3 +1,7 @@
+import { scaleOrdinal } from 'd3-scale';
+
+const colorScale = scaleOrdinal().range(config.colors);
+
 function orderLayers(map, order) {
   const layerIds = Object.keys(map.style._layers); // eslint-disable-line
 
@@ -38,7 +42,12 @@ function getPolygonFeature(center, radius, points = 50, props = {}) {
   };
 }
 
+export function getColorByCategory(category) {
+  return colorScale(category);
+}
+
 export default {
   orderLayers,
-  getPolygonFeature
+  getPolygonFeature,
+  getColorByCategory,
 };
