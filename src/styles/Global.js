@@ -12,5 +12,6 @@ export default createGlobalStyle`
     padding: 0;
     margin: 0;
     position: relative;
+    font-family: Arial, sans-serif;
   }
 `;

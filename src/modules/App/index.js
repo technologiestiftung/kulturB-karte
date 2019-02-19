@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'unistore/react';
 
 import Actions from '~/state/Actions';
-import Map from '~/modules/Map';
+import AppWrapper from './AppWrapper';
 
-class App extends PureComponent {
+class App extends Component {
   render() {
     return (
       <Router>
-        <Map />
+        <AppWrapper />
       </Router>
     );
   }

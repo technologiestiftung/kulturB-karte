@@ -14,7 +14,7 @@ class TopoJSONLayer extends PureComponent {
   }
 
   state = {
-    data: false
+    data: false,
   }
 
   componentDidMount() {
@@ -33,13 +33,12 @@ class TopoJSONLayer extends PureComponent {
   render() {
     const { data } = this.state;
 
-    console.log(data);
+    if (!data) {
+      return null;
+    }
 
     return (
-      <GeoJSONLayer
-        {...this.props}
-        data={data}
-      />
+      <GeoJSONLayer {...this.props} data={data} />
     );
   }
 }

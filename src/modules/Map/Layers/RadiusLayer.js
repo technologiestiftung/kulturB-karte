@@ -22,7 +22,6 @@ class RadiusLayer extends PureComponent {
 
     const geoJSON = { type: 'FeatureCollection', features };
     const dissolvedGeoJSON = dissolve(geoJSON);
-    console.log(dissolvedGeoJSON);
 
     return (
       <GeoJSONLayer

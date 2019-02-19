@@ -22,7 +22,7 @@ class MarkerLayer extends PureComponent {
     };
 
     // assign random colors
-    data.features.forEach((feat) => { feat.properties.color = console.log(feat.properties.mainCategory) || getColorByCategory(feat.properties.mainCategory) }); // eslint-disable-line
+    data.features.forEach((feat) => { feat.properties.color = getColorByCategory(feat.properties.mainCategory) }); // eslint-disable-line
 
     return (
       <Layer id="MarkerLayer" type="circle" paint={paintProp}>

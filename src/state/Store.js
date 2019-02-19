@@ -7,6 +7,9 @@ const Store = createStore({
   mapZoom: [10],
   tooltipData: false,
   tooltipPos: [0, 0],
+  filter: {
+    categoryFilter: []
+  }
 });
 
 export default Store;

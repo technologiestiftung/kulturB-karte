@@ -32,10 +32,24 @@ const setTooltipPos = (state, tooltipPos) => (
   { tooltipPos }
 );
 
+const toggleCategoryFilter = (state, category) => {
+  let { categoryFilter } = state.filter;
+
+  if (categoryFilter.includes(category)) {
+    categoryFilter = categoryFilter.filter(cat => cat !== category);
+  } else {
+    categoryFilter.push(category);
+  }
+
+  const filter = Object.assign({}, state.filter, { categoryFilter });
+  return { filter };
+};
+
 export default Store => ({
   loadData: loadData(Store),
   setMapCenter,
   setMapView,
   setTooltipData,
   setTooltipPos,
+  toggleCategoryFilter,
 });

@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
 import ReactMapboxGl from 'react-mapbox-gl';
 
 import Actions from '~/state/Actions';
 import MapUtils from './MapUtils';
+import { MapProvider } from './hoc/MapContext';
 
 import FilterView from './MapViews/FilterView';
 import AnalysisView from './MapViews/AnalysisView';
@@ -15,22 +16,31 @@ const MapGL = ReactMapboxGl({});
 const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer'];
 
 const MapWrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  flex-shrink: 1;
+  flex-grow: 1;
   position: relative;
-  opacity: ${props => (props.isLoading ? 0 : 1)};
+  opacity: 1;
 `;
 
 class Map extends PureComponent {
   state = {
     isLoading: true,
+    map: false,
   };
 
   lastLayerIds = '';
 
+  componentDidMount() {
+    this.props.loadData();
+  }
+
   onStyleLoad(map) {
     map.resize();
-    this.setState({ isLoading: false });
+    window.map = map;
+    this.setState({ isLoading: false, map });
   }
 
   onData(map) {
@@ -49,24 +59,26 @@ class Map extends PureComponent {
 
     return (
       <MapWrapper isLoading={isLoading}>
-        <MapGL
-          zoom={mapZoom}
-          center={mapCenter}
-          style="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC" // eslint-disable-line
-          containerStyle={{ height: '100%', width: '100%' }}
-          onStyleLoad={map => this.onStyleLoad(map)}
-          flyToOptions={config.map.flyToOptions}
-          onData={map => this.onData(map)}
-        >
-          <Route path="/filter" component={FilterView} />
-          <Route path="/analysis" component={AnalysisView} />
-        </MapGL>
+        <MapProvider value={this.state.map}>
+          <MapGL
+            zoom={mapZoom}
+            center={mapCenter}
+            style="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC" // eslint-disable-line
+            containerStyle={{ height: '100%', width: '100%' }}
+            onStyleLoad={map => this.onStyleLoad(map)}
+            flyToOptions={config.map.flyToOptions}
+            onData={map => this.onData(map)}
+          >
+            <Route exact path="/" component={FilterView} />
+            <Route path="/analysis" component={AnalysisView} />
+          </MapGL>
+        </MapProvider>
       </MapWrapper>
     );
   }
 }
 
-export default connect(
+export default withRouter(connect(
   state => state,
   Actions
-)(Map);
+)(Map));
