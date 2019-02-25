@@ -1,16 +1,31 @@
-import fetch from 'unfetch';
+import { fetchJSON, fetchTopoJSON } from '~/utils';
 
 const loadData = Store => async () => {
   Store.setState({ isLoading: true });
 
-  let data = null;
   try {
-    const res = await fetch('public/data/data.geojson');
-    data = await res.json();
+    const data = await fetchJSON('public/data/data.geojson');
+    return { data, isLoading: false };
   } catch (err) {
-    console.log(err);
+    return { isLoading: false };
   }
-  return { data, isLoading: false };
+};
+
+const loadFilterData = Store => async () => {
+  Store.setState({ isLoading: true });
+
+  try {
+    const districts = await fetchTopoJSON('public/data/bezirksgrenzen.json');
+    return {
+      additionalData: {
+        ...Store.getState().additionalData,
+        districts
+      },
+      isLoading: false
+    };
+  } catch (err) {
+    return { isLoading: false };
+  }
 };
 
 const setMapCenter = (state, mapCenter) => (
@@ -45,11 +60,17 @@ const toggleCategoryFilter = (state, category) => {
   return { filter };
 };
 
+const setDistrictFilter = (state, districtFilter) => (
+  { filter: Object.assign({}, state.filter, { districtFilter }) }
+);
+
 export default Store => ({
   loadData: loadData(Store),
+  loadFilterData: loadFilterData(Store),
   setMapCenter,
   setMapView,
   setTooltipData,
   setTooltipPos,
   toggleCategoryFilter,
+  setDistrictFilter,
 });

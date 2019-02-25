@@ -11,6 +11,8 @@ import { MapProvider } from './hoc/MapContext';
 import FilterView from './MapViews/FilterView';
 import AnalysisView from './MapViews/AnalysisView';
 
+import Tooltip from './Tooltip';
+
 const MapGL = ReactMapboxGl({});
 
 const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer'];
@@ -71,6 +73,7 @@ class Map extends PureComponent {
           >
             <Route exact path="/" component={FilterView} />
             <Route path="/analysis" component={AnalysisView} />
+            <Tooltip />
           </MapGL>
         </MapProvider>
       </MapWrapper>
@@ -78,7 +81,7 @@ class Map extends PureComponent {
   }
 }
 
-export default withRouter(connect(
-  state => state,
-  Actions
-)(Map));
+export default withRouter(connect(state => ({
+  mapZoom: state.mapZoom,
+  mapCenter: state.mapCenter,
+}), Actions)(Map));

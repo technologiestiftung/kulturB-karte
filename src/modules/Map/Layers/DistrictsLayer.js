@@ -1,21 +1,28 @@
 import React from 'react';
-import TopoJSONLayer from '~/components/TopoJSONLayer';
+import { connect } from 'unistore/react';
+import { GeoJSONLayer } from 'react-mapbox-gl';
+import idx from 'idx';
 
 const paintProps = {
   'line-color': '#777',
   'line-width': 2
 };
 
-// const filterProps = ['==', 'Gemeinde_name', 'Neukölln'];
+const DistrictsLayer = (props) => {
+  if (!idx(props, _ => _.districts)) {
+    return null;
+  }
 
-const DistrictsLayer = props => (
-  <TopoJSONLayer
-    {...props}
-    source="public/data/bezirksgrenzen.json"
-    linePaint={paintProps}
-    id="DistrictsLayer"
-    // layerOptions={{ filter: filterProps }}
-  />
-);
+  return (
+    <GeoJSONLayer
+      {...props}
+      data={props.districts}
+      linePaint={paintProps}
+      id="DistrictsLayer"
+    />
+  );
+};
 
-export default DistrictsLayer;
+export default connect(state => ({
+  districts: state.additionalData.districts,
+}))(DistrictsLayer);

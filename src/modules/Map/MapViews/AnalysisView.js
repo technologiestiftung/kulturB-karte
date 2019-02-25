@@ -21,4 +21,6 @@ class AnalysisView extends PureComponent {
   }
 }
 
-export default connect(state => state, Actions)(AnalysisView);
+export default connect(state => ({
+  data: state.data
+}), Actions)(AnalysisView);

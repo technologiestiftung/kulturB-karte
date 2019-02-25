@@ -2,6 +2,8 @@ import styledNormalize from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono|Roboto+Slab');
+
   ${styledNormalize}
 
   * {
@@ -12,6 +14,6 @@ export default createGlobalStyle`
     padding: 0;
     margin: 0;
     position: relative;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto Slab', serif;
   }
 `;

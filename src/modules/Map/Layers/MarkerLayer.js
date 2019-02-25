@@ -11,6 +11,18 @@ class MarkerLayer extends PureComponent {
     this.props.setTooltipData(properties);
   }
 
+  handleMouseEnter({ properties = {} }) {
+    this.props.setTooltipData(properties);
+  }
+
+  handleMouseLeave() {
+    this.props.setTooltipData(null);
+  }
+
+  handleMouseMove(evt) {
+    this.props.setTooltipPos([evt.lngLat.lng, evt.lngLat.lat]);
+  }
+
   render() {
     const { data, radius = 5 } = this.props;
 
@@ -25,12 +37,14 @@ class MarkerLayer extends PureComponent {
     data.features.forEach((feat) => { feat.properties.color = getColorByCategory(feat.properties.mainCategory) }); // eslint-disable-line
 
     return (
-      <Layer id="MarkerLayer" type="circle" paint={paintProp}>
+      <Layer id="MarkerLayer" type="circle" paint={paintProp} onMouseMove={evt => this.handleMouseMove(evt)}>
         {data.features.map(feat => (
           <Feature
             coordinates={feat.geometry.coordinates}
             key={feat.properties.name}
             onClick={() => this.handleClick(feat)}
+            onMouseEnter={() => this.handleMouseEnter(feat)}
+            onMouseLeave={() => this.handleMouseLeave()}
             properties={feat.properties}
           />
         ))}
