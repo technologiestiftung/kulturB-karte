@@ -42,6 +42,20 @@ function getPolygonFeature(center, radius, points = 50, props = {}) {
   };
 }
 
+export function removeLayerAndSource(map, id) {
+  if (!map || !map.getSource(id)) {
+    return false;
+  }
+
+  const layerIds = Object.keys(map.style._layers).filter(l => l.startsWith(id)); // eslint-disable-line
+
+  layerIds.forEach((layerId) => {
+    map.removeLayer(layerId);
+  });
+
+  map.removeSource(id);
+}
+
 export function getColorByCategory(category) {
   return colorScale(category);
 }
@@ -50,4 +64,5 @@ export default {
   orderLayers,
   getPolygonFeature,
   getColorByCategory,
+  removeLayerAndSource,
 };

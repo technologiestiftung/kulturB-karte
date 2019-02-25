@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import ReactMapboxGl from 'react-mapbox-gl';
 
 import Actions from '~/state/Actions';
+import { districtBoundsSelector } from '~/state/Selectors';
+
 import MapUtils from './MapUtils';
 import { MapProvider } from './hoc/MapContext';
 
@@ -56,7 +58,7 @@ class Map extends PureComponent {
   }
 
   render() {
-    const { mapZoom, mapCenter } = this.props;
+    const { mapZoom, mapCenter, districtBounds } = this.props;
     const isLoading = this.props.isLoading || this.state.isLoading;
 
     return (
@@ -70,6 +72,7 @@ class Map extends PureComponent {
             onStyleLoad={map => this.onStyleLoad(map)}
             flyToOptions={config.map.flyToOptions}
             onData={map => this.onData(map)}
+            fitBounds={districtBounds}
           >
             <Route exact path="/" component={FilterView} />
             <Route path="/analysis" component={AnalysisView} />
@@ -84,4 +87,5 @@ class Map extends PureComponent {
 export default withRouter(connect(state => ({
   mapZoom: state.mapZoom,
   mapCenter: state.mapCenter,
+  districtBounds: districtBoundsSelector(state),
 }), Actions)(Map));

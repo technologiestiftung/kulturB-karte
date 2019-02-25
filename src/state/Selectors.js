@@ -1,29 +1,18 @@
 import { createSelector } from 'reselect';
-import pointInPolygon from '@turf/boolean-point-in-polygon';
+
+import {
+  filterCategories,
+  filterDistricts,
+  getNearbyVenues,
+  getDistrictBounds,
+} from './DataUtils';
 
 const dataSelector = state => state.data;
 const filterSelector = state => state.filter;
 const additionalDataSelector = state => state.additionalData;
-
-const filterCategories = (data, categoryFilter) => {
-  const features = data.features
-    .filter(feat => !categoryFilter.includes(feat.properties.mainCategory));
-
-  return Object.assign({}, data, { features });
-};
-
-const filterDistricts = (data, districtFilter, districts) => {
-  if (!districts || !districtFilter) {
-    return data;
-  }
-
-  const polygon = districts.features
-    .find(feat => feat.properties.Gemeinde_schluessel === districtFilter);
-
-  const filteredFeatures = data.features.filter(feat => pointInPolygon(feat, polygon));
-
-  return Object.assign({}, data, { features: filteredFeatures });
-};
+const detailDataSelector = state => state.detailData;
+const districtDataSelector = state => state.additionalData.districts;
+const districtFilterSelector = state => state.filter.districtFilter;
 
 export const filteredDataSelector = createSelector(
   [dataSelector, additionalDataSelector, filterSelector],
@@ -45,7 +34,37 @@ export const allCategoriesSelector = createSelector(
   }
 );
 
+export const enrichedDetailDataSelector = createSelector(
+  [dataSelector, detailDataSelector],
+  (data, detailData) => {
+    if (!detailData) {
+      return false;
+    }
+
+    const nearby = getNearbyVenues(data, detailData);
+
+    return Object.assign({}, detailData, {
+      nearby
+    });
+  }
+);
+
+export const districtBoundsSelector = createSelector(
+  [districtDataSelector, districtFilterSelector],
+  (districtData, districtFilter) => {
+    if (!districtFilter || !districtData) {
+      return false;
+    }
+
+    const selectedDistrict = districtData.features
+      .find(feat => feat.properties.Gemeinde_schluessel === districtFilter);
+
+    return selectedDistrict && getDistrictBounds(selectedDistrict);
+  }
+);
+
 export default {
   filteredDataSelector,
   allCategoriesSelector,
+  enrichedDetailDataSelector,
 };

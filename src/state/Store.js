@@ -9,6 +9,7 @@ const Store = createStore({
   mapCenter: [13.4124999, 52.5040961],
   mapZoom: [10],
   tooltipData: false,
+  detailData: false,
   tooltipPos: [0, 0],
   filter: {
     categoryFilter: [],

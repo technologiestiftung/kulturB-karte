@@ -28,6 +28,23 @@ const loadFilterData = Store => async () => {
   }
 };
 
+const loadAnalysisData = Store => async () => {
+  Store.setState({ isLoading: true });
+
+  try {
+    const districts = await fetchTopoJSON('public/data/bezirksgrenzen.json');
+    return {
+      additionalData: {
+        ...Store.getState().additionalData,
+        districts
+      },
+      isLoading: false
+    };
+  } catch (err) {
+    return { isLoading: false };
+  }
+};
+
 const setMapCenter = (state, mapCenter) => (
   { mapCenter }
 );
@@ -41,6 +58,10 @@ const setMapView = (state, viewObject) => (
 
 const setTooltipData = (state, tooltipData) => (
   { tooltipData }
+);
+
+const setDetailData = (state, detailData) => (
+  { detailData }
 );
 
 const setTooltipPos = (state, tooltipPos) => (
@@ -67,9 +88,11 @@ const setDistrictFilter = (state, districtFilter) => (
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
+  loadAnalysisData: loadAnalysisData(Store),
   setMapCenter,
   setMapView,
   setTooltipData,
+  setDetailData,
   setTooltipPos,
   toggleCategoryFilter,
   setDistrictFilter,

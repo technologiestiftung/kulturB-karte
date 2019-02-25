@@ -3,7 +3,7 @@ import { MapConsumer } from './MapContext';
 
 const withMap = Component => ({ props }) => (
   <MapConsumer>
-    {map => <Component {...props} map={map} />}
+    {map => <Component map={map} {...props} />}
   </MapConsumer>
 );
 

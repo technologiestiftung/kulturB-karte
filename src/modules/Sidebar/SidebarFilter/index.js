@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 
 import CategoryFilter from './CategoryFilter';
 import DistrictFilter from './DistrictFilter';
@@ -6,10 +6,10 @@ import DistrictFilter from './DistrictFilter';
 class SidebarFilter extends PureComponent {
   render() {
     return (
-      <div>
+      <Fragment>
         <CategoryFilter />
         <DistrictFilter />
-      </div>
+      </Fragment>
     );
   }
 }

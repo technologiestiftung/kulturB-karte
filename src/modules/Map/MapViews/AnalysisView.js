@@ -8,6 +8,10 @@ import MarkerLayer from '../Layers/MarkerLayer';
 import LorLayer from '../Layers/LorLayer';
 
 class AnalysisView extends PureComponent {
+  componentDidMount() {
+    this.props.loadAnalysisData();
+  }
+
   render() {
     const { data } = this.props;
 
