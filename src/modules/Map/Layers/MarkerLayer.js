@@ -4,7 +4,7 @@ import Actions from '~/state/Actions';
 import { Layer, Feature } from 'react-mapbox-gl';
 import idx from 'idx';
 
-import { getColorByCategory } from '../MapUtils';
+import { getColorByCategory } from '~/state/DataUtils';
 
 function getPaintProps(props) {
   const radius = props.radius || 5;

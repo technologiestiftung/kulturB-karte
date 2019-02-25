@@ -2,6 +2,9 @@ import pointInPolygon from '@turf/boolean-point-in-polygon';
 import { point as turfPoint } from '@turf/helpers';
 import turfDistance from '@turf/distance';
 import turfBbox from '@turf/bbox';
+import { scaleOrdinal } from 'd3-scale';
+
+const colorScale = scaleOrdinal().range(config.colors);
 
 export const filterCategories = (data, categoryFilter) => {
   const features = data.features
@@ -49,9 +52,14 @@ export const getDistrictBounds = districtFeature => (
   turfBbox(districtFeature)
 );
 
+export const getColorByCategory = category => (
+  colorScale(category)
+);
+
 export default {
   filterCategories,
   filterDistricts,
   getNearbyVenues,
   getDistrictBounds,
+  getColorByCategory,
 };

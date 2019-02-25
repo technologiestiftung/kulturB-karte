@@ -7,7 +7,6 @@ import Menu from '~/components/Menu';
 import SidebarFilter from './SidebarFilter';
 import SidebarAnalysis from './SidebarAnalysis';
 import SidebarList from './SidebarList';
-import SidebarDetail from './SidebarDetail';
 
 const SidebarWrapper = styled.div`
   display: block;
@@ -30,7 +29,6 @@ class Sidebar extends PureComponent {
       <SidebarWrapper>
         <Menu />
         <SidebarContent>
-          <SidebarDetail />
           <Route exact path="/" component={SidebarFilter} />
           <Route path="/analysis" component={SidebarAnalysis} />
           <Route path="/list" component={SidebarList} />

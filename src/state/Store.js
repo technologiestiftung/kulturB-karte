@@ -15,6 +15,7 @@ const Store = createStore({
     categoryFilter: [],
     districtFilter: false,
   },
+  categoryFilterExpanded: false,
 });
 
 export default Store;

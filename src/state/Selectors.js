@@ -63,8 +63,20 @@ export const districtBoundsSelector = createSelector(
   }
 );
 
+export const dataAsArraySelector = createSelector(
+  [dataSelector],
+  (data) => {
+    if (!data) {
+      return [];
+    }
+
+    return data.features.map(d => d.properties);
+  }
+);
+
 export default {
   filteredDataSelector,
   allCategoriesSelector,
   enrichedDetailDataSelector,
+  dataAsArraySelector,
 };

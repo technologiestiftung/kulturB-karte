@@ -1,7 +1,3 @@
-import { scaleOrdinal } from 'd3-scale';
-
-const colorScale = scaleOrdinal().range(config.colors);
-
 function orderLayers(map, order) {
   const layerIds = Object.keys(map.style._layers); // eslint-disable-line
 
@@ -56,13 +52,8 @@ export function removeLayerAndSource(map, id) {
   map.removeSource(id);
 }
 
-export function getColorByCategory(category) {
-  return colorScale(category);
-}
-
 export default {
   orderLayers,
   getPolygonFeature,
-  getColorByCategory,
   removeLayerAndSource,
 };

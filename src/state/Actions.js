@@ -85,6 +85,10 @@ const setDistrictFilter = (state, districtFilter) => (
   { filter: Object.assign({}, state.filter, { districtFilter }) }
 );
 
+const toggleCategoryFilterExpanded = state => (
+  { categoryFilterExpanded: !state.categoryFilterExpanded }
+);
+
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
@@ -95,5 +99,6 @@ export default Store => ({
   setDetailData,
   setTooltipPos,
   toggleCategoryFilter,
+  toggleCategoryFilterExpanded,
   setDistrictFilter,
 });
