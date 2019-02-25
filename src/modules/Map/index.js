@@ -58,15 +58,23 @@ class Map extends PureComponent {
   }
 
   render() {
-    const { mapZoom, mapCenter, districtBounds } = this.props;
+    const {
+      mapZoom,
+      mapCenter,
+      districtBounds,
+      detailData
+    } = this.props;
+
     const isLoading = this.props.isLoading || this.state.isLoading;
+
+    const center = detailData ? detailData.location : mapCenter;
 
     return (
       <MapWrapper isLoading={isLoading}>
         <MapProvider value={this.state.map}>
           <MapGL
             zoom={mapZoom}
-            center={mapCenter}
+            center={center}
             style="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC" // eslint-disable-line
             containerStyle={{ height: '100%', width: '100%' }}
             onStyleLoad={map => this.onStyleLoad(map)}
@@ -88,4 +96,5 @@ export default withRouter(connect(state => ({
   mapZoom: state.mapZoom,
   mapCenter: state.mapCenter,
   districtBounds: districtBoundsSelector(state),
+  detailData: state.detailData,
 }), Actions)(Map));

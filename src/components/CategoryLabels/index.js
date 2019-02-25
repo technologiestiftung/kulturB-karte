@@ -8,6 +8,11 @@ const CategoryLabelWrapper = styled.div`
 
 const CategoryLabel = styled.div`
   display: block;
+  font-size: 10px;
+  margin-right: 5px;
+  padding: 2px 5px;
+  border-radius: 8px;
+  background: #ddd;
 `;
 
 class CategoryLabels extends PureComponent {

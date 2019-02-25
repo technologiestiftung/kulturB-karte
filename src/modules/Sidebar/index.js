@@ -13,12 +13,15 @@ const SidebarWrapper = styled.div`
   display: block;
   background: #fefefe;
   display: flex;
+  box-shadow: ${props => props.theme.boxShadow};
+  z-index: 1000;
 `;
 
 const SidebarContent = styled.div`
-  min-width: 350px;
-  max-width: 350px;
-  padding: 15px;
+  min-width: 370px;
+  max-width: 370px;
+  padding: 20px 15px;
+  overflow: auto;
 `;
 
 class Sidebar extends PureComponent {

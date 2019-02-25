@@ -3,31 +3,23 @@ import styled from 'styled-components';
 
 import Clear from '@material-ui/icons/Clear';
 
-import CardHeader from '~/components/Card/CardHeader';
-import CardNearby from '~/components/Card/CardNearby';
+import CardWrapper from './CardWrapper';
+import CardHeader from './CardHeader';
+import CardBody from './CardBody';
+import CardDivider from './CardDivider';
+import CardNearby from './CardNearby';
+import CloseButton from './CloseButton';
 
-const DetailCardWrapper = styled.div`
-  background: #fff;
-  border: 1px solid #777;
-  padding: 10px;
-  position: relative;
-  border-radius: 4px;
+const DetailCardWrapper = styled(CardWrapper)`
+  margin-bottom: ${props => props.theme.margin[2]};
 `;
 
-const Close = styled.div`
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #fff;
-  border: 1px solid #777;
-  right: -10px;
-  top: -10px;
-  cursor: pointer;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const StyledCardHeader = styled(CardHeader)`
+  padding: ${props => props.theme.padding[1]};
+`;
+
+const StyledCardBody = styled(CardBody)`
+  padding: ${props => props.theme.padding[1]};
 `;
 
 class DetailCard extends PureComponent {
@@ -40,10 +32,12 @@ class DetailCard extends PureComponent {
 
     return (
       <DetailCardWrapper>
-        <Close onClick={this.props.onClose}>
+        <CloseButton onClick={this.props.onClose}>
           <Clear />
-        </Close>
-        <CardHeader data={data} />
+        </CloseButton>
+        <StyledCardHeader data={data} />
+        <CardDivider />
+        <StyledCardBody data={data} />
         <CardNearby data={data.nearby} />
       </DetailCardWrapper>
     );

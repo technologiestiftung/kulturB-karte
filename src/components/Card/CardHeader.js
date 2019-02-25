@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
-import CategoryLabels from './CategoryLabels';
+import CategoryLabels from '~/components/CategoryLabels';
 
 const CardHeaderWrapper = styled.div`
   display: flex;
-  border-bottom: 1px solid #ddd;
 `;
 
 const CardHeaderLeft = styled.div`
   overflow: hidden;
+  margin-right: 10px;
 `;
 
 const CardHeaderRight = styled.div`
@@ -25,16 +25,23 @@ const CardImage = styled.div`
   background-size: cover;
 `;
 
-const CardTitle = styled.div``;
+const CardTitle = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 0;
+`;
 
-const CardAddress = styled.div``;
+const CardAddress = styled.div`
+  font-size: 12px;
+  color: #777;
+`;
 
 class CardHeader extends PureComponent {
   render() {
-    const { data } = this.props;
+    const { data, className } = this.props;
 
     return (
-      <CardHeaderWrapper>
+      <CardHeaderWrapper className={className}>
         <CardHeaderLeft>
           <CategoryLabels categories={data.category} />
           <CardTitle>{data.name}</CardTitle>

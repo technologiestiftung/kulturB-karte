@@ -4,22 +4,25 @@ import styled from 'styled-components';
 
 import { Popup } from 'react-mapbox-gl';
 
+import CardHeader from '~/components/Card/CardHeader';
+
 const StyledPopup = styled(Popup)`
   max-width: 250px;
+  line-height: 1;
+  font-family: ${props => props.theme.fonts.sans};
 `;
 
 class Tooltip extends PureComponent {
   render() {
-    const { tooltipPos, tooltipData } = this.props;
+    const { tooltipPos, data } = this.props;
 
-    if (!tooltipData) {
+    if (!data) {
       return null;
     }
 
     return (
       <StyledPopup coordinates={tooltipPos}>
-        <div>{tooltipData.name}</div>
-        <div>{tooltipData.mainCategory}</div>
+        <CardHeader data={data} />
       </StyledPopup>
     );
   }
@@ -27,5 +30,5 @@ class Tooltip extends PureComponent {
 
 export default connect(state => ({
   tooltipPos: state.tooltipPos,
-  tooltipData: state.tooltipData,
+  data: state.tooltipData,
 }))(Tooltip);

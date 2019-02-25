@@ -40,7 +40,7 @@ class DistrictFilter extends PureComponent {
       <DistrictFilterWrapper>
         <Select onChange={evt => this.handleChange(evt)}>
           {districts.features.map(feat => (
-            <Option {...feat.properties} />
+            <Option key={`DistrictOption__${feat.properties.Gemeinde_schluessel}`} {...feat.properties} />
           ))}
         </Select>
       </DistrictFilterWrapper>
