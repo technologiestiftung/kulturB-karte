@@ -10,6 +10,7 @@ const loadData = Store => async () => {
       data: {
         type: 'FeatureCollection',
         features: data.filter(d => d.location).map(d => ({
+          type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: d.location.coordinates.reverse(),
