@@ -21,7 +21,7 @@
     }
   },
   "api": {
-    "base": "http://tsb-metadata-generator.herokuapp.com/api/v1",
+    "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
     "locations": "/locations?limit=0"
   }
 }
