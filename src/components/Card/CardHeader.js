@@ -43,7 +43,7 @@ class CardHeader extends PureComponent {
     return (
       <CardHeaderWrapper className={className}>
         <CardHeaderLeft>
-          <CategoryLabels categories={data.category} />
+          <CategoryLabels categories={data.tags.map(t => t.name)} />
           <CardTitle>{data.name}</CardTitle>
           <CardAddress>{data.address}</CardAddress>
         </CardHeaderLeft>

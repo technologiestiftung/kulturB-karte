@@ -8,7 +8,7 @@ const colorScale = scaleOrdinal().range(config.colors);
 
 export const filterCategories = (data, categoryFilter) => {
   const features = data.features
-    .filter(feat => !categoryFilter.includes(feat.properties.mainCategory));
+    .filter(feat => feat.properties.tags[0] && !categoryFilter.includes(feat.properties.tags[0].name));
 
   return Object.assign({}, data, { features });
 };
@@ -21,7 +21,7 @@ export const filterDistricts = (data, districtFilter, districts) => {
   const polygon = districts.features
     .find(feat => feat.properties.Gemeinde_schluessel === districtFilter);
 
-  const filteredFeatures = data.features.filter(feat => pointInPolygon(feat, polygon));
+  const filteredFeatures = data.features.filter(feat => pointInPolygon(feat.geometry, polygon));
 
   return Object.assign({}, data, { features: filteredFeatures });
 };
@@ -31,13 +31,13 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
     return [];
   }
 
-  const center = turfPoint(detailData.location);
+  const center = turfPoint(detailData.location.coordinates);
 
   const nearby = data.features
-    .filter(feat => feat.properties.id !== detailData.id)
-    .map((feat) => {
-      const res = Object.assign({}, feat);
-      res.properties.distance = turfDistance(center, feat);
+  .filter(feat => feat.properties.id !== detailData.id)
+  .map((feat) => {
+    const res = Object.assign({}, feat);
+      res.properties.distance = turfDistance(center, feat.geometry);
       return res;
     })
     .filter(feat => feat.properties.distance < maxDistance)

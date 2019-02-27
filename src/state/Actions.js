@@ -4,8 +4,21 @@ const loadData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
-    const data = await fetchJSON('public/data/data.geojson');
-    return { data, isLoading: false };
+    const { data } = await fetchJSON(`${config.api.base}${config.api.locations}`);
+
+    return {
+      data: {
+        type: 'FeatureCollection',
+        features: data.filter(d => d.location).map(d => ({
+          geometry: {
+            type: 'Point',
+            coordinates: d.location.coordinates.reverse(),
+          },
+          properties: d
+      }))
+    },
+    isLoading: false
+  };
   } catch (err) {
     return { isLoading: false };
   }

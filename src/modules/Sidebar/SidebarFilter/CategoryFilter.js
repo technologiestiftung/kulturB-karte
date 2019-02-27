@@ -33,7 +33,7 @@ class CategoryFilter extends PureComponent {
     return (
       <CategoryFilterWrapper>
         <CategoriesWrapper isExpanded={expanded}>
-          {this.props.categories.map(category => (
+          {this.props.categories.map(category => category && (
             <div key={`CategoryFilter__${category}`} onClick={() => this.handleChange(category)}>
               <input checked={!categoryFilter.includes(category)} type="checkbox" />
               <span>{category}</span>

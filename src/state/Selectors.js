@@ -29,7 +29,8 @@ export const filteredDataSelector = createSelector(
 export const allCategoriesSelector = createSelector(
   [dataSelector],
   (data) => {
-    const allCategories = data.features.map(d => d.properties.mainCategory);
+    const allCategoriesArray = data.features.map(d => d.properties.tags.map(t => t.name));
+    const allCategories = allCategoriesArray.reduce((acc, value) => acc.concat(value), []);
     return [...new Set(allCategories)];
   }
 );
