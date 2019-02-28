@@ -30,6 +30,7 @@ const loadData = Store => async () => {
 };
 
 const loadEntryData = Store => async (state, detailData) => {
+  if (!detailData) return { detailData: false };
   Store.setState({ isLoading: true });
 
   try {

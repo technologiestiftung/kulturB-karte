@@ -8,7 +8,7 @@ import DetailCard from '~/components/Card/Detail';
 
 class SidebarDetail extends PureComponent {
   onDetailClose() {
-    this.props.setDetailData(false);
+    this.props.loadEntryData(false);
   }
 
   render() {
