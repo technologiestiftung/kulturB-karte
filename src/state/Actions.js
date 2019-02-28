@@ -4,7 +4,7 @@ const loadData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
-    const { data } = await fetchJSON(`${config.api.base}${config.api.locations}`);
+    const { data } = await fetchJSON(`${config.api.base}${config.api.locations}${config.api.params}`);
     data.map(d => d.tags = d.tags.map(t => t.name));
 
     return {
@@ -24,6 +24,26 @@ const loadData = Store => async () => {
     },
     isLoading: false
   };
+  } catch (err) {
+    return { isLoading: false };
+  }
+};
+
+const loadEntryData = Store => async (state, detailData) => {
+  Store.setState({ isLoading: true });
+
+  try {
+    const { id } = detailData;
+    const data = await fetchJSON(`${config.api.base}${config.api.locations}/${id}`);
+
+    data.location.coordinates.reverse();
+    data.tags = data.tags.map(t => t.name);
+    [data.mainCategory] = data.tags;
+
+    return {
+      detailData: data,
+      isLoading: false,
+    };
   } catch (err) {
     return { isLoading: false };
   }
@@ -78,10 +98,6 @@ const setTooltipData = (state, tooltipData) => (
   { tooltipData }
 );
 
-const setDetailData = (state, detailData) => (
-  { detailData }
-);
-
 const setTooltipPos = (state, tooltipPos) => (
   { tooltipPos }
 );
@@ -107,10 +123,10 @@ export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
   loadAnalysisData: loadAnalysisData(Store),
+  loadEntryData: loadEntryData(Store),
   setMapCenter,
   setMapView,
   setTooltipData,
-  setDetailData,
   setTooltipPos,
   toggleCategoryFilter,
   setDistrictFilter,

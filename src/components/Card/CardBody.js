@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'unistore/react';
 import styled from 'styled-components';
 
 const CardBodyWrapper = styled.div`
@@ -10,10 +11,12 @@ class CardBody extends PureComponent {
   render() {
     return (
       <CardBodyWrapper className={this.props.className}>
-        Hier werden die Detailinformationen angezeigt...
+        <a href={this.props.detailData.website}>Website</a>
       </CardBodyWrapper>
     );
   }
 }
 
-export default CardBody;
+export default connect(state => ({
+  detailData: state.detailData,
+}))(CardBody);

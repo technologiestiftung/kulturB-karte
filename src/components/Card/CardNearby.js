@@ -36,7 +36,7 @@ const NearbyCard = styled.div`
 
 class CardNearby extends PureComponent {
   handleNearbyClick(props) {
-    this.props.setDetailData(props);
+    this.props.loadEntryData(props);
   }
 
   render() {
