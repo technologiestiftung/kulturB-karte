@@ -16,10 +16,6 @@ const CategoriesWrapper = styled.div`
 `;
 
 class CategoryFilter extends PureComponent {
-  toggleExpand() {
-    this.props.toggleCategoryFilterExpanded();
-  }
-
   handleChange(category) {
     this.props.toggleCategoryFilter(category);
   }
@@ -27,8 +23,6 @@ class CategoryFilter extends PureComponent {
   render() {
     const { expanded } = this.props;
     const { categoryFilter } = this.props.filter;
-
-    const expandButtonLabel = expanded ? 'weniger Kategorien anzeigen' : 'mehr Kategorien anzeigen';
 
     return (
       <CategoryFilterWrapper>
@@ -40,7 +34,6 @@ class CategoryFilter extends PureComponent {
             </div>
           ))}
         </CategoriesWrapper>
-        <button type="button" onClick={() => this.toggleExpand()}>{expandButtonLabel}</button>
       </CategoryFilterWrapper>
     );
   }
