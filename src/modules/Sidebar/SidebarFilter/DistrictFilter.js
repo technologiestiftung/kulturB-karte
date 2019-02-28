@@ -26,7 +26,9 @@ const Option = (props) => {
 
 class DistrictFilter extends PureComponent {
   handleChange(evt) {
-    this.props.setDistrictFilter(evt.target.value);
+    let { value } = evt.target;
+    if (evt.target.value === 'none') value = false;
+    this.props.setDistrictFilter(value);
   }
 
   render() {
@@ -39,6 +41,9 @@ class DistrictFilter extends PureComponent {
     return (
       <DistrictFilterWrapper>
         <Select onChange={evt => this.handleChange(evt)}>
+          <option key="DistrictOption__All" value="none">
+            Alle Bezirke
+          </option>
           {districts.features.map(feat => (
             <Option key={`DistrictOption__${feat.properties.Gemeinde_schluessel}`} {...feat.properties} />
           ))}
