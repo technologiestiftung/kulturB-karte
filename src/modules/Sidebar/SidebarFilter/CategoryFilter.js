@@ -33,6 +33,7 @@ class CategoryFilter extends PureComponent {
               <span>{category}</span>
             </div>
           ))}
+          <button type="button" onClick={() => this.props.categories.map(category => this.handleChange(category))}> Alle auswählen </button>
         </CategoriesWrapper>
       </CategoryFilterWrapper>
     );
