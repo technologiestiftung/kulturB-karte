@@ -39,11 +39,10 @@ const CardAddress = styled.div`
 class CardHeader extends PureComponent {
   render() {
     const { data, className } = this.props;
-
     return (
       <CardHeaderWrapper className={className}>
         <CardHeaderLeft>
-          <CategoryLabels categories={data.tags.map(t => t.name)} />
+          <CategoryLabels categories={data.tags} />
           <CardTitle>{data.name}</CardTitle>
           <CardAddress>{data.address}</CardAddress>
         </CardHeaderLeft>

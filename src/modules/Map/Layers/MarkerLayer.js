@@ -52,11 +52,7 @@ class MarkerLayer extends PureComponent {
     const paintProps = getPaintProps(this.props);
 
     // assign random colors
-    data.features.forEach((feat) => {
-      if (feat.properties.tags[0]) {
-        feat.properties.color = getColorByCategory(feat.properties.tags[0].name);
-      }
-    }); // eslint-disable-line
+    data.features.forEach((feat) => {feat.properties.color = getColorByCategory(feat.properties.mainCategory)}); // eslint-disable-line
 
     return (
       <Layer id="MarkerLayer" type="circle" paint={paintProps} onMouseMove={evt => this.handleMouseMove(evt)}>

@@ -5,6 +5,7 @@ const loadData = Store => async () => {
 
   try {
     const { data } = await fetchJSON(`${config.api.base}${config.api.locations}`);
+    data.map(d => d.tags = d.tags.map(t => t.name));
 
     return {
       data: {
@@ -15,7 +16,10 @@ const loadData = Store => async () => {
             type: 'Point',
             coordinates: d.location.coordinates.reverse(),
           },
-          properties: d
+          properties: {
+            mainCategory: d.tags[0],
+            ...d
+          }
       }))
     },
     isLoading: false
