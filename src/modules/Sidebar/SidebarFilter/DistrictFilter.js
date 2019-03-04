@@ -3,12 +3,10 @@ import styled from 'styled-components';
 import { connect } from 'unistore/react';
 
 import Actions from '~/state/Actions';
+import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
+import Select from '~/components/Select';
 
-const DistrictFilterWrapper = styled.div`
-  display: block;
-`;
-
-const Select = styled.select``;
+const DistrictFilterWrapper = styled.div``;
 
 const Option = (props) => {
   const label = props.Gemeinde_name;
@@ -40,6 +38,9 @@ class DistrictFilter extends PureComponent {
 
     return (
       <DistrictFilterWrapper>
+        <SidebarItemTitle>
+          Bezirke filtern
+        </SidebarItemTitle>
         <Select onChange={evt => this.handleChange(evt)}>
           <option key="DistrictOption__All" value="none">
             Alle Bezirke

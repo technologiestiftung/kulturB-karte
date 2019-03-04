@@ -15,5 +15,6 @@ export default createGlobalStyle`
     margin: 0;
     position: relative;
     font-family: 'Roboto Slab', serif;
+    color: #222;
   }
 `;

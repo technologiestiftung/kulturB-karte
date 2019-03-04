@@ -5,14 +5,12 @@ import Select from 'react-select';
 
 import { dataAsArraySelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
+import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
 
 const SearchFilterWrapper = styled.div`
   display: block;
   margin-bottom: ${props => props.theme.margin[2]};
-`;
-
-const SearchFilterLabel = styled.div`
-  margin-bottom: 5px;
+  font-size: ${props => props.theme.fontSizes[1]};
 `;
 
 class SearchFilter extends PureComponent {
@@ -29,9 +27,9 @@ class SearchFilter extends PureComponent {
   render() {
     return (
       <SearchFilterWrapper>
-        <SearchFilterLabel>
-          Kultureinrichtung suchen
-        </SearchFilterLabel>
+        <SidebarItemTitle>
+          Kultorort suchen
+        </SidebarItemTitle>
         <Select
           ref={(ref) => { this.select = ref; }}
           options={this.props.options}
