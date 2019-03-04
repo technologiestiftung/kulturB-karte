@@ -13,7 +13,7 @@ const SearchFilterWrapper = styled.div`
 
 class SearchFilter extends PureComponent {
   handleChange(evt) {
-    this.props.setDetailData(evt);
+    this.props.loadEntryData(evt);
   }
 
   render() {

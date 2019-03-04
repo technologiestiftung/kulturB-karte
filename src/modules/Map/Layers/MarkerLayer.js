@@ -30,7 +30,8 @@ function getPaintProps(props) {
 
 class MarkerLayer extends PureComponent {
   handleClick({ geometry: { coordinates } = [], properties = {} }) {
-    this.props.setMapView({ center: coordinates, zoom: 14 });
+    // where do we set the coordinates now?
+    // this.props.setMapView({ center: coordinates, zoom: 14 });
     this.props.loadEntryData(properties);
   }
 

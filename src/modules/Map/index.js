@@ -66,7 +66,6 @@ class Map extends PureComponent {
     } = this.props;
 
     const isLoading = this.props.isLoading || this.state.isLoading;
-
     const center = detailData ? detailData.location.coordinates : mapCenter;
 
     return (
