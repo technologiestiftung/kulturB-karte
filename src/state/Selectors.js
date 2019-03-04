@@ -28,6 +28,12 @@ export const filteredDataSelector = createSelector(
   }
 );
 
+export const filteredCategoriesDataSelector = createSelector(
+  [dataSelector, filterSelector],
+  (data, filter) => filterCategories(data, filter.categoryFilter)
+);
+
+
 export const allCategoriesSelector = createSelector(
   [dataSelector],
   (data) => {
