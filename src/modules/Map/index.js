@@ -20,8 +20,8 @@ const mapConfig = {
   dragRotate: false,
   bearing: 0,
   maxBounds: [
-    [12.87, 52.2],
-    [13.79, 52.8]
+    [12.85, 52.2],
+    [13.95, 52.8]
   ]
 };
 

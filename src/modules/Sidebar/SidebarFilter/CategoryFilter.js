@@ -57,7 +57,7 @@ class CategoryFilter extends PureComponent {
     return (
       <CategoryFilterWrapper>
         <SidebarItemTitle
-          text="Kulturorte filtern"
+          text="Kategorie filtern"
           showReset={categoryFilter.length > 0}
           onReset={() => this.onReset()}
         />

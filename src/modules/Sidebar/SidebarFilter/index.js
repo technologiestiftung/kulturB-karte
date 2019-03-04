@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 
+import SidebarTitle from '../SidebarTitle';
 import SidebarDetail from '../SidebarDetail';
 import SearchFilter from './SearchFilter';
 import CategoryFilter from './CategoryFilter';
@@ -10,6 +11,9 @@ class SidebarFilter extends PureComponent {
   render() {
     return (
       <Fragment>
+        <SidebarTitle>
+          Kultureinrichtungen in Berlin
+        </SidebarTitle>
         <SearchFilter />
         <SidebarDetail />
         <CategoryFilter />
