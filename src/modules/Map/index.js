@@ -13,7 +13,7 @@ import AnalysisView from './MapViews/AnalysisView';
 import Tooltip from './Tooltip';
 
 
-const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer'];
+const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer', 'LocationFilterLayer'];
 const mapConfig = {
   minZoom: 8,
   maxZoom: 15,

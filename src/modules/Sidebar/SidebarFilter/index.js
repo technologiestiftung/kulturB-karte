@@ -4,6 +4,7 @@ import SidebarDetail from '../SidebarDetail';
 import SearchFilter from './SearchFilter';
 import CategoryFilter from './CategoryFilter';
 import DistrictFilter from './DistrictFilter';
+import LocationFilter from './LocationFilter';
 
 class SidebarFilter extends PureComponent {
   render() {
@@ -13,6 +14,7 @@ class SidebarFilter extends PureComponent {
         <SidebarDetail />
         <CategoryFilter />
         <DistrictFilter />
+        <LocationFilter />
       </Fragment>
     );
   }

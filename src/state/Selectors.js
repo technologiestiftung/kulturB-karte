@@ -5,6 +5,7 @@ import {
   filterDistricts,
   getNearbyVenues,
   getDistrictBounds,
+  filterLocation
 } from './DataUtils';
 
 const dataSelector = state => state.data;
@@ -21,6 +22,7 @@ export const filteredDataSelector = createSelector(
 
     filteredData = filterCategories(filteredData, filter.categoryFilter);
     filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
+    filteredData = filterLocation(filteredData, filter.locationFilterCoords, filter.locationFilterRadius);
 
     return filteredData;
   }

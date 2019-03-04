@@ -127,6 +127,15 @@ const setDistrictFilter = (state, districtFilter) => (
   { filter: Object.assign({}, state.filter, { districtFilter }) }
 );
 
+const setLocationFilterCoords = (state, locationFilterCoords) => (
+  { filter: Object.assign({}, state.filter, { locationFilterCoords }) }
+);
+
+const setLocationFilterRadius = (state, locationFilterRadius) => (
+  { filter: Object.assign({}, state.filter, { locationFilterRadius }) }
+);
+
+
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
@@ -138,4 +147,6 @@ export default Store => ({
   setTooltipPos,
   toggleCategoryFilter,
   setDistrictFilter,
+  setLocationFilterCoords,
+  setLocationFilterRadius
 });

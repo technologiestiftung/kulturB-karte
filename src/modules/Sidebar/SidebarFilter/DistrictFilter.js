@@ -6,7 +6,9 @@ import Actions from '~/state/Actions';
 import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
 import Select from '~/components/Select';
 
-const DistrictFilterWrapper = styled.div``;
+const DistrictFilterWrapper = styled.div`
+  margin-bottom: ${props => props.theme.margin[2]};
+`;
 
 const Option = (props) => {
   const label = props.Gemeinde_name;
