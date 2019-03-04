@@ -28,7 +28,7 @@ class SearchFilter extends PureComponent {
     return (
       <SearchFilterWrapper>
         <SidebarItemTitle
-          text="Kultorort suchen"
+          text="Namen suchen"
         />
         <Select
           ref={(ref) => { this.select = ref; }}

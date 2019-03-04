@@ -6,7 +6,7 @@ export default {
     serif: '"Roboto Slab", serif',
     mono: '"Roboto Mono", monospace'
   },
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64].map(px),
+  fontSizes: [12, 13, 15, 19, 24, 32, 48, 64].map(px),
   boxShadow: '0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16)',
   borderRadius: '4px',
   colors: {

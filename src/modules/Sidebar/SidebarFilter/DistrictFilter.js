@@ -45,7 +45,7 @@ class DistrictFilter extends PureComponent {
     return (
       <DistrictFilterWrapper>
         <SidebarItemTitle
-          text="Bezirke filtern"
+          text="Bezirk filtern"
           showReset={selectedDistrict}
           onReset={() => this.onReset()}
         />
