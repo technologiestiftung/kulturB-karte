@@ -5,7 +5,7 @@ import Select from 'react-select';
 import Slider from 'rc-slider/lib/Slider';
 import 'rc-slider/assets/index.css';
 
-import { fetchJSON } from '~/utils';
+import { fetchJSON, formatNumber } from '~/utils';
 import { dataAsArraySelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
 import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
@@ -14,10 +14,6 @@ const SearchFilterWrapper = styled.div`
   display: block;
   margin-bottom: ${props => props.theme.margin[2]};
   font-size: ${props => props.theme.fontSizes[1]};
-`;
-
-const StyledSlider = styled(Slider)`
-  margin: 5px 0 10px 0;
 `;
 
 const SelectWrapper = styled.div`
@@ -32,7 +28,18 @@ const SelectWrapper = styled.div`
       min-width: 25%;
     }
   }
+`;
 
+const SliderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  margin: 10px 0;
+`;
+
+const RadiusLabel = styled.div`
+  min-width: 55px;
+  font-size: ${props => props.theme.fontSizes[0]};
 `;
 
 class SearchFilter extends PureComponent {
@@ -124,14 +131,19 @@ class SearchFilter extends PureComponent {
             className="react-select"
           />
         </SelectWrapper>
-        <StyledSlider
-          min={500}
-          max={10000}
-          step={500}
-          onChange={value => this.onRadiusChange(value)}
-          value={radius}
-          disabled={!showReset}
-        />
+        <SliderWrapper>
+          <RadiusLabel>
+            {formatNumber(radius / 1000, 1)} km
+          </RadiusLabel>
+          <Slider
+            min={500}
+            max={10000}
+            step={500}
+            onChange={value => this.onRadiusChange(value)}
+            value={radius}
+            disabled={!showReset}
+          />
+        </SliderWrapper>
       </SearchFilterWrapper>
     );
   }
