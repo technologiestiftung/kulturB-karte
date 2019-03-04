@@ -42,24 +42,30 @@ const CategoryFilterIcon = styled.div`
 `;
 
 class CategoryFilter extends PureComponent {
-  handleChange(category) {
+  onChange(category) {
     this.props.toggleCategoryFilter(category);
   }
 
+  onReset() {
+    this.props.resetCategoryFilter();
+  }
+
   render() {
-    const { expanded } = this.props;
-    const { categoryFilter } = this.props.filter;
+    const { expanded, categories, filter } = this.props;
+    const { categoryFilter } = filter;
 
     return (
       <CategoryFilterWrapper>
-        <SidebarItemTitle>
-          Kulturorte filtern
-        </SidebarItemTitle>
+        <SidebarItemTitle
+          text="Kulturorte filtern"
+          showReset={categoryFilter.length > 0}
+          onReset={() => this.onReset()}
+        />
         <CategoriesWrapper isExpanded={expanded}>
-          {this.props.categories.map(category => category && (
+          {categories.map(category => category && (
             <CategoryFilterItem
               key={`CategoryFilter__${category}`}
-              onClick={() => this.handleChange(category)}
+              onClick={() => this.onChange(category)}
               isActive={!categoryFilter.includes(category)}
             >
               <CategoryFilterIcon
@@ -70,9 +76,6 @@ class CategoryFilter extends PureComponent {
             </CategoryFilterItem>
           ))}
         </CategoriesWrapper>
-        {/*<button type="button" onClick={() => this.props.categories.map(category => this.handleChange(category))}>
-          Alle auswählen
-        </button>*/}
       </CategoryFilterWrapper>
     );
   }

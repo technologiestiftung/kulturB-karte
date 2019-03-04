@@ -25,14 +25,18 @@ const Option = (props) => {
 };
 
 class DistrictFilter extends PureComponent {
-  handleChange(evt) {
+  onChange(evt) {
     let { value } = evt.target;
     if (evt.target.value === 'none') value = false;
     this.props.setDistrictFilter(value);
   }
 
+  onReset() {
+    this.props.setDistrictFilter(false);
+  }
+
   render() {
-    const { districts } = this.props;
+    const { districts, selectedDistrict } = this.props;
 
     if (!districts) {
       return null;
@@ -40,10 +44,12 @@ class DistrictFilter extends PureComponent {
 
     return (
       <DistrictFilterWrapper>
-        <SidebarItemTitle>
-          Bezirke filtern
-        </SidebarItemTitle>
-        <Select onChange={evt => this.handleChange(evt)}>
+        <SidebarItemTitle
+          text="Bezirke filtern"
+          showReset={selectedDistrict}
+          onReset={() => this.onReset()}
+        />
+        <Select onChange={evt => this.onChange(evt)}>
           <option key="DistrictOption__All" value="none">
             Alle Bezirke
           </option>
@@ -58,4 +64,5 @@ class DistrictFilter extends PureComponent {
 
 export default connect(state => ({
   districts: state.additionalData.districts,
+  selectedDistrict: state.filter.districtFilter
 }), Actions)(DistrictFilter);

@@ -89,12 +89,15 @@ class SearchFilter extends PureComponent {
 
   render() {
     const { radius, coords } = this.props;
+    const showReset = coords && coords.length;
 
     return (
       <SearchFilterWrapper>
-        <SidebarItemTitle>
-          Umkreissuche
-        </SidebarItemTitle>
+        <SidebarItemTitle
+          text="Umkreissuche"
+          showReset={showReset}
+          onReset={() => this.onReset()}
+        />
         <SelectWrapper>
           <Select
             ref={(ref) => { this.streetSelect = ref; }}
@@ -127,11 +130,8 @@ class SearchFilter extends PureComponent {
           step={500}
           onChange={value => this.onRadiusChange(value)}
           value={radius}
-          disabled={!coords || !coords.length}
+          disabled={!showReset}
         />
-        <button onClick={() => this.onReset()}>
-          Zurücksetzen
-        </button>
       </SearchFilterWrapper>
     );
   }

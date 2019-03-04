@@ -20,22 +20,22 @@ class SearchFilter extends PureComponent {
     }
   }
 
-  handleChange(evt) {
+  onChange(evt) {
     this.props.loadEntryData(evt);
   }
 
   render() {
     return (
       <SearchFilterWrapper>
-        <SidebarItemTitle>
-          Kultorort suchen
-        </SidebarItemTitle>
+        <SidebarItemTitle
+          text="Kultorort suchen"
+        />
         <Select
           ref={(ref) => { this.select = ref; }}
           options={this.props.options}
           getOptionValue={option => (option.name)}
           getOptionLabel={option => (option.name)}
-          onChange={evt => this.handleChange(evt)}
+          onChange={evt => this.onChange(evt)}
           placeholder="Namen eingeben ..."
           classNamePrefix="rs"
         />

@@ -123,6 +123,11 @@ const toggleCategoryFilter = (state, category) => {
   return { filter };
 };
 
+const resetCategoryFilter = (state) => {
+  const filter = Object.assign({}, state.filter, { categoryFilter: [] });
+  return { filter };
+};
+
 const setDistrictFilter = (state, districtFilter) => (
   { filter: Object.assign({}, state.filter, { districtFilter }) }
 );
@@ -146,6 +151,7 @@ export default Store => ({
   setTooltipData,
   setTooltipPos,
   toggleCategoryFilter,
+  resetCategoryFilter,
   setDistrictFilter,
   setLocationFilterCoords,
   setLocationFilterRadius
