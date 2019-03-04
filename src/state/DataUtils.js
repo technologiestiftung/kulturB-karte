@@ -50,7 +50,7 @@ export const getDistrictBounds = districtFeature => (
 );
 
 export const getColorByCategory = category => (
-  colorScale(category)
+  typeof category === 'undefined' ? '#bbb' : colorScale(category)
 );
 
 export default {

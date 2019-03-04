@@ -1,29 +1,36 @@
 import { fetchJSON, fetchTopoJSON } from '~/utils';
 
+const createPoint = d => ({
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: d.location.coordinates.reverse(),
+    },
+    properties: {
+      mainCategory: d.tags[0],
+      ...d
+    }
+});
+
 const loadData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
     const { data } = await fetchJSON(`${config.api.base}${config.api.locations}${config.api.params}`);
-    data.map(d => d.tags = d.tags.map(t => t.name));
 
     return {
       data: {
         type: 'FeatureCollection',
-        features: data.filter(d => d.location).map(d => ({
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: d.location.coordinates.reverse(),
-          },
-          properties: {
-            mainCategory: d.tags[0],
-            ...d
-          }
-      }))
-    },
-    isLoading: false
-  };
+        features: data
+          .map(d => ({
+            ...d,
+            tags: d.tags.map(t => t.name)
+          }))
+          .filter(d => d.location)
+          .map(createPoint)
+      },
+      isLoading: false
+    };
   } catch (err) {
     return { isLoading: false };
   }
