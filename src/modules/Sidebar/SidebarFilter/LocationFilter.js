@@ -89,7 +89,7 @@ class SearchFilter extends PureComponent {
 
   render() {
     const { radius, coords } = this.props;
-    const showReset = coords && coords.length;
+    const showReset = coords && coords.length > 0;
 
     return (
       <SearchFilterWrapper>
