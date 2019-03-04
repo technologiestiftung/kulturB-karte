@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { connect } from 'unistore/react';
 
 import Actions from '~/state/Actions';
+import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
+import Select from '~/components/Select';
 
 const DistrictFilterWrapper = styled.div`
-  display: block;
+  margin-bottom: ${props => props.theme.margin[2]};
 `;
-
-const Select = styled.select``;
 
 const Option = (props) => {
   const label = props.Gemeinde_name;
@@ -25,12 +25,18 @@ const Option = (props) => {
 };
 
 class DistrictFilter extends PureComponent {
-  handleChange(evt) {
-    this.props.setDistrictFilter(evt.target.value);
+  onChange(evt) {
+    let { value } = evt.target;
+    if (evt.target.value === 'none') value = false;
+    this.props.setDistrictFilter(value);
+  }
+
+  onReset() {
+    this.props.setDistrictFilter(false);
   }
 
   render() {
-    const { districts } = this.props;
+    const { districts, selectedDistrict } = this.props;
 
     if (!districts) {
       return null;
@@ -38,7 +44,15 @@ class DistrictFilter extends PureComponent {
 
     return (
       <DistrictFilterWrapper>
-        <Select onChange={evt => this.handleChange(evt)}>
+        <SidebarItemTitle
+          text="Bezirke filtern"
+          showReset={selectedDistrict}
+          onReset={() => this.onReset()}
+        />
+        <Select onChange={evt => this.onChange(evt)}>
+          <option key="DistrictOption__All" value="none">
+            Alle Bezirke
+          </option>
           {districts.features.map(feat => (
             <Option key={`DistrictOption__${feat.properties.Gemeinde_schluessel}`} {...feat.properties} />
           ))}
@@ -50,4 +64,5 @@ class DistrictFilter extends PureComponent {
 
 export default connect(state => ({
   districts: state.additionalData.districts,
+  selectedDistrict: state.filter.districtFilter
 }), Actions)(DistrictFilter);

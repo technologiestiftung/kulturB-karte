@@ -30,8 +30,9 @@ function getPaintProps(props) {
 
 class MarkerLayer extends PureComponent {
   handleClick({ geometry: { coordinates } = [], properties = {} }) {
-    this.props.setMapView({ center: coordinates, zoom: 14 });
-    this.props.setDetailData(properties);
+    // where do we set the coordinates now?
+    // this.props.setMapView({ center: coordinates, zoom: 14 });
+    this.props.loadEntryData(properties);
   }
 
   handleMouseEnter({ properties = {} }) {
@@ -52,7 +53,7 @@ class MarkerLayer extends PureComponent {
     const paintProps = getPaintProps(this.props);
 
     // assign random colors
-    data.features.forEach((feat) => { feat.properties.color = getColorByCategory(feat.properties.mainCategory) }); // eslint-disable-line
+    data.features.forEach((feat) => {feat.properties.color = getColorByCategory(feat.properties.mainCategory)}); // eslint-disable-line
 
     return (
       <Layer id="MarkerLayer" type="circle" paint={paintProps} onMouseMove={evt => this.handleMouseMove(evt)}>

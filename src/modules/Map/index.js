@@ -6,18 +6,26 @@ import ReactMapboxGl from 'react-mapbox-gl';
 
 import Actions from '~/state/Actions';
 import { districtBoundsSelector } from '~/state/Selectors';
-
 import MapUtils from './MapUtils';
 import { MapProvider } from './hoc/MapContext';
-
 import FilterView from './MapViews/FilterView';
 import AnalysisView from './MapViews/AnalysisView';
-
 import Tooltip from './Tooltip';
 
-const MapGL = ReactMapboxGl({});
 
-const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer'];
+const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer', 'LocationFilterLayer'];
+const mapConfig = {
+  minZoom: 8,
+  maxZoom: 15,
+  dragRotate: false,
+  bearing: 0,
+  maxBounds: [
+    [12.87, 52.2],
+    [13.79, 52.8]
+  ]
+};
+
+const MapGL = ReactMapboxGl({ ...mapConfig });
 
 const MapWrapper = styled.div`
   height: 100%;
@@ -66,8 +74,7 @@ class Map extends PureComponent {
     } = this.props;
 
     const isLoading = this.props.isLoading || this.state.isLoading;
-
-    const center = detailData ? detailData.location : mapCenter;
+    const center = detailData ? detailData.location.coordinates : mapCenter;
 
     return (
       <MapWrapper isLoading={isLoading}>
@@ -75,12 +82,14 @@ class Map extends PureComponent {
           <MapGL
             zoom={mapZoom}
             center={center}
+            bearing={mapConfig.bearing}
             style="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC" // eslint-disable-line
             containerStyle={{ height: '100%', width: '100%' }}
             onStyleLoad={map => this.onStyleLoad(map)}
             flyToOptions={config.map.flyToOptions}
             onData={map => this.onData(map)}
             fitBounds={districtBounds}
+            maxBounds={mapConfig.maxBounds}
           >
             <Route exact path="/" component={FilterView} />
             <Route path="/analysis" component={AnalysisView} />

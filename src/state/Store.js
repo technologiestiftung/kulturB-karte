@@ -14,6 +14,8 @@ const Store = createStore({
   filter: {
     categoryFilter: [],
     districtFilter: false,
+    locationFilterCoords: false,
+    locationFilterRadius: 1000
   },
   categoryFilterExpanded: false,
 });

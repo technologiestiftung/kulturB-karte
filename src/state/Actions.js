@@ -1,11 +1,57 @@
 import { fetchJSON, fetchTopoJSON } from '~/utils';
 
+const createPoint = d => ({
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: d.location.coordinates.reverse(),
+    },
+    properties: {
+      mainCategory: d.tags[0],
+      ...d
+    }
+});
+
 const loadData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
-    const data = await fetchJSON('public/data/data.geojson');
-    return { data, isLoading: false };
+    const { data } = await fetchJSON(`${config.api.base}${config.api.locations}${config.api.params}`);
+
+    return {
+      data: {
+        type: 'FeatureCollection',
+        features: data
+          .map(d => ({
+            ...d,
+            tags: d.tags.map(t => t.name)
+          }))
+          .filter(d => d.location)
+          .map(createPoint)
+      },
+      isLoading: false
+    };
+  } catch (err) {
+    return { isLoading: false };
+  }
+};
+
+const loadEntryData = Store => async (state, detailData) => {
+  if (!detailData) return { detailData: false };
+  Store.setState({ isLoading: true });
+
+  try {
+    const { id } = detailData;
+    const data = await fetchJSON(`${config.api.base}${config.api.locations}/${id}`);
+
+    data.location.coordinates.reverse();
+    data.tags = data.tags.map(t => t.name);
+    [data.mainCategory] = data.tags;
+
+    return {
+      detailData: data,
+      isLoading: false,
+    };
   } catch (err) {
     return { isLoading: false };
   }
@@ -60,10 +106,6 @@ const setTooltipData = (state, tooltipData) => (
   { tooltipData }
 );
 
-const setDetailData = (state, detailData) => (
-  { detailData }
-);
-
 const setTooltipPos = (state, tooltipPos) => (
   { tooltipPos }
 );
@@ -81,24 +123,36 @@ const toggleCategoryFilter = (state, category) => {
   return { filter };
 };
 
+const resetCategoryFilter = (state) => {
+  const filter = Object.assign({}, state.filter, { categoryFilter: [] });
+  return { filter };
+};
+
 const setDistrictFilter = (state, districtFilter) => (
   { filter: Object.assign({}, state.filter, { districtFilter }) }
 );
 
-const toggleCategoryFilterExpanded = state => (
-  { categoryFilterExpanded: !state.categoryFilterExpanded }
+const setLocationFilterCoords = (state, locationFilterCoords) => (
+  { filter: Object.assign({}, state.filter, { locationFilterCoords }) }
 );
+
+const setLocationFilterRadius = (state, locationFilterRadius) => (
+  { filter: Object.assign({}, state.filter, { locationFilterRadius }) }
+);
+
 
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
   loadAnalysisData: loadAnalysisData(Store),
+  loadEntryData: loadEntryData(Store),
   setMapCenter,
   setMapView,
   setTooltipData,
-  setDetailData,
   setTooltipPos,
   toggleCategoryFilter,
-  toggleCategoryFilterExpanded,
+  resetCategoryFilter,
   setDistrictFilter,
+  setLocationFilterCoords,
+  setLocationFilterRadius
 });

@@ -5,6 +5,7 @@ import {
   filterDistricts,
   getNearbyVenues,
   getDistrictBounds,
+  filterLocation
 } from './DataUtils';
 
 const dataSelector = state => state.data;
@@ -21,6 +22,7 @@ export const filteredDataSelector = createSelector(
 
     filteredData = filterCategories(filteredData, filter.categoryFilter);
     filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
+    filteredData = filterLocation(filteredData, filter.locationFilterCoords, filter.locationFilterRadius);
 
     return filteredData;
   }
@@ -29,7 +31,9 @@ export const filteredDataSelector = createSelector(
 export const allCategoriesSelector = createSelector(
   [dataSelector],
   (data) => {
-    const allCategories = data.features.map(d => d.properties.mainCategory);
+    const allCategories = data.features
+      .map(d => d.properties.tags)
+      .reduce((acc, value) => acc.concat(value), []);
     return [...new Set(allCategories)];
   }
 );

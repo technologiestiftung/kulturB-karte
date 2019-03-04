@@ -1,8 +1,9 @@
 import pointInPolygon from '@turf/boolean-point-in-polygon';
-import { point as turfPoint } from '@turf/helpers';
 import turfDistance from '@turf/distance';
 import turfBbox from '@turf/bbox';
 import { scaleOrdinal } from 'd3-scale';
+
+import { getPolygonFeature } from '~/modules/Map/MapUtils';
 
 const colorScale = scaleOrdinal().range(config.colors);
 
@@ -26,20 +27,28 @@ export const filterDistricts = (data, districtFilter, districts) => {
   return Object.assign({}, data, { features: filteredFeatures });
 };
 
+export const filterLocation = (data, center, radius) => {
+  if (!center || !center.length) {
+    return data;
+  }
+
+  const polygon = getPolygonFeature(center, radius);
+  const features = data.features.filter(feat => pointInPolygon(feat.geometry.coordinates, polygon));
+  return Object.assign({}, data, { features });
+};
+
 export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
   if (!data || !detailData) {
     return [];
   }
 
-  const center = turfPoint(detailData.location);
-
   const nearby = data.features
     .filter(feat => feat.properties.id !== detailData.id)
     .map((feat) => {
       const res = Object.assign({}, feat);
-      res.properties.distance = turfDistance(center, feat);
-      return res;
-    })
+        res.properties.distance = turfDistance(detailData.location, feat);
+        return res;
+      })
     .filter(feat => feat.properties.distance < maxDistance)
     .sort((a, b) => a.properties.distance - b.properties.distance)
     .slice(0, 3)
@@ -53,7 +62,7 @@ export const getDistrictBounds = districtFeature => (
 );
 
 export const getColorByCategory = category => (
-  colorScale(category)
+  typeof category === 'undefined' ? '#bbb' : colorScale(category)
 );
 
 export default {

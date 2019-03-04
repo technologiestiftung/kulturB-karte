@@ -19,5 +19,10 @@
     "flyToOptions": {
       "speed": 0.8
     }
+  },
+  "api": {
+    "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
+    "locations": "/locations",
+    "params": "?limit=0&fields=[\"_id\", \"name\", \"address\", \"location\", \"tags\", \"logo\"]"
   }
 }
