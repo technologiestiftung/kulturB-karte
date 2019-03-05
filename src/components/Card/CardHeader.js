@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import idx from 'idx';
 
 import CategoryLabels from '~/components/CategoryLabels';
 
@@ -39,6 +40,8 @@ const CardAddress = styled.div`
 class CardHeader extends PureComponent {
   render() {
     const { data, className } = this.props;
+    const hasLogo = idx(data, _ => _.logo.url);
+
     return (
       <CardHeaderWrapper className={className}>
         <CardHeaderLeft>
@@ -47,7 +50,7 @@ class CardHeader extends PureComponent {
           <CardAddress>{data.address}</CardAddress>
         </CardHeaderLeft>
         <CardHeaderRight>
-          <CardImage src="https://via.placeholder.com/70" />
+          {hasLogo && <CardImage src={data.logo.url} />}
         </CardHeaderRight>
       </CardHeaderWrapper>
     );

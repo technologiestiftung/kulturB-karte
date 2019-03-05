@@ -91,7 +91,9 @@ class Map extends PureComponent {
             fitBounds={districtBounds}
             maxBounds={mapConfig.maxBounds}
           >
+
             <Route exact path="/" component={FilterView} />
+            <Route path="/standort/:id" component={FilterView} />
             <Route path="/analysis" component={AnalysisView} />
             <Tooltip />
           </MapGL>

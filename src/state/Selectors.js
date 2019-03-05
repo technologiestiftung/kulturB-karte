@@ -28,6 +28,19 @@ export const filteredDataSelector = createSelector(
   }
 );
 
+export const filteredAnalysisDataSelector = createSelector(
+  [dataSelector, additionalDataSelector, filterSelector],
+  (data, additionalData, filter) => {
+    let filteredData = data;
+
+    filteredData = filterCategories(data, filter.categoryFilter);
+    filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
+
+    return filteredData;
+  }
+);
+
+
 export const allCategoriesSelector = createSelector(
   [dataSelector],
   (data) => {

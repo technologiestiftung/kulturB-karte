@@ -18,6 +18,7 @@ const Store = createStore({
     locationFilterRadius: 1000
   },
   categoryFilterExpanded: false,
+  activeAnalysis: null
 });
 
 export default Store;

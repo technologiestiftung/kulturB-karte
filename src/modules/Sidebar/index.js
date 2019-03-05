@@ -30,6 +30,7 @@ class Sidebar extends PureComponent {
         <Menu />
         <SidebarContent>
           <Route exact path="/" component={SidebarFilter} />
+          <Route path="/standort/:id" component={SidebarFilter} />
           <Route path="/analysis" component={SidebarAnalysis} />
           <Route path="/list" component={SidebarList} />
         </SidebarContent>
