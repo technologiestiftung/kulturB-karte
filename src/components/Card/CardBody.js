@@ -8,14 +8,21 @@ const CardBodyWrapper = styled.div`
 
 const CardBodySection = styled.div`
   display: flex;
+  margin-bottom: 10px;
 `;
 
 const CardSectionLeft = styled.div`
   margin-right: 10px;
+  font-weight: 700;
 `;
 
 const CardSectionRight = styled.div`
   margin-left: auto;
+`;
+
+const Description = styled.div`
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
 `;
 
 function formatWebsite(str) {
@@ -37,16 +44,21 @@ class CardBody extends PureComponent {
 
     return (
       <CardBodyWrapper className={this.props.className}>
-        <CardBodySection>
-          <CardSectionLeft>Website</CardSectionLeft>
-          {detailData.website && (
+        {detailData.description && (
+          <CardBodySection>
+            <Description>{detailData.description}</Description>
+          </CardBodySection>
+        )}
+        {detailData.website && (
+          <CardBodySection>
+            <CardSectionLeft>Website</CardSectionLeft>
             <CardSectionRight>
               <a href={detailData.website}>
                 {formatWebsite(detailData.website)}
               </a>
             </CardSectionRight>
-          )}
-        </CardBodySection>
+          </CardBodySection>
+        )}
       </CardBodyWrapper>
     );
   }
