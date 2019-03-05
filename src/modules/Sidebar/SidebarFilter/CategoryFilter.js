@@ -6,6 +6,7 @@ import { allCategoriesSelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
 import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
 import { getColorByCategory } from '~/state/DataUtils';
+import GhostButton from '~/components/GhostButton';
 
 const CategoryFilterWrapper = styled.div`
   margin-bottom: ${props => props.theme.margin[2]};
@@ -50,9 +51,20 @@ class CategoryFilter extends PureComponent {
     this.props.resetCategoryFilter();
   }
 
+  onToggle() {
+    const deactivateAll = this.props.filter.categoryFilter.length === 0;
+
+    if (deactivateAll) {
+      return this.props.categories.forEach(cat => this.props.toggleCategoryFilter(cat));
+    }
+
+    this.onReset();
+  }
+
   render() {
     const { expanded, categories, filter } = this.props;
     const { categoryFilter } = filter;
+    const toggleLabel = categoryFilter.length === 0 ? 'abwählen' : 'anwählen';
 
     return (
       <CategoryFilterWrapper>
@@ -76,6 +88,9 @@ class CategoryFilter extends PureComponent {
             </CategoryFilterItem>
           ))}
         </CategoriesWrapper>
+        <GhostButton onClick={() => this.onToggle()}>
+          Alle Kategorien {toggleLabel}
+        </GhostButton>
       </CategoryFilterWrapper>
     );
   }

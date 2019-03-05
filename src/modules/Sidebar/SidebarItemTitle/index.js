@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import GhostButton from '~/components/GhostButton';
+
 const SideBarItemTitleWrapper = styled.div`
   margin-bottom: 10px;
   display: flex;
@@ -13,17 +15,8 @@ const SideBarItemTitle = styled.div`
   font-weight: 700;
 `;
 
-const ResetButton = styled.button`
-  background: none;
-  border: none;
+const ResetButton = styled(GhostButton)`
   margin-left: auto;
-  color: #777;
-  cursor: pointer;
-  font-size: ${props => props.theme.fontSizes[0]};
-
-  &:hover {
-    opacity: 0.75;
-  }
 `;
 
 export default props => (
