@@ -6,6 +6,8 @@ import idx from 'idx';
 
 import { getColorByCategory } from '~/state/DataUtils';
 
+let clickTimeout = null;
+
 function getPaintProps(props) {
   const radius = props.radius || 5;
   const detailId = idx(props, _ => _.detailData.name) || '';
@@ -29,6 +31,14 @@ function getPaintProps(props) {
 }
 
 class MarkerLayer extends PureComponent {
+  timeoutClick(evt, feat) {
+    clearTimeout(clickTimeout);
+
+    clickTimeout = setTimeout(() => {
+      this.handleClick(evt, feat);
+    }, 10);
+  }
+
   handleClick(evt, { geometry: { coordinates } = [], properties = {} }) {
     // where do we set the coordinates now?
     // this.props.setMapView({ center: coordinates, zoom: 14 });
@@ -54,16 +64,20 @@ class MarkerLayer extends PureComponent {
     const { data } = this.props;
     const paintProps = getPaintProps(this.props);
 
-    // assign random colors
     data.features.forEach((feat) => {feat.properties.color = getColorByCategory(feat.properties.mainCategory)}); // eslint-disable-line
 
     return (
-      <Layer id="MarkerLayer" type="circle" paint={paintProps} onMouseMove={evt => this.handleMouseMove(evt)}>
+      <Layer
+        id="MarkerLayer"
+        type="circle"
+        paint={paintProps}
+        onMouseMove={evt => this.handleMouseMove(evt)}
+      >
         {data.features.map(feat => (
           <Feature
             coordinates={feat.geometry.coordinates}
             key={feat.properties.name}
-            onClick={evt => this.handleClick(evt, feat)}
+            onClick={evt => this.timeoutClick(evt, feat)}
             onMouseEnter={() => this.handleMouseEnter(feat)}
             onMouseLeave={() => this.handleMouseLeave()}
             properties={feat.properties}
