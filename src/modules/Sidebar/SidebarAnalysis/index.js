@@ -1,8 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
 
-import SidebarDetail from '../SidebarDetail';
 import SidebarTitle from '../SidebarTitle';
 import CategoryFilter from '../SidebarFilter/CategoryFilter';
+import DistrictAnalysis from './DistrictAnalysis';
+
 
 class SidebarAnalysis extends PureComponent {
   render() {
@@ -10,7 +11,7 @@ class SidebarAnalysis extends PureComponent {
       <Fragment>
         <SidebarTitle>Analyse</SidebarTitle>
         <CategoryFilter />
-        <SidebarDetail />
+        <DistrictAnalysis />
       </Fragment>
     );
   }

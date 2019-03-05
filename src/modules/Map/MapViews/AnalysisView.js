@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'unistore/react';
 
 import Actions from '~/state/Actions';
-import { filteredCategoriesDataSelector } from '~/state/Selectors';
+import { filteredAnalysisDataSelector } from '~/state/Selectors';
 
 import DistrictsLayer from '../Layers/DistrictsLayer';
 import MarkerLayer from '../Layers/MarkerLayer';
@@ -27,5 +27,5 @@ class AnalysisView extends PureComponent {
 }
 
 export default connect(state => ({
-  data: filteredCategoriesDataSelector(state)
+  data: filteredAnalysisDataSelector(state)
 }), Actions)(AnalysisView);

@@ -153,6 +153,9 @@ const setLocationFilterRadius = (state, locationFilterRadius) => (
   { filter: Object.assign({}, state.filter, { locationFilterRadius }) }
 );
 
+const setActiveAnalysis = (state, activeAnalysis) => ({
+  activeAnalysis
+});
 
 export default Store => ({
   loadData: loadData(Store),
@@ -168,5 +171,6 @@ export default Store => ({
   resetCategoryFilter,
   setDistrictFilter,
   setLocationFilterCoords,
-  setLocationFilterRadius
+  setLocationFilterRadius,
+  setActiveAnalysis
 });

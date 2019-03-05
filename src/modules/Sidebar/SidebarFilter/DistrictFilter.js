@@ -46,11 +46,13 @@ class DistrictFilter extends PureComponent {
 
     return (
       <DistrictFilterWrapper>
-        <SidebarItemTitle
-          text="Bezirk filtern"
-          showReset={selectedDistrict}
-          onReset={() => this.onReset()}
-        />
+        {!this.props.hideTitle && (
+          <SidebarItemTitle
+            text="Bezirk filtern"
+            showReset={selectedDistrict}
+            onReset={() => this.onReset()}
+          />
+        )}
         <Select value={selectValue} onChange={evt => this.onChange(evt)}>
           <option key="DistrictOption__All" value="none">
             Alle Bezirke
