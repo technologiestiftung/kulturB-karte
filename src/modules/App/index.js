@@ -1,14 +1,46 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import matchPath from 'react-router/matchPath';
 import { connect } from 'unistore/react';
 
-import Actions from '~/state/Actions';
+import Actions, { loadEntryData } from '~/state/Actions';
 import AppWrapper from './AppWrapper';
+import history from '~/history';
+import Store from '~/state/Store';
+
+const loadEntryDataAction = Store.action(loadEntryData(Store));
+
+
+function syncLocation(state, location) {
+  const match = matchPath(location.pathname, {
+    path: '/standort/:id?',
+    exact: false,
+    strict: false
+  });
+
+  if (!match) {
+    return {};
+  }
+
+  const { id } = match.params;
+
+  loadEntryDataAction(id);
+
+  return {};
+}
+
+const updateLocation = Store.action(syncLocation);
+
+history.listen(location => {
+  updateLocation(location);
+});
+
+updateLocation(history.location);
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <AppWrapper />
       </Router>
     );

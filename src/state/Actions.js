@@ -1,5 +1,7 @@
 import { fetchJSON, fetchTopoJSON } from '~/utils';
 
+import history from '~/history';
+
 const createPoint = d => ({
     type: 'Feature',
     geometry: {
@@ -36,13 +38,24 @@ const loadData = Store => async () => {
   }
 };
 
-const loadEntryData = Store => async (state, detailData) => {
-  if (!detailData) return { detailData: false };
+const setDetailRoute = (state, id = false) => {
+  const nextPath = id ? `/standort/${id}` : '/';
+
+  history.push(nextPath);
+
+  if (!id) {
+    return {
+      detailData: false
+    };
+  }
+};
+
+export const loadEntryData = Store => async (state, detailId) => {
+  if (!detailId) return { detailData: false };
   Store.setState({ isLoading: true });
 
   try {
-    const { id } = detailData;
-    const data = await fetchJSON(`${config.api.base}${config.api.locations}/${id}`);
+    const data = await fetchJSON(`${config.api.base}${config.api.locations}/${detailId}`);
 
     data.location.coordinates.reverse();
     data.tags = data.tags.map(t => t.name);
@@ -61,7 +74,7 @@ const loadFilterData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
-    const districts = await fetchTopoJSON('public/data/bezirksgrenzen.json');
+    const districts = await fetchTopoJSON('/public/data/bezirksgrenzen.json');
     return {
       additionalData: {
         ...Store.getState().additionalData,
@@ -78,7 +91,7 @@ const loadAnalysisData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
-    const districts = await fetchTopoJSON('public/data/bezirksgrenzen.json');
+    const districts = await fetchTopoJSON('/public/data/bezirksgrenzen.json');
     return {
       additionalData: {
         ...Store.getState().additionalData,
@@ -146,6 +159,7 @@ export default Store => ({
   loadFilterData: loadFilterData(Store),
   loadAnalysisData: loadAnalysisData(Store),
   loadEntryData: loadEntryData(Store),
+  setDetailRoute,
   setMapCenter,
   setMapView,
   setTooltipData,

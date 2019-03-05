@@ -20,8 +20,8 @@ class SearchFilter extends PureComponent {
     }
   }
 
-  onChange(evt) {
-    this.props.loadEntryData(evt);
+  onChange(item) {
+    this.props.setDetailRoute(item.id);
   }
 
   render() {
@@ -35,7 +35,7 @@ class SearchFilter extends PureComponent {
           options={this.props.options}
           getOptionValue={option => (option.name)}
           getOptionLabel={option => (option.name)}
-          onChange={evt => this.onChange(evt)}
+          onChange={item => this.onChange(item)}
           placeholder="Namen eingeben ..."
           classNamePrefix="rs"
         />

@@ -29,10 +29,13 @@ function getPaintProps(props) {
 }
 
 class MarkerLayer extends PureComponent {
-  handleClick({ geometry: { coordinates } = [], properties = {} }) {
+  handleClick(evt, { geometry: { coordinates } = [], properties = {} }) {
     // where do we set the coordinates now?
     // this.props.setMapView({ center: coordinates, zoom: 14 });
-    this.props.loadEntryData(properties);
+    evt.originalEvent.preventDefault();
+    evt.originalEvent.stopPropagation();
+
+    this.props.setDetailRoute(properties.id);
   }
 
   handleMouseEnter({ properties = {} }) {
@@ -49,7 +52,6 @@ class MarkerLayer extends PureComponent {
 
   render() {
     const { data } = this.props;
-
     const paintProps = getPaintProps(this.props);
 
     // assign random colors
@@ -61,7 +63,7 @@ class MarkerLayer extends PureComponent {
           <Feature
             coordinates={feat.geometry.coordinates}
             key={feat.properties.name}
-            onClick={() => this.handleClick(feat)}
+            onClick={evt => this.handleClick(evt, feat)}
             onMouseEnter={() => this.handleMouseEnter(feat)}
             onMouseLeave={() => this.handleMouseLeave()}
             properties={feat.properties}
