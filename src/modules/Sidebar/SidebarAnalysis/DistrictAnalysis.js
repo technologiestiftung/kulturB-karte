@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
 
+import { filteredAnalysisDataSelector, allCategoriesSelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
 import DistrictFilter from '../SidebarFilter/DistrictFilter';
 import SidebarItemTitle from '../SidebarItemTitle';
@@ -27,7 +28,7 @@ class DistrictAnalysis extends PureComponent {
   }
 
   render() {
-    const { activeDistrict, activeAnalysis } = this.props;
+    const { activeDistrict, activeAnalysis, data, categories } = this.props;
     const isActive = activeAnalysis === 'districts';
 
     return (
@@ -45,6 +46,8 @@ class DistrictAnalysis extends PureComponent {
             <DistrictFilter hideTitle />
             <DistrictVis
               district={activeDistrict}
+              districtData={data}
+              categories={categories}
             />
           </Fragment>
         )}
@@ -55,5 +58,7 @@ class DistrictAnalysis extends PureComponent {
 
 export default connect(state => ({
   activeAnalysis: state.activeAnalysis,
-  activeDistrict: state.filter.districtFilter
+  activeDistrict: state.filter.districtFilter,
+  data: filteredAnalysisDataSelector(state),
+  categories: allCategoriesSelector(state),
 }), Actions)(DistrictAnalysis);

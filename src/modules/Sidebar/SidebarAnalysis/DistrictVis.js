@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
-import districtData from './district-data';
+import BarVis from './BarVis';
+import districtAdditionalData from './district-data';
 import { formatNumber } from '~/utils';
 
 const VisBox = styled.div`
@@ -30,34 +31,40 @@ const VisBoxHeaderItemLabel = styled.div`
 
 class DistrictVis extends PureComponent {
   getData() {
-    const data = districtData.find(d => d.id === this.props.district);
+    const data = districtAdditionalData.find(d => d.id === this.props.district);
 
     if (!data) {
-      return districtData.find(d => d.id === 'Berlin');
+      return districtAdditionalData.find(d => d.id === 'Berlin');
     }
 
     return data;
   }
 
   render() {
-    const data = this.getData();
+    const { districtData, categories } = this.props;
+    const additionalData = this.getData();
 
     return (
       <VisBox>
         <VisBoxHeader>
           <VisBoxHeaderItem>
-            <VisBoxHeaderItemNumber>{formatNumber(data.polulation)}</VisBoxHeaderItemNumber>
+            <VisBoxHeaderItemNumber>{formatNumber(additionalData.population)}</VisBoxHeaderItemNumber>
             <VisBoxHeaderItemLabel>Einwohner</VisBoxHeaderItemLabel>
           </VisBoxHeaderItem>
           <VisBoxHeaderItem>
-            <VisBoxHeaderItemNumber>{formatNumber(data.area, 1)} </VisBoxHeaderItemNumber>
+            <VisBoxHeaderItemNumber>{formatNumber(additionalData.area, 1)} </VisBoxHeaderItemNumber>
             <VisBoxHeaderItemLabel>Fläche in km²</VisBoxHeaderItemLabel>
           </VisBoxHeaderItem>
           <VisBoxHeaderItem>
-            <VisBoxHeaderItemNumber>???</VisBoxHeaderItemNumber>
+            <VisBoxHeaderItemNumber>{formatNumber(districtData.features.length)}</VisBoxHeaderItemNumber>
             <VisBoxHeaderItemLabel>Kulturorte</VisBoxHeaderItemLabel>
           </VisBoxHeaderItem>
         </VisBoxHeader>
+        <BarVis
+          categories={categories.map(category => ({ category, items: [] }))}
+          additionalData={additionalData}
+          data={districtData.features}
+        />
       </VisBox>
     );
   }
