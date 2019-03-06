@@ -13,7 +13,7 @@ const loadEntryDataAction = Store.action(loadEntryData(Store));
 
 function syncLocation(state, location) {
   const match = matchPath(location.pathname, {
-    path: '/standort/:id?',
+    path: '/:id?',
     exact: false,
     strict: false
   });
