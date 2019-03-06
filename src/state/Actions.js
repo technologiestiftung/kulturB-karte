@@ -39,7 +39,7 @@ const loadData = Store => async () => {
 };
 
 const setDetailRoute = (state, id = false) => {
-  const nextPath = id ? `/standort/${id}` : '/';
+  const nextPath = id ? `/filter/${id}` : '/';
 
   history.push(nextPath);
 

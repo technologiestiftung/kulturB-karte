@@ -16,26 +16,32 @@ const VisWrapper = styled.div`
   margin-top: 10px;
 `;
 
-class DistrictVis extends PureComponent {
-  getData() {
-    const data = districtAdditionalData.find(d => d.id === this.props.district);
+function getData(districtName) {
+  const data = districtAdditionalData.find(d => d.id === districtName);
 
-    if (!data) {
-      return districtAdditionalData.find(d => d.id === 'Berlin');
-    }
-
-    return data;
+  if (!data) {
+    return districtAdditionalData.find(d => d.id === 'Berlin');
   }
 
+  return data;
+}
+
+class DistrictVis extends PureComponent {
   render() {
-    const { districtData, categories } = this.props;
-    const additionalData = this.getData();
+    const {
+      districtData, categories, data, district
+    } = this.props;
+    const additionalData = getData(district);
+    const categoryArray = categories.map(category => ({ category, items: [] }));
+    const dataBerlin = data.features.reduce(groupByCategory, categoryArray);
+    const additionalDataBerlin = getData('Berlin');
     const bars = districtData.features
-      .reduce(groupByCategory, categories.map(category => ({ category, items: [] })))
+      .reduce(groupByCategory, categoryArray)
       .sort(sortByItemsLength)
       .map(d => ({
         ...d,
-        perPop: (d.items.length / additionalData.population) * 100000
+        perPop: (d.items.length / additionalData.population) * 100000,
+        perPopBerlin: (dataBerlin.find(db => db.category === d.category).items.length / additionalDataBerlin.population) * 100000
       }));
 
     return (
@@ -51,6 +57,8 @@ class DistrictVis extends PureComponent {
           />
           <CategoryBars
             data={bars}
+            districtId={district}
+            districtName={additionalData.name}
             title="Anzahl der Kulturorte pro 100.000 Einwohner"
           />
         </VisWrapper>
