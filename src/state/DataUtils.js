@@ -2,6 +2,16 @@ import pointInPolygon from '@turf/boolean-point-in-polygon';
 import turfDistance from '@turf/distance';
 import turfBbox from '@turf/bbox';
 import { scaleOrdinal } from 'd3-scale';
+import museumIcon from '@material-ui/icons/AccountBalance';
+import libraryIcon from '@material-ui/icons/LocalLibrary';
+import theaterIcon from '~/../public/images/icons/theater.svg';
+import musicSchoolIcon from '@material-ui/icons/MusicNote';
+import projectRoomIcon from '@material-ui/icons/Store';
+import bookHouse from '@material-ui/icons/ImportContacts';
+import galleryIcon from '@material-ui/icons/ColorLens';
+import danceIcon from '@material-ui/icons/InsertEmoticon';
+import artIcon from '@material-ui/icons/Brush';
+import memorialIcon from '@material-ui/icons/Business';
 
 import { getPolygonFeature } from '~/modules/Map/MapUtils';
 
@@ -63,6 +73,24 @@ export const getDistrictBounds = districtFeature => (
 
 export const getColorByCategory = category => (
   typeof category === 'undefined' ? '#bbb' : colorScale(category)
+);
+
+
+const icons = {
+  Museum: museumIcon,
+  Bibliothek: libraryIcon,
+  Theater: theaterIcon,
+  Musikschule: musicSchoolIcon,
+  Projektraum: projectRoomIcon,
+  Literaturhaus: bookHouse,
+  Galerie: galleryIcon,
+  Tanz: danceIcon,
+  'Bildende Kunst': artIcon,
+  Gedenkstätte: memorialIcon
+};
+
+export const getIconByCategory = category => (
+  icons[category] ? icons[category] : null
 );
 
 export default {

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { allCategoriesSelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
 import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
-import { getColorByCategory } from '~/state/DataUtils';
+import { getColorByCategory, getIconByCategory } from '~/state/DataUtils';
 import GhostButton from '~/components/GhostButton';
 
 const CategoryFilterWrapper = styled.div`
@@ -40,6 +40,17 @@ const CategoryFilterIcon = styled.div`
   margin-right: 8px;
   border-radius: 100%;
   background: ${props => (props.isActive ? props.bg : '#ddd')};
+  color: white;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+    margin: 0 auto;
+  }
 `;
 
 class CategoryFilter extends PureComponent {
@@ -74,19 +85,25 @@ class CategoryFilter extends PureComponent {
           onReset={() => this.onReset()}
         />
         <CategoriesWrapper isExpanded={expanded}>
-          {categories.map(category => category && (
-            <CategoryFilterItem
-              key={`CategoryFilter__${category}`}
-              onClick={() => this.onChange(category)}
-              isActive={!categoryFilter.includes(category)}
-            >
-              <CategoryFilterIcon
+          {categories.map((category) => {
+            const CategoryIcon = getIconByCategory(category);
+
+            return (
+              <CategoryFilterItem
+                key={`CategoryFilter__${category}`}
+                onClick={() => this.onChange(category)}
                 isActive={!categoryFilter.includes(category)}
-                bg={getColorByCategory(category)}
-              />
-              <div>{category}</div>
-            </CategoryFilterItem>
-          ))}
+              >
+                <CategoryFilterIcon
+                  isActive={!categoryFilter.includes(category)}
+                  bg={getColorByCategory(category)}
+                >
+                  {CategoryIcon && <CategoryIcon />}
+                </CategoryFilterIcon>
+                <div>{category}</div>
+              </CategoryFilterItem>
+            );
+          })}
         </CategoriesWrapper>
         <GhostButton onClick={() => this.onToggle()}>
           Alle Kategorien {toggleLabel}
