@@ -40,7 +40,7 @@ const BarLabel = styled.div`
   border: 1px solid #ddd;
   padding: 4px 4px;
   z-index: 100;
-  width: 110px;
+  width: 200px;
   border-radius: 3px;
   display: none;
 `;
@@ -77,8 +77,6 @@ class CategoryBars extends PureComponent {
       data, title, districtId, districtName
     } = this.props;
 
-    console.log(districtId);
-
     return (
       <CategoryBarsWrapper>
         <Title>{title}</Title>
@@ -98,7 +96,7 @@ class CategoryBars extends PureComponent {
                 />
               )}
               <BarLabel className="bar__label" hasDistrictId={districtId}>
-                {districtId && <div>{districtName}: <strong>{formatNumber((d.perPop / maxX * 100), 1)}</strong></div>}
+                {districtId && <div>{districtName}: <strong>{d.perPop === 0 ? 0 : formatNumber((d.perPop / maxX * 100), 1)}</strong></div>}
                 <div>Berlin: <strong>{formatNumber((d.perPopBerlin / maxX) * 100, 1)}</strong></div>
               </BarLabel>
             </BarOuter>
