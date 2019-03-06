@@ -43,8 +43,6 @@ const setDetailRoute = (state, id = false) => {
     return history.push(`?location=${id}`);
   }
 
-  // const nextPath = id ? `?location=${id}` : '/';
-
   history.push(history.location.pathname.replace(/\?location=.+/, ''));
 
   return {

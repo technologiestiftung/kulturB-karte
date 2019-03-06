@@ -24,7 +24,7 @@ module.exports = merge(common, {
     new Webpack.optimize.ModuleConcatenationPlugin(),
     new CopyWebpackPlugin([
       { from: Path.resolve(__dirname, '../_redirects') }
-    ]),
+    ])
   ],
   resolve: {
     alias: {

@@ -36,10 +36,10 @@ class DistrictAnalysis extends PureComponent {
     return (
       <Wrapper>
         <CheckboxWrapper>
-          <Checkbox
+          {/* <Checkbox
             checked={isActive}
             onChange={() => this.onToggle('districts')}
-          />
+          /> */}
           <SidebarItemTitle text="Bezirks-Analyse" />
         </CheckboxWrapper>
 
@@ -60,7 +60,7 @@ class DistrictAnalysis extends PureComponent {
 }
 
 export default connect(state => ({
-  activeAnalysis: state.activeAnalysis,
+  activeAnalysis: 'districts', //state.activeAnalysis,
   activeDistrict: state.filter.districtFilter,
   filteredData: filteredDistrictDataSelector(state),
   data: state.data,
