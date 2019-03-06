@@ -40,6 +40,16 @@ export const filteredAnalysisDataSelector = createSelector(
   }
 );
 
+export const filteredDistrictDataSelector = createSelector(
+  [dataSelector, additionalDataSelector, filterSelector],
+  (data, additionalData, filter) => {
+    let filteredData = data;
+
+    filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
+
+    return filteredData;
+  }
+);
 
 export const allCategoriesSelector = createSelector(
   [dataSelector],
