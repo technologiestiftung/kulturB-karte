@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch } from 'react-router-dom';
 
 import Menu from '~/components/Menu';
 
@@ -29,9 +29,11 @@ class Sidebar extends PureComponent {
       <SidebarWrapper>
         <Menu />
         <SidebarContent>
-          <Route exact path="/:id?" component={SidebarFilter} />
-          <Route path="/analysis" component={SidebarAnalysis} />
-          <Route path="/list" component={SidebarList} />
+          <Switch>
+            <Route exact path={['/', '/filter/:id']} component={SidebarFilter} />
+            <Route path="/analysis" component={SidebarAnalysis} />
+            <Route path="/list" component={SidebarList} />
+          </Switch>
         </SidebarContent>
       </SidebarWrapper>
     );

@@ -10,10 +10,9 @@ import Store from '~/state/Store';
 
 const loadEntryDataAction = Store.action(loadEntryData(Store));
 
-
 function syncLocation(state, location) {
   const match = matchPath(location.pathname, {
-    path: '/:id?',
+    path: '/filter/:id?',
     exact: false,
     strict: false
   });
@@ -31,9 +30,7 @@ function syncLocation(state, location) {
 
 const updateLocation = Store.action(syncLocation);
 
-history.listen(location => {
-  updateLocation(location);
-});
+history.listen(location => updateLocation(location));
 
 updateLocation(history.location);
 
