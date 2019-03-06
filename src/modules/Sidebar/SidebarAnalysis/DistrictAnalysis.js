@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
 
-import { filteredAnalysisDataSelector, allCategoriesSelector } from '~/state/Selectors';
+import { filteredDistrictDataSelector, allCategoriesSelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
 import DistrictFilter from '../SidebarFilter/DistrictFilter';
 import SidebarItemTitle from '../SidebarItemTitle';
@@ -62,7 +62,7 @@ class DistrictAnalysis extends PureComponent {
 export default connect(state => ({
   activeAnalysis: state.activeAnalysis,
   activeDistrict: state.filter.districtFilter,
-  filteredData: filteredAnalysisDataSelector(state),
+  filteredData: filteredDistrictDataSelector(state),
   data: state.data,
   categories: allCategoriesSelector(state),
 }), Actions)(DistrictAnalysis);
