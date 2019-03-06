@@ -28,7 +28,9 @@ class DistrictAnalysis extends PureComponent {
   }
 
   render() {
-    const { activeDistrict, activeAnalysis, data, categories } = this.props;
+    const {
+      activeDistrict, activeAnalysis, data, categories
+    } = this.props;
     const isActive = activeAnalysis === 'districts';
 
     return (

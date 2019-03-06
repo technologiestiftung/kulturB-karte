@@ -28,15 +28,21 @@ class DistrictNumbers extends PureComponent {
     return (
       <VisBoxHeader>
         <VisBoxHeaderItem>
-          <VisBoxHeaderItemNumber>{formatNumber(additionalData.population)}</VisBoxHeaderItemNumber>
+          <VisBoxHeaderItemNumber>
+            {formatNumber(additionalData.population)}
+          </VisBoxHeaderItemNumber>
           <VisBoxHeaderItemLabel>Einwohner</VisBoxHeaderItemLabel>
         </VisBoxHeaderItem>
         <VisBoxHeaderItem>
-          <VisBoxHeaderItemNumber>{formatNumber(additionalData.area, 1)} </VisBoxHeaderItemNumber>
+          <VisBoxHeaderItemNumber>
+            {formatNumber(additionalData.area, 1)}
+          </VisBoxHeaderItemNumber>
           <VisBoxHeaderItemLabel>Fläche in km²</VisBoxHeaderItemLabel>
         </VisBoxHeaderItem>
         <VisBoxHeaderItem>
-          <VisBoxHeaderItemNumber>{formatNumber(districtData.features.length)}</VisBoxHeaderItemNumber>
+          <VisBoxHeaderItemNumber>
+            {formatNumber(districtData.features.length)}
+          </VisBoxHeaderItemNumber>
           <VisBoxHeaderItemLabel>Kulturorte</VisBoxHeaderItemLabel>
         </VisBoxHeaderItem>
       </VisBoxHeader>
