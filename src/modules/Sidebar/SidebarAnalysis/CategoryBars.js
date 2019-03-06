@@ -8,6 +8,7 @@ const maxX = 10;
 const BarWrapper = styled.div`
   display: flex;
   margin-bottom: 5px;
+  align-items: center;
 `;
 
 const BarOuter = styled.div`
@@ -15,9 +16,11 @@ const BarOuter = styled.div`
 `;
 
 const Bar = styled.div`
-  height: 10px;
+  height: 8px;
   background: ${props => props.color};
   width: ${props => `${props.width}%`};
+  opacity: ${props => (props.isComparison ? 0.4 : 1)};
+  margin-top: ${props => (props.isComparison ? '2px' : 0)};
 `;
 
 const Axis = styled.div`
@@ -48,7 +51,7 @@ const Title = styled.div`
 
 class CategoryBars extends PureComponent {
   render() {
-    const { data, title } = this.props;
+    const { data, title, district } = this.props;
     return (
       <CategoryBarsWrapper>
         <Title>{title}</Title>
@@ -60,6 +63,13 @@ class CategoryBars extends PureComponent {
                 color={getColorByCategory(d.category)}
                 width={(d.perPop / maxX) * 100}
               />
+              {district && (
+                <Bar
+                  color={getColorByCategory(d.category)}
+                  width={(d.perPopBerlin / maxX) * 100}
+                  isComparison
+                />
+              )}
             </BarOuter>
           </BarWrapper>
         ))}

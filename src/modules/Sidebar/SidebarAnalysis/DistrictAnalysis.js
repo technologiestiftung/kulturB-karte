@@ -29,7 +29,7 @@ class DistrictAnalysis extends PureComponent {
 
   render() {
     const {
-      activeDistrict, activeAnalysis, data, categories
+      activeDistrict, activeAnalysis, filteredData, categories, data
     } = this.props;
     const isActive = activeAnalysis === 'districts';
 
@@ -48,7 +48,8 @@ class DistrictAnalysis extends PureComponent {
             <DistrictFilter hideTitle />
             <DistrictVis
               district={activeDistrict}
-              districtData={data}
+              districtData={filteredData}
+              data={data}
               categories={categories}
             />
           </Fragment>
@@ -61,6 +62,7 @@ class DistrictAnalysis extends PureComponent {
 export default connect(state => ({
   activeAnalysis: state.activeAnalysis,
   activeDistrict: state.filter.districtFilter,
-  data: filteredAnalysisDataSelector(state),
+  filteredData: filteredAnalysisDataSelector(state),
+  data: state.data,
   categories: allCategoriesSelector(state),
 }), Actions)(DistrictAnalysis);
