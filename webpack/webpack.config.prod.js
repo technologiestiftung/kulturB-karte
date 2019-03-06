@@ -3,6 +3,7 @@ const Webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const common = require('./webpack.common.js');
 
@@ -20,7 +21,10 @@ module.exports = merge(common, {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new MiniCssExtractPlugin({ filename: 'bundle.css' }),
-    new Webpack.optimize.ModuleConcatenationPlugin()
+    new Webpack.optimize.ModuleConcatenationPlugin(),
+    new CopyWebpackPlugin([
+      { from: Path.resolve(__dirname, '../_redirects') }
+    ])
   ],
   resolve: {
     alias: {

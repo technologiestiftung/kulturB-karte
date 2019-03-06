@@ -1,7 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 
 import SidebarTitle from '../SidebarTitle';
-import SidebarDetail from '../SidebarDetail';
 import SearchFilter from './SearchFilter';
 import CategoryFilter from './CategoryFilter';
 import DistrictFilter from './DistrictFilter';
@@ -15,7 +14,6 @@ class SidebarFilter extends PureComponent {
           Kultureinrichtungen in Berlin
         </SidebarTitle>
         <SearchFilter />
-        <SidebarDetail />
         <CategoryFilter />
         <DistrictFilter />
         <LocationFilter />

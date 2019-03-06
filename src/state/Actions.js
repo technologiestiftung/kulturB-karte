@@ -39,15 +39,15 @@ const loadData = Store => async () => {
 };
 
 const setDetailRoute = (state, id = false) => {
-  const nextPath = id ? `/filter/${id}` : '/';
-
-  history.push(nextPath);
-
-  if (!id) {
-    return {
-      detailData: false
-    };
+  if (id) {
+    return history.push(`?location=${id}`);
   }
+
+  history.push(history.location.pathname.replace(/\?location=.+/, ''));
+
+  return {
+    detailData: false
+  };
 };
 
 export const loadEntryData = Store => async (state, detailId) => {

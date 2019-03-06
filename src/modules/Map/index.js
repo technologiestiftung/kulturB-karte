@@ -11,6 +11,7 @@ import { MapProvider } from './hoc/MapContext';
 import FilterView from './MapViews/FilterView';
 import AnalysisView from './MapViews/AnalysisView';
 import Tooltip from './Tooltip';
+import MapDetailCard from './MapDetailCard';
 
 
 const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer', 'LocationFilterLayer'];
@@ -96,6 +97,7 @@ class Map extends PureComponent {
             <Tooltip />
           </MapGL>
         </MapProvider>
+        <MapDetailCard />
       </MapWrapper>
     );
   }
