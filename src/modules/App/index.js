@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router } from 'react-router-dom';
-import matchPath from 'react-router/matchPath';
 import { connect } from 'unistore/react';
+import queryString from 'query-string';
 
 import Actions, { loadEntryData } from '~/state/Actions';
 import AppWrapper from './AppWrapper';
@@ -11,19 +11,15 @@ import Store from '~/state/Store';
 const loadEntryDataAction = Store.action(loadEntryData(Store));
 
 function syncLocation(state, location) {
-  const match = matchPath(location.pathname, {
-    path: '/filter/:id?',
-    exact: false,
-    strict: false
-  });
+  const parsedQuery = queryString.parse(location.search);
 
-  if (!match) {
-    return {};
+  if (!parsedQuery.location) {
+    return {
+      detailData: false
+    };
   }
 
-  const { id } = match.params;
-
-  loadEntryDataAction(id);
+  loadEntryDataAction(parsedQuery.location);
 
   return {};
 }

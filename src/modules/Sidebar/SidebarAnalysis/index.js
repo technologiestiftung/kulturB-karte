@@ -4,7 +4,6 @@ import SidebarTitle from '../SidebarTitle';
 import CategoryFilter from '../SidebarFilter/CategoryFilter';
 import DistrictAnalysis from './DistrictAnalysis';
 
-
 class SidebarAnalysis extends PureComponent {
   render() {
     return (

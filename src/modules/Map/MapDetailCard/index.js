@@ -6,7 +6,7 @@ import Actions from '~/state/Actions';
 
 import DetailCard from '~/components/Card/Detail';
 
-class SidebarDetail extends PureComponent {
+class MapDetailCard extends PureComponent {
   onDetailClose() {
     this.props.setDetailRoute(false);
   }
@@ -25,4 +25,4 @@ class SidebarDetail extends PureComponent {
 
 export default connect(state => ({
   detailData: enrichedDetailDataSelector(state)
-}), Actions)(SidebarDetail);
+}), Actions)(MapDetailCard);

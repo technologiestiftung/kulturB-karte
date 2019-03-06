@@ -12,6 +12,11 @@ import CloseButton from './CloseButton';
 
 const DetailCardWrapper = styled(CardWrapper)`
   margin-bottom: ${props => props.theme.margin[2]};
+  position: absolute;
+  z-index: 9000;
+  top: 20px;
+  left: 15px;
+  width: 300px;
 `;
 
 const StyledCardHeader = styled(CardHeader)`
