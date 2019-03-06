@@ -57,7 +57,8 @@ class DistrictVis extends PureComponent {
           />
           <CategoryBars
             data={bars}
-            district={district}
+            districtId={district}
+            districtName={additionalData.name}
             title="Anzahl der Kulturorte pro 100.000 Einwohner"
           />
         </VisWrapper>
