@@ -1,32 +1,19 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
-import BarVis from './BarVis';
+import DistrictNumbers from './DistrictNumbers';
 import districtAdditionalData from './district-data';
-import { formatNumber } from '~/utils';
+import StackedBars from './StackedBars';
+import CategoryBars from './CategoryBars';
+import { groupByCategory, sortByItemsLength } from './analysis-utils';
 
-const VisBox = styled.div`
+const DistrictVisWrapper = styled.div`
   border: 1px solid #ddd;
   padding: 10px;
 `;
 
-const VisBoxHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const VisBoxHeaderItem = styled.div`
-  text-align: center;
-`;
-
-const VisBoxHeaderItemNumber = styled.div`
-  font-size: ${props => props.theme.fontSizes[3]};
-  font-weight: 700;
-  margin-bottom: 5px;
-`;
-
-const VisBoxHeaderItemLabel = styled.div`
-  font-size: ${props => props.theme.fontSizes[0]};
+const VisWrapper = styled.div`
+  margin-top: 10px;
 `;
 
 class DistrictVis extends PureComponent {
@@ -43,29 +30,31 @@ class DistrictVis extends PureComponent {
   render() {
     const { districtData, categories } = this.props;
     const additionalData = this.getData();
+    const bars = districtData.features
+      .reduce(groupByCategory, categories.map(category => ({ category, items: [] })))
+      .sort(sortByItemsLength)
+      .map(d => ({
+        ...d,
+        perPop: (d.items.length / additionalData.population) * 100000
+      }));
 
     return (
-      <VisBox>
-        <VisBoxHeader>
-          <VisBoxHeaderItem>
-            <VisBoxHeaderItemNumber>{formatNumber(additionalData.population)}</VisBoxHeaderItemNumber>
-            <VisBoxHeaderItemLabel>Einwohner</VisBoxHeaderItemLabel>
-          </VisBoxHeaderItem>
-          <VisBoxHeaderItem>
-            <VisBoxHeaderItemNumber>{formatNumber(additionalData.area, 1)} </VisBoxHeaderItemNumber>
-            <VisBoxHeaderItemLabel>Fläche in km²</VisBoxHeaderItemLabel>
-          </VisBoxHeaderItem>
-          <VisBoxHeaderItem>
-            <VisBoxHeaderItemNumber>{formatNumber(districtData.features.length)}</VisBoxHeaderItemNumber>
-            <VisBoxHeaderItemLabel>Kulturorte</VisBoxHeaderItemLabel>
-          </VisBoxHeaderItem>
-        </VisBoxHeader>
-        <BarVis
-          categories={categories.map(category => ({ category, items: [] }))}
+      <DistrictVisWrapper>
+        <DistrictNumbers
           additionalData={additionalData}
-          data={districtData.features}
+          districtData={districtData}
         />
-      </VisBox>
+        <VisWrapper>
+          <StackedBars
+            data={bars}
+            count={districtData.features.length}
+          />
+          <CategoryBars
+            data={bars}
+            title="Anzahl der Kulturorte pro 100.000 Einwohner"
+          />
+        </VisWrapper>
+      </DistrictVisWrapper>
     );
   }
 }

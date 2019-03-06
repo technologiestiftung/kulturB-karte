@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { GeoJSONLayer } from 'react-mapbox-gl';
 import dissolve from '@turf/dissolve';
 
-import MapUtils from '../MapUtils';
+import { getPolygonFeature } from '../MapUtils';
 
 const getPaintProps = props => ({
   'fill-color': props.fillColor || '#4A90E2',
@@ -18,7 +18,7 @@ class RadiusLayer extends PureComponent {
   render() {
     const { data, radius } = this.props;
     const features = data.features
-      .map(feat => MapUtils.getPolygonFeature(feat.geometry.coordinates, radius));
+      .map(feat => getPolygonFeature(feat.geometry.coordinates, radius));
     const geoJSON = { type: 'FeatureCollection', features };
     const dissolvedGeoJSON = dissolve(geoJSON);
 
