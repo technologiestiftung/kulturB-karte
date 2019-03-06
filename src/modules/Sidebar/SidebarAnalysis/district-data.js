@@ -2,66 +2,66 @@
 export default [{
   id: 'Berlin',
   name: 'Berlin',
-  polulation: 3613495,
+  population: 3613495,
   area: 891.68
 }, {
   id: '012',
   name: 'Reinickendorf',
-  polulation: 263920,
+  population: 263920,
   area: 89.46
 }, {
   id: '004',
   name: 'Charlottenburg-Wilmersdorf',
-  polulation: 338923,
+  population: 338923,
   area: 64.72
 }, {
   id: '009',
   name: 'Treptow-Köpenick',
-  polulation: 267167,
+  population: 267167,
   area: 168.42
 }, {
   id: '003',
   name: 'Pankow',
-  polulation: 404534,
+  population: 404534,
   area: 103.01
 }, {
   id: '008',
   name: 'Neukölln',
-  polulation: 329767,
+  population: 329767,
   area: 44.93
 }, {
   id: '011',
   name: 'Lichtenberg',
-  polulation: 288320,
+  population: 288320,
   area: 52.29
 }, {
   id: '010',
   name: 'Marzahn-Hellersdorf',
-  polulation: 267452,
+  population: 267452,
   area: 61.74
 }, {
   id: '005',
   name: 'Spandau',
-  polulation: 241905,
+  population: 241905,
   area: 91.91
 }, {
   id: '006',
   name: 'Steglitz-Zehlendorf',
-  polulation: 307088,
+  population: 307088,
   area: 102.50
 }, {
   id: '001',
   name: 'Mitte',
-  polulation: 379610,
+  population: 379610,
   area: 39.47
 }, {
   id: '002',
   name: 'Friedrichshain-Kreuzberg',
-  polulation: 285963,
+  population: 285963,
   area: 20.16
 }, {
   id: '007',
   name: 'Tempelhof-Schöneberg',
-  polulation: 349265,
+  population: 349265,
   area: 53.09
 }];
