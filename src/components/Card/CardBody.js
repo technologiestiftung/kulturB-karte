@@ -53,7 +53,7 @@ class CardBody extends PureComponent {
           <CardBodySection>
             <CardSectionLeft>Website</CardSectionLeft>
             <CardSectionRight>
-              <a href={detailData.website}>
+              <a href={detailData.website} target="_blank" rel="noopener noreferrer">
                 {formatWebsite(detailData.website)}
               </a>
             </CardSectionRight>
