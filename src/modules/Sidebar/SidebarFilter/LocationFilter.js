@@ -35,11 +35,26 @@ const SliderWrapper = styled.div`
   align-items: center;
   line-height: 1;
   margin: 10px 0;
+  position: relative;
+
+  &:hover {
+    .sliderinfo {
+      display: block;
+    }
+  }
 `;
 
 const RadiusLabel = styled.div`
   min-width: 55px;
   font-size: ${props => props.theme.fontSizes[0]};
+`;
+
+const SliderInfo = styled.div`
+  color: #777;
+  margin-top: 10px;
+  display: none;
+  position: absolute;
+  top: 10px;
 `;
 
 class SearchFilter extends PureComponent {
@@ -50,7 +65,10 @@ class SearchFilter extends PureComponent {
 
   onSelectStreet(selectedStreet) {
     if (selectedStreet === null) {
-      return false;
+      return this.setState({
+        streetOptions: [],
+        numberOptions: []
+      });
     }
 
     fetchJSON(`https://tsb.ara.uberspace.de/tsb-geocoding/num?street=${selectedStreet.id}`)
@@ -68,13 +86,16 @@ class SearchFilter extends PureComponent {
     return input;
   }
 
-  onSelectNumber(selectedNumber) {
+  onSelectNumber(selectedNumber = null) {
     if (selectedNumber === null) {
       return false;
     }
 
     fetchJSON(`https://tsb.ara.uberspace.de/tsb-geocoding/geo?num=${selectedNumber.id}`)
-      .then(res => this.props.setLocationFilterCoords([res.lat, res.lon]));
+      .then((res) => {
+        this.props.setLocationFilterCoords([res.lat, res.lon]);
+        this.props.setMapView({ center: [res.lat, res.lon], zoom: 12 });
+      });
   }
 
   onRadiusChange(radius) {
@@ -117,6 +138,7 @@ class SearchFilter extends PureComponent {
             onInputChange={input => this.onInputChange(input)}
             noOptionsMessage={() => 'Keine Straße gefunden'}
             className="react-select"
+            isClearable
           />
           <Select
             ref={(ref) => { this.numberSelect = ref; }}
@@ -129,6 +151,7 @@ class SearchFilter extends PureComponent {
             noOptionsMessage={() => 'Keine Hausnummer gefunden'}
             isDisabled={!this.state.numberOptions.length}
             className="react-select"
+            isClearable
           />
         </SelectWrapper>
         <SliderWrapper>
@@ -143,6 +166,11 @@ class SearchFilter extends PureComponent {
             value={radius}
             disabled={!showReset}
           />
+          <SliderInfo
+            className="sliderinfo"
+          >
+            Sie müssen zuerst eine Adresse eingeben, um den Radius einstellen zu können.
+          </SliderInfo>
         </SliderWrapper>
       </SearchFilterWrapper>
     );

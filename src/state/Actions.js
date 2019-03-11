@@ -1,4 +1,5 @@
 import { fetchJSON, fetchTopoJSON } from '~/utils';
+import { allCategoriesSelector } from './Selectors';
 
 import history from '~/history';
 
@@ -14,26 +15,47 @@ const createPoint = d => ({
     }
 });
 
+// for overlapping points
+// @TODO: should we implement a collision detection?
+const randomizeCoord = (coord) => {
+  const randomValue = Math.random() / 20000 + 0.0001;
+  return Math.random() < .5 ? coord + randomValue : coord - randomValue;
+};
+
 const loadData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
     const { data } = await fetchJSON(`${config.api.base}${config.api.locations}${config.api.params}`);
+    const { filter } = Store.getState();
+
+    const parsedData = {
+      type: 'FeatureCollection',
+      features: data
+        .map(d => ({
+          ...d,
+          location: d.location ? {
+            ...d.location,
+            coordinates: d.location.coordinates.map(c => randomizeCoord(c))
+          } : false,
+          tags: d.tags.map(t => t.name)
+        }))
+        .filter(d => d.location)
+        .map(createPoint)
+    };
+
+    const allCategories = allCategoriesSelector({ data: parsedData });
 
     return {
-      data: {
-        type: 'FeatureCollection',
-        features: data
-          .map(d => ({
-            ...d,
-            tags: d.tags.map(t => t.name)
-          }))
-          .filter(d => d.location)
-          .map(createPoint)
-      },
-      isLoading: false
+      data: parsedData,
+      isLoading: false,
+      filter: {
+        ...filter,
+        categoryFilter: allCategories
+      }
     };
   } catch (err) {
+    console.log(err);
     return { isLoading: false };
   }
 };
@@ -123,10 +145,10 @@ const setTooltipPos = (state, tooltipPos) => (
   { tooltipPos }
 );
 
-const toggleCategoryFilter = (state, category) => {
+const toggleCategoryFilter = (state, category, deactivate = false) => {
   let { categoryFilter } = state.filter;
 
-  if (categoryFilter.includes(category)) {
+  if (categoryFilter.includes(category) || deactivate) {
     categoryFilter = categoryFilter.filter(cat => cat !== category);
   } else {
     categoryFilter.push(category);
@@ -137,7 +159,8 @@ const toggleCategoryFilter = (state, category) => {
 };
 
 const resetCategoryFilter = (state) => {
-  const filter = Object.assign({}, state.filter, { categoryFilter: [] });
+  const allCategories = allCategoriesSelector(state);
+  const filter = Object.assign({}, state.filter, { categoryFilter: allCategories });
   return { filter };
 };
 
