@@ -14,8 +14,6 @@ class LocationFilterLayer extends PureComponent {
       return null;
     }
 
-    console.log(coordinates);
-
     return (
       <Fragment>
         <RadiusLayer
