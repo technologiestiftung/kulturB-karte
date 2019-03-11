@@ -11,6 +11,10 @@ const SearchFilterWrapper = styled.div`
   display: block;
   margin-bottom: ${props => props.theme.margin[2]};
   font-size: ${props => props.theme.fontSizes[1]};
+
+  .rs__clear-indicator {
+    cursor: pointer;
+  }
 `;
 
 class SearchFilter extends PureComponent {
@@ -38,6 +42,7 @@ class SearchFilter extends PureComponent {
           onChange={item => this.onChange(item)}
           placeholder="Namen eingeben ..."
           classNamePrefix="rs"
+          isClearable
         />
       </SearchFilterWrapper>
     );
