@@ -74,7 +74,10 @@ class SearchFilter extends PureComponent {
     }
 
     fetchJSON(`https://tsb.ara.uberspace.de/tsb-geocoding/geo?num=${selectedNumber.id}`)
-      .then(res => this.props.setLocationFilterCoords([res.lat, res.lon]));
+      .then((res) => {
+        this.props.setLocationFilterCoords([res.lat, res.lon]);
+        this.props.setMapView({ center: [res.lat, res.lon], zoom: 12 });
+      });
   }
 
   onRadiusChange(radius) {
