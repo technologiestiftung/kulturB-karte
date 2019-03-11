@@ -1,7 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'unistore/react';
-import Actions from '~/state/Actions';
+import { Marker } from 'react-mapbox-gl';
+import Place from '@material-ui/icons/Place';
 
+import Actions from '~/state/Actions';
 import RadiusLayer from './RadiusLayer';
 
 class LocationFilterLayer extends PureComponent {
@@ -12,12 +14,22 @@ class LocationFilterLayer extends PureComponent {
       return null;
     }
 
+    console.log(coordinates);
+
     return (
-      <RadiusLayer
-        data={{ features: [{ geometry: { coordinates } }] }}
-        radius={radius}
-        fillColor="transparent"
-      />
+      <Fragment>
+        <RadiusLayer
+          data={{ features: [{ geometry: { coordinates } }] }}
+          radius={radius}
+          fillColor="transparent"
+        />
+        <Marker
+          coordinates={coordinates}
+          anchor="bottom"
+        >
+          <Place />
+        </Marker>
+      </Fragment>
     );
   }
 }
