@@ -19,7 +19,7 @@ const colorScale = scaleOrdinal().range(config.colors);
 
 export const filterCategories = (data, categoryFilter) => {
   const features = data.features
-    .filter(feat => !categoryFilter.includes(feat.properties.mainCategory));
+    .filter(feat => categoryFilter.some(cat => feat.properties.tags.includes(cat)));
 
   return Object.assign({}, data, { features });
 };

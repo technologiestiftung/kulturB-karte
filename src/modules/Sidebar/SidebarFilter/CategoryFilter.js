@@ -63,10 +63,10 @@ class CategoryFilter extends PureComponent {
   }
 
   onToggle() {
-    const deactivateAll = this.props.filter.categoryFilter.length === 0;
+    const deactivateAll = this.props.filter.categoryFilter.length > 0;
 
     if (deactivateAll) {
-      return this.props.categories.forEach(cat => this.props.toggleCategoryFilter(cat));
+      return this.props.categories.forEach(cat => this.props.toggleCategoryFilter(cat, true));
     }
 
     this.onReset();
@@ -75,27 +75,28 @@ class CategoryFilter extends PureComponent {
   render() {
     const { expanded, categories, filter } = this.props;
     const { categoryFilter } = filter;
-    const toggleLabel = categoryFilter.length === 0 ? 'abwählen' : 'anwählen';
+    const toggleLabel = categoryFilter.length > 0 ? 'abwählen' : 'anwählen';
 
     return (
       <CategoryFilterWrapper>
         <SidebarItemTitle
           text="Kategorie filtern"
-          showReset={categoryFilter.length > 0}
+          showReset={categoryFilter.length !== categories.length}
           onReset={() => this.onReset()}
         />
         <CategoriesWrapper isExpanded={expanded}>
           {categories.map((category) => {
             const CategoryIcon = getIconByCategory(category);
+            const isActive = categoryFilter.includes(category);
 
             return (
               <CategoryFilterItem
                 key={`CategoryFilter__${category}`}
                 onClick={() => this.onChange(category)}
-                isActive={!categoryFilter.includes(category)}
+                isActive={isActive}
               >
                 <CategoryFilterIcon
-                  isActive={!categoryFilter.includes(category)}
+                  isActive={isActive}
                   bg={getColorByCategory(category)}
                 >
                   {CategoryIcon && <CategoryIcon />}

@@ -1,4 +1,5 @@
 import { fetchJSON, fetchTopoJSON } from '~/utils';
+import { allCategoriesSelector } from './Selectors';
 
 import history from '~/history';
 
@@ -19,21 +20,30 @@ const loadData = Store => async () => {
 
   try {
     const { data } = await fetchJSON(`${config.api.base}${config.api.locations}${config.api.params}`);
+    const { filter } = Store.getState();
+    const parsedData = {
+      type: 'FeatureCollection',
+      features: data
+        .map(d => ({
+          ...d,
+          tags: d.tags.map(t => t.name)
+        }))
+        .filter(d => d.location)
+        .map(createPoint)
+    };
+
+    const allCategories = allCategoriesSelector({ data: parsedData });
 
     return {
-      data: {
-        type: 'FeatureCollection',
-        features: data
-          .map(d => ({
-            ...d,
-            tags: d.tags.map(t => t.name)
-          }))
-          .filter(d => d.location)
-          .map(createPoint)
-      },
-      isLoading: false
+      data: parsedData,
+      isLoading: false,
+      filter: {
+        ...filter,
+        categoryFilter: allCategories
+      }
     };
   } catch (err) {
+    console.log(err);
     return { isLoading: false };
   }
 };
@@ -123,10 +133,10 @@ const setTooltipPos = (state, tooltipPos) => (
   { tooltipPos }
 );
 
-const toggleCategoryFilter = (state, category) => {
+const toggleCategoryFilter = (state, category, deactivate = false) => {
   let { categoryFilter } = state.filter;
 
-  if (categoryFilter.includes(category)) {
+  if (categoryFilter.includes(category) || deactivate) {
     categoryFilter = categoryFilter.filter(cat => cat !== category);
   } else {
     categoryFilter.push(category);
@@ -137,7 +147,8 @@ const toggleCategoryFilter = (state, category) => {
 };
 
 const resetCategoryFilter = (state) => {
-  const filter = Object.assign({}, state.filter, { categoryFilter: [] });
+  const allCategories = allCategoriesSelector(state);
+  const filter = Object.assign({}, state.filter, { categoryFilter: allCategories });
   return { filter };
 };
 
