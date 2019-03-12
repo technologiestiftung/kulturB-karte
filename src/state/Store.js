@@ -8,6 +8,7 @@ const Store = createStore({
   },
   mapCenter: [13.4124999, 52.5040961],
   mapZoom: [10],
+  mapBounds: false,
   tooltipData: false,
   detailData: false,
   tooltipPos: [0, 0],
@@ -18,6 +19,7 @@ const Store = createStore({
     locationFilterRadius: 1000
   },
   categoryFilterExpanded: false,
+  mapBoundsFilterActive: true,
   activeAnalysis: null
 });
 

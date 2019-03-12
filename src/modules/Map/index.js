@@ -66,6 +66,16 @@ class Map extends PureComponent {
     this.lastLayerIds = layerIds;
   }
 
+  onMoveEnd() {
+    const { map } = this.state;
+
+    if (!map) {
+      return false;
+    }
+
+    this.props.setMapBounds(map.getBounds());
+  }
+
   render() {
     const {
       mapZoom,
@@ -91,8 +101,9 @@ class Map extends PureComponent {
             onData={map => this.onData(map)}
             fitBounds={districtBounds}
             maxBounds={mapConfig.maxBounds}
+            onMoveEnd={() => this.onMoveEnd()}
           >
-            <Route exact path={['/', '/filter/:id']} component={FilterView} />
+            <Route exact path={['/', '/filter/:id', '/list']} component={FilterView} />
             <Route path="/analysis" component={AnalysisView} />
             <Tooltip />
           </MapGL>

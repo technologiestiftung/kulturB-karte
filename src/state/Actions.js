@@ -180,6 +180,10 @@ const setActiveAnalysis = (state, activeAnalysis) => ({
   activeAnalysis
 });
 
+const setMapBounds = (state, mapBounds) => ({
+  mapBounds
+});
+
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
@@ -195,5 +199,6 @@ export default Store => ({
   setDistrictFilter,
   setLocationFilterCoords,
   setLocationFilterRadius,
-  setActiveAnalysis
+  setActiveAnalysis,
+  setMapBounds,
 });

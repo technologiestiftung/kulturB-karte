@@ -1,6 +1,7 @@
 import pointInPolygon from '@turf/boolean-point-in-polygon';
 import turfDistance from '@turf/distance';
 import turfBbox from '@turf/bbox';
+import turfBboxPolygon from '@turf/bbox-polygon';
 import { scaleOrdinal } from 'd3-scale';
 import museumIcon from '@material-ui/icons/AccountBalance';
 import libraryIcon from '@material-ui/icons/LocalLibrary';
@@ -16,6 +17,10 @@ import memorialIcon from '@material-ui/icons/Business';
 import { getPolygonFeature } from '~/modules/Map/MapUtils';
 
 const colorScale = scaleOrdinal().range(config.colors);
+
+const mapboxToTurfBoundingBox = bounds => (
+  [bounds._sw.lng, bounds._sw.lat, bounds._ne.lng, bounds._ne.lat] // eslint-disable-line
+);
 
 export const filterCategories = (data, categoryFilter) => {
   const features = data.features
@@ -44,6 +49,18 @@ export const filterLocation = (data, center, radius) => {
 
   const polygon = getPolygonFeature(center, radius);
   const features = data.features.filter(feat => pointInPolygon(feat.geometry.coordinates, polygon));
+  return Object.assign({}, data, { features });
+};
+
+export const filterMapBounds = (data, bounds) => {
+  if (!bounds) {
+    return data;
+  }
+
+  const bbox = mapboxToTurfBoundingBox(bounds);
+  const bboxPolygon = turfBboxPolygon(bbox);
+  const features = data.features.filter(feat => pointInPolygon(feat, bboxPolygon));
+
   return Object.assign({}, data, { features });
 };
 
@@ -96,6 +113,7 @@ export const getIconByCategory = category => (
 export default {
   filterCategories,
   filterDistricts,
+  filterMapBounds,
   getNearbyVenues,
   getDistrictBounds,
   getColorByCategory,

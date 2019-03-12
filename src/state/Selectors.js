@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import {
   filterCategories,
   filterDistricts,
+  filterMapBounds,
   getNearbyVenues,
   getDistrictBounds,
   filterLocation
@@ -14,6 +15,10 @@ const additionalDataSelector = state => state.additionalData;
 const detailDataSelector = state => state.detailData;
 const districtDataSelector = state => state.additionalData.districts;
 const districtFilterSelector = state => state.filter.districtFilter;
+const mapBoundsSelector = state => state.mapBounds;
+const mapBoundsFilterActiveSelector = state => state.mapBoundsFilterActive;
+
+const geojsonToArray = geojson => geojson.features.map(d => d.properties);
 
 export const filteredDataSelector = createSelector(
   [dataSelector, additionalDataSelector, filterSelector],
@@ -22,9 +27,30 @@ export const filteredDataSelector = createSelector(
 
     filteredData = filterCategories(filteredData, filter.categoryFilter);
     filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
-    filteredData = filterLocation(filteredData, filter.locationFilterCoords, filter.locationFilterRadius);
+    filteredData = filterLocation(
+      filteredData,
+      filter.locationFilterCoords,
+      filter.locationFilterRadius
+    );
 
     return filteredData;
+  }
+);
+
+export const filteredListDataSelector = createSelector(
+  [filteredDataSelector, mapBoundsFilterActiveSelector, mapBoundsSelector],
+  (data, mapBoundsFilterActive, mapBounds) => {
+    if (!data) {
+      return [];
+    }
+
+    let filteredData = data;
+
+    if (mapBoundsFilterActive) {
+      filteredData = filterMapBounds(filteredData, mapBounds);
+    }
+
+    return geojsonToArray(filteredData);
   }
 );
 
@@ -97,7 +123,7 @@ export const dataAsArraySelector = createSelector(
       return [];
     }
 
-    return data.features.map(d => d.properties);
+    return geojsonToArray(data);
   }
 );
 
@@ -106,4 +132,5 @@ export default {
   allCategoriesSelector,
   enrichedDetailDataSelector,
   dataAsArraySelector,
+  filteredListDataSelector,
 };

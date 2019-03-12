@@ -31,7 +31,7 @@ class Menu extends PureComponent {
       <MenuWrapper>
         <MenuItem exact to="/">Filter</MenuItem>
         <MenuItem exact to="/analysis">Analyse</MenuItem>
-        { /* <MenuItem exact to="/list">Liste</MenuItem> */ }
+        <MenuItem exact to="/list">Liste</MenuItem>
       </MenuWrapper>
     );
   }
