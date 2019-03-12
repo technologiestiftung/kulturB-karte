@@ -12,6 +12,7 @@ import FilterView from './MapViews/FilterView';
 import AnalysisView from './MapViews/AnalysisView';
 import Tooltip from './Tooltip';
 import MapDetailCard from './MapDetailCard';
+import BoundingBoxToggle from './Controls/BoundingBoxToggle';
 
 
 const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer', 'LocationFilterLayer'];
@@ -104,6 +105,7 @@ class Map extends PureComponent {
             onMoveEnd={() => this.onMoveEnd()}
           >
             <Route exact path={['/', '/filter/:id', '/list']} component={FilterView} />
+            <Route path="/list" component={BoundingBoxToggle} />
             <Route path="/analysis" component={AnalysisView} />
             <Tooltip />
           </MapGL>

@@ -18,7 +18,7 @@ class SidebarList extends PureComponent {
 
     return (
       <Fragment>
-        <SidebarTitle>Liste</SidebarTitle>
+        <SidebarTitle><strong>{data.length}</strong> Kulturorte gefunden.</SidebarTitle>
         <Sorter />
         <ListItems>
           {data.map(d => (

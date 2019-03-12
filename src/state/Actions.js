@@ -188,6 +188,10 @@ const setListSorting = (state, listSorting) => ({
   listSorting
 });
 
+const toggleMapBoundsFilter = state => ({
+  mapBoundsFilterActive: !state.mapBoundsFilterActive
+});
+
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
@@ -206,4 +210,5 @@ export default Store => ({
   setActiveAnalysis,
   setMapBounds,
   setListSorting,
+  toggleMapBoundsFilter,
 });

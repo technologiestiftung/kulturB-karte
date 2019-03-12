@@ -1,7 +1,15 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'unistore/react';
+import styled from 'styled-components';
 
 import Actions from '~/state/Actions';
+import Select from '~/components/Select';
+
+import SidebarItemTitle from '../SidebarItemTitle';
+
+const StyledSelect = styled(Select)`
+  margin-bottom: ${props => props.theme.margin[0]};
+`;
 
 class Sorter extends PureComponent {
   handleChange = (evt) => {
@@ -11,10 +19,11 @@ class Sorter extends PureComponent {
   render() {
     return (
       <div>
-        <select onChange={this.handleChange} value={this.props.listSorting}>
+        <SidebarItemTitle text="Liste sortieren" />
+        <StyledSelect onChange={this.handleChange} value={this.props.listSorting}>
           <option value="name">Name</option>
           <option value="mainCategory">Kategorie</option>
-        </select>
+        </StyledSelect>
       </div>
     );
   }
