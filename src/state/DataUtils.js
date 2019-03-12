@@ -64,7 +64,31 @@ export const filterMapBounds = (data, bounds) => {
   return Object.assign({}, data, { features });
 };
 
-export const sortData = (data, sortBy) => data.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
+export const sortData = (data, sortBy) => data.sort((a, b) => {
+  const aVal = a[sortBy];
+  const bVal = b[sortBy];
+
+  switch (typeof aVal) {
+    case 'string':
+      return aVal.localeCompare(bVal);
+    default:
+      return aVal - bVal;
+  }
+});
+
+export const addDistanceProperty = (data, location) => {
+  if (!data || !location || !location.length) {
+    return data;
+  }
+
+  const features = data.features.map((feat) => {
+    const distance = turfDistance(location, feat);
+    const properties = Object.assign(feat.properties, { distance });
+    return Object.assign(feat, { properties });
+  });
+
+  return Object.assign(data, { features });
+};
 
 export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
   if (!data || !detailData) {
@@ -75,11 +99,11 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
     .filter(feat => feat.properties.id !== detailData.id)
     .map((feat) => {
       const res = Object.assign({}, feat);
-        res.properties.distance = turfDistance(detailData.location, feat);
+        res.properties.detailDistance = turfDistance(detailData.location, feat);
         return res;
       })
-    .filter(feat => feat.properties.distance < maxDistance)
-    .sort((a, b) => a.properties.distance - b.properties.distance)
+    .filter(feat => feat.properties.detailDistance < maxDistance)
+    .sort((a, b) => a.properties.detailDistance - b.properties.detailDistance)
     .slice(0, 3)
     .map(feat => feat.properties);
 

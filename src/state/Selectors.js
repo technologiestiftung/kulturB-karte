@@ -7,7 +7,8 @@ import {
   getNearbyVenues,
   getDistrictBounds,
   filterLocation,
-  sortData
+  sortData,
+  addDistanceProperty
 } from './DataUtils';
 
 const dataSelector = state => state.data;
@@ -16,14 +17,24 @@ const additionalDataSelector = state => state.additionalData;
 const detailDataSelector = state => state.detailData;
 const districtDataSelector = state => state.additionalData.districts;
 const districtFilterSelector = state => state.filter.districtFilter;
+const locationFilterCoordsSelector = state => state.filter.locationFilterCoords;
 const listSortingSelector = state => state.listSorting;
 const mapBoundsSelector = state => state.mapBounds;
 const mapBoundsFilterActiveSelector = state => state.mapBoundsFilterActive;
 
 const geojsonToArray = geojson => geojson.features.map(d => d.properties);
 
+export const enrichedDataSelector = createSelector(
+  [dataSelector, locationFilterCoordsSelector],
+  (data, locationFilterCoords) => {
+    let enrichedData = data;
+    enrichedData = addDistanceProperty(enrichedData, locationFilterCoords);
+    return enrichedData;
+  }
+);
+
 export const filteredDataSelector = createSelector(
-  [dataSelector, additionalDataSelector, filterSelector],
+  [enrichedDataSelector, additionalDataSelector, filterSelector],
   (data, additionalData, filter) => {
     let filteredData = data;
 

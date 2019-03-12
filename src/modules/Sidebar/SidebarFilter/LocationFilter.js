@@ -95,6 +95,7 @@ class SearchFilter extends PureComponent {
       .then((res) => {
         this.props.setLocationFilterCoords([res.lat, res.lon]);
         this.props.setMapView({ center: [res.lat, res.lon], zoom: 12 });
+        this.props.setListSorting('distance');
       });
   }
 
@@ -108,6 +109,7 @@ class SearchFilter extends PureComponent {
 
     this.props.setLocationFilterCoords([]);
     this.props.setLocationFilterRadius(1000);
+    this.props.setListSorting('name');
 
     this.setState({
       streetOptions: [],
