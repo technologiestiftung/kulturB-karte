@@ -7,6 +7,7 @@ import { filteredListDataSelector } from '~/state/Selectors';
 import CardCompact from '~/components/Card/CardCompact';
 
 import SidebarTitle from '../SidebarTitle';
+import Sorter from './Sorter';
 
 const ListItems = styled.div``;
 
@@ -14,10 +15,12 @@ const ListItems = styled.div``;
 class SidebarList extends PureComponent {
   render() {
     const { data } = this.props;
+    console.log(data);
 
     return (
       <Fragment>
         <SidebarTitle>Liste</SidebarTitle>
+        <Sorter />
         <ListItems>
           {data.map(d => <CardCompact data={d} />)}
         </ListItems>

@@ -20,6 +20,7 @@ const Store = createStore({
   },
   categoryFilterExpanded: false,
   mapBoundsFilterActive: true,
+  listSorting: 'name',
   activeAnalysis: null
 });
 

@@ -64,6 +64,8 @@ export const filterMapBounds = (data, bounds) => {
   return Object.assign({}, data, { features });
 };
 
+export const sortData = (data, sortBy) => data.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
+
 export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
   if (!data || !detailData) {
     return [];

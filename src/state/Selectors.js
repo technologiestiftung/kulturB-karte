@@ -6,7 +6,8 @@ import {
   filterMapBounds,
   getNearbyVenues,
   getDistrictBounds,
-  filterLocation
+  filterLocation,
+  sortData
 } from './DataUtils';
 
 const dataSelector = state => state.data;
@@ -15,6 +16,7 @@ const additionalDataSelector = state => state.additionalData;
 const detailDataSelector = state => state.detailData;
 const districtDataSelector = state => state.additionalData.districts;
 const districtFilterSelector = state => state.filter.districtFilter;
+const listSortingSelector = state => state.listSorting;
 const mapBoundsSelector = state => state.mapBounds;
 const mapBoundsFilterActiveSelector = state => state.mapBoundsFilterActive;
 
@@ -38,8 +40,8 @@ export const filteredDataSelector = createSelector(
 );
 
 export const filteredListDataSelector = createSelector(
-  [filteredDataSelector, mapBoundsFilterActiveSelector, mapBoundsSelector],
-  (data, mapBoundsFilterActive, mapBounds) => {
+  [filteredDataSelector, mapBoundsFilterActiveSelector, mapBoundsSelector, listSortingSelector],
+  (data, mapBoundsFilterActive, mapBounds, sortBy) => {
     if (!data) {
       return [];
     }
@@ -50,7 +52,10 @@ export const filteredListDataSelector = createSelector(
       filteredData = filterMapBounds(filteredData, mapBounds);
     }
 
-    return geojsonToArray(filteredData);
+    filteredData = geojsonToArray(filteredData);
+    filteredData = sortData(filteredData, sortBy);
+
+    return filteredData;
   }
 );
 
