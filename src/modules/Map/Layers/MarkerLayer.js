@@ -39,7 +39,7 @@ class MarkerLayer extends PureComponent {
     }, 10);
   }
 
-  handleClick(evt, { geometry: { coordinates } = [], properties = {} }) {
+  handleClick(evt, { properties = {} }) {
     // where do we set the coordinates now?
     // this.props.setMapView({ center: coordinates, zoom: 14 });
     evt.originalEvent.preventDefault();

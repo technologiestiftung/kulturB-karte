@@ -46,7 +46,10 @@ class DistrictVis extends PureComponent {
       .map(d => ({
         ...d,
         perPop: (d.items.length / additionalData.population) * 100000,
-        perPopBerlin: (dataBerlin.find(db => db.category === d.category).items.length / additionalDataBerlin.population) * 100000
+        perPopBerlin: (
+          dataBerlin
+            .find(db => db.category === d.category).items.length / additionalDataBerlin.population
+          ) * 100000
       }));
 
     return (

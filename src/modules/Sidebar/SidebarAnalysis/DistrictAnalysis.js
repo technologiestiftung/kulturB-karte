@@ -14,11 +14,11 @@ const CheckboxWrapper = styled.div`
   display: flex;
 `;
 
-const Checkbox = styled.input.attrs({
-  type: 'checkbox'
-})`
-  margin-right: 8px;
-`;
+// const Checkbox = styled.input.attrs({
+//   type: 'checkbox'
+// })`
+//   margin-right: 8px;
+// `;
 
 class DistrictAnalysis extends PureComponent {
   onToggle(activeAnalysis) {
@@ -60,7 +60,7 @@ class DistrictAnalysis extends PureComponent {
 }
 
 export default connect(state => ({
-  activeAnalysis: 'districts', //state.activeAnalysis,
+  activeAnalysis: 'districts', // state.activeAnalysis,
   activeDistrict: state.filter.districtFilter,
   filteredData: filteredDistrictDataSelector(state),
   data: state.data,
