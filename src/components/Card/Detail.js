@@ -14,7 +14,7 @@ const DetailCardWrapper = styled(CardWrapper)`
   margin-bottom: ${props => props.theme.margin[2]};
   position: absolute;
   z-index: 9000;
-  top: 20px;
+  top: 15px;
   left: 15px;
   width: 300px;
 `;
