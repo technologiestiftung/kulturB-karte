@@ -18,7 +18,8 @@
   "map": {
     "flyToOptions": {
       "speed": 0.8
-    }
+    },
+    "style": "https://maps.tilehosting.com/styles/streets/style.json?key=IA1qWrAbZAe6JUuSfLgB"
   },
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",

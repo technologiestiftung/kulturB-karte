@@ -95,7 +95,7 @@ class Map extends PureComponent {
             zoom={mapZoom}
             center={center}
             bearing={mapConfig.bearing}
-            style="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC" // eslint-disable-line
+            style={config.map.style} // eslint-disable-line
             containerStyle={{ height: '100%', width: '100%' }}
             onStyleLoad={map => this.onStyleLoad(map)}
             flyToOptions={config.map.flyToOptions}
