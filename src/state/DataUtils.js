@@ -3,6 +3,7 @@ import turfDistance from '@turf/distance';
 import turfBbox from '@turf/bbox';
 import turfBboxPolygon from '@turf/bbox-polygon';
 import { scaleOrdinal } from 'd3-scale';
+import get from 'lodash.get';
 import museumIcon from '@material-ui/icons/AccountBalance';
 import libraryIcon from '@material-ui/icons/LocalLibrary';
 import theaterIcon from '~/../public/images/icons/theater.svg';
@@ -22,72 +23,74 @@ const mapboxToTurfBoundingBox = bounds => (
   [bounds._sw.lng, bounds._sw.lat, bounds._ne.lng, bounds._ne.lat] // eslint-disable-line
 );
 
-export const filterCategories = (data, categoryFilter) => {
-  const features = data.features
-    .filter(feat => categoryFilter.some(cat => feat.properties.tags.includes(cat)));
+export const filterCategories = (props, categoryFilter) => {
+  if (!categoryFilter || !props) {
+    return false;
+  }
 
-  return Object.assign({}, data, { features });
+  return !categoryFilter.some(cat => props.tags.includes(cat));
 };
 
-export const filterDistricts = (data, districtFilter, districts) => {
+export const filterDistricts = (feature, districtFilter, districts) => {
   if (!districts || !districtFilter) {
-    return data;
+    return false;
   }
 
   const polygon = districts.features
     .find(feat => feat.properties.Gemeinde_schluessel === districtFilter);
 
-  const filteredFeatures = data.features.filter(feat => pointInPolygon(feat, polygon));
-
-  return Object.assign({}, data, { features: filteredFeatures });
+  return !pointInPolygon(feature, polygon);
 };
 
-export const filterLocation = (data, center, radius) => {
+export const filterLocation = (feat, center, radius) => {
   if (!center || !center.length) {
-    return data;
+    return false;
   }
 
-  const polygon = getPolygonFeature(center, radius);
-  const features = data.features.filter(feat => pointInPolygon(feat.geometry.coordinates, polygon));
-  return Object.assign({}, data, { features });
+  const polygon = getPolygonFeature(center, radius, 10);
+  return !pointInPolygon(feat.geometry.coordinates, polygon);
 };
 
-export const filterMapBounds = (data, bounds) => {
-  if (!bounds) {
-    return data;
+export const filterMapBounds = (feat, bounds) => {
+  if (!bounds || !feat) {
+    return false;
   }
 
   const bbox = mapboxToTurfBoundingBox(bounds);
   const bboxPolygon = turfBboxPolygon(bbox);
-  const features = data.features.filter(feat => pointInPolygon(feat, bboxPolygon));
-
-  return Object.assign({}, data, { features });
+  return !pointInPolygon(feat, bboxPolygon);
 };
 
-export const sortData = (data, sortBy) => data.sort((a, b) => {
-  const aVal = a[sortBy];
-  const bVal = b[sortBy];
+export const sortData = (sortBy, direction = 'asc') => (aObj, bObj) => {
+  const a = get(aObj, sortBy);
+  const b = get(bObj, sortBy);
+  const type = typeof a;
 
-  switch (typeof aVal) {
-    case 'string':
-      return aVal.localeCompare(bVal);
-    default:
-      return aVal - bVal;
-  }
-});
-
-export const addDistanceProperty = (data, location) => {
-  if (!data || !location || !location.length) {
-    return data;
+  if (type === 'string' && direction === 'asc') {
+    return a.localeCompare(b);
   }
 
-  const features = data.features.map((feat) => {
-    const distance = turfDistance(location, feat);
-    const properties = Object.assign(feat.properties, { distance });
-    return Object.assign(feat, { properties });
-  });
+  if (type === 'string' && direction === 'dec') {
+    return b.localeCompare(a);
+  }
 
-  return Object.assign(data, { features });
+  if (type === 'boolean' && direction === 'asc') {
+    return (a === b) ? 0 : a ? 1 : -1; // eslint-disable-line
+  }
+
+  if (type === 'boolean' && direction === 'dec') {
+    return (a === b) ? 0 : a ? -1 : 1; // eslint-disable-line
+  }
+
+  return direction === 'asc' ? a - b : b - a;
+};
+
+export const getDistance = (feat, location) => {
+  if (!feat || !location || !location.length) {
+    return false;
+  }
+
+  return turfDistance(location, feat);
 };
 
 export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
@@ -98,10 +101,9 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
   const nearby = data.features
     .filter(feat => feat.properties.id !== detailData.id)
     .map((feat) => {
-      const res = Object.assign({}, feat);
-        res.properties.detailDistance = turfDistance(detailData.location, feat);
-        return res;
-      })
+      feat.properties.detailDistance = turfDistance(detailData.location, feat);
+      return feat;
+    })
     .filter(feat => feat.properties.detailDistance < maxDistance)
     .sort((a, b) => a.properties.detailDistance - b.properties.detailDistance)
     .slice(0, 3)

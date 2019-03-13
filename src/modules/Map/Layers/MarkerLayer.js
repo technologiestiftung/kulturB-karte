@@ -4,8 +4,6 @@ import Actions from '~/state/Actions';
 import { Layer, Feature } from 'react-mapbox-gl';
 import idx from 'idx';
 
-import { getColorByCategory } from '~/state/DataUtils';
-
 let clickTimeout = null;
 
 function getPaintProps(props) {
@@ -19,8 +17,13 @@ function getPaintProps(props) {
       ['==', ['string', ['get', 'name']], detailId], 10,
       radius
     ],
-    'circle-color': ['get', 'color'],
-    'circle-stroke-color': '#fff',
+    'circle-color': [
+      'case',
+      ['==', ['string', ['get', 'name']], detailId], ['get', 'color'],
+      ['get', 'isFiltered'], '#ddd',
+      ['get', 'color']
+    ],
+    'circle-stroke-color': '#777',
     'circle-stroke-width': [
       'case',
       ['==', ['string', ['get', 'name']], tooltipId], 2,
@@ -63,8 +66,6 @@ class MarkerLayer extends PureComponent {
   render() {
     const { data } = this.props;
     const paintProps = getPaintProps(this.props);
-
-    data.features.forEach((feat) => {feat.properties.color = getColorByCategory(feat.properties.mainCategory)}); // eslint-disable-line
 
     return (
       <Layer
