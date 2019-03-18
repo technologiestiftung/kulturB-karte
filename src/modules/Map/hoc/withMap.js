@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapConsumer } from './MapContext';
 
-const withMap = Component => ({ props }) => (
+const withMap = Component => props => (
   <MapConsumer>
     {map => <Component map={map} {...props} />}
   </MapConsumer>

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ControlPositioner = styled.div`
@@ -11,6 +12,14 @@ const ControlPositioner = styled.div`
 `;
 
 class ControlContainer extends PureComponent {
+  static defaultProps = {
+    position: 'top-left'
+  }
+
+  propTypes = {
+    position: PropTypes.string,
+  }
+
   render() {
     const { position, className, children } = this.props;
 

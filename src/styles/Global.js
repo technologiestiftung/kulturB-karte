@@ -17,4 +17,14 @@ export default createGlobalStyle`
     font-family: 'Roboto Slab', serif;
     color: #222;
   }
+
+  body, html, #root {
+    height: 100%;
+    width: 100%;
+  }
+
+  #root {
+    position: fixed;
+    overflow: hidden;
+  }
 `;

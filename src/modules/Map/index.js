@@ -13,6 +13,7 @@ import AnalysisView from './MapViews/AnalysisView';
 import Tooltip from './Tooltip';
 import MapDetailCard from './MapDetailCard';
 import BoundingBoxToggle from './Controls/BoundingBoxToggle';
+import ZoomControl from './Controls/ZoomControl';
 
 const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer', 'LocationFilterLayer'];
 
@@ -54,6 +55,8 @@ class Map extends PureComponent {
   onStyleLoad(map) {
     map.resize();
     window.map = map;
+    console.log(map);
+
     this.setState({ isLoading: false, map });
   }
 
@@ -108,6 +111,7 @@ class Map extends PureComponent {
             <Route path="/list" component={BoundingBoxToggle} />
             <Route path="/analysis" component={AnalysisView} />
             <Tooltip />
+            <ZoomControl position="bottom-left" />
           </MapGL>
         </MapProvider>
         <MapDetailCard />

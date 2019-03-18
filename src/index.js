@@ -18,4 +18,5 @@ ReactDOM.render(
   root
 );
 
+root.id = 'root';
 document.body.appendChild(root);

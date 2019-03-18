@@ -6,7 +6,6 @@ import { filteredAnalysisDataSelector } from '~/state/Selectors';
 
 import DistrictsLayer from '../Layers/DistrictsLayer';
 import MarkerLayer from '../Layers/MarkerLayer';
-// import LorLayer from '../Layers/LorLayer';
 
 class AnalysisView extends PureComponent {
   componentDidMount() {
@@ -19,7 +18,6 @@ class AnalysisView extends PureComponent {
     return (
       <Fragment>
         <DistrictsLayer />
-        {/* <LorLayer /> */}
         <MarkerLayer data={data} />
       </Fragment>
     );

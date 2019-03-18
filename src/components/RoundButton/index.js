@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.button`
-  width: 36px;
-  height: 36px;
+  width: ${props => props.size || 36}px;
+  height: ${props => props.size || 36}px;
   background-color: #000;
   color: white;
   transition: background-color .3s;

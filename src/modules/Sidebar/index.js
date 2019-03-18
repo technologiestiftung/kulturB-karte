@@ -14,10 +14,11 @@ const SidebarWrapper = styled.div`
   box-shadow: ${props => (props.isVisible ? props.theme.boxShadow : 'none')};
   z-index: 1000;
   position: absolute;
-  height: 100vh;
+  height: 100%;
   transform: ${props => (props.isVisible ? 'translate3d(0, 0, 0)' : 'translate3d(-100%, 0, 0)')};
   transition: transform .5s, box-shadow .5s;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const SidebarContent = styled.div`

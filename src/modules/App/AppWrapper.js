@@ -10,7 +10,7 @@ import Theme from '~/styles/DefaultTheme';
 
 const StyledAppWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   position: relative;
   display: flex;
   font-family: ${props => props.theme.fonts.sans};
