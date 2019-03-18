@@ -9,8 +9,7 @@ const SideBarItemTitleWrapper = styled.div`
 `;
 
 const SideBarItemTitle = styled.div`
-  font-family: ${props => props.theme.fonts.mono};
-  text-transform: uppercase;
+  font-family: ${props => props.theme.fonts.sans};
   font-size: ${props => props.theme.fontSizes[2]};
   font-weight: 700;
 `;

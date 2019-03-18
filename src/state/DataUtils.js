@@ -1,7 +1,9 @@
 import pointInPolygon from '@turf/boolean-point-in-polygon';
 import turfDistance from '@turf/distance';
 import turfBbox from '@turf/bbox';
+import turfBboxPolygon from '@turf/bbox-polygon';
 import { scaleOrdinal } from 'd3-scale';
+import get from 'lodash.get';
 import museumIcon from '@material-ui/icons/AccountBalance';
 import libraryIcon from '@material-ui/icons/LocalLibrary';
 import theaterIcon from '~/../public/images/icons/theater.svg';
@@ -17,34 +19,78 @@ import { getPolygonFeature } from '~/modules/Map/MapUtils';
 
 const colorScale = scaleOrdinal().range(config.colors);
 
-export const filterCategories = (data, categoryFilter) => {
-  const features = data.features
-    .filter(feat => categoryFilter.some(cat => feat.properties.tags.includes(cat)));
+const mapboxToTurfBoundingBox = bounds => (
+  [bounds._sw.lng, bounds._sw.lat, bounds._ne.lng, bounds._ne.lat] // eslint-disable-line
+);
 
-  return Object.assign({}, data, { features });
+export const filterCategories = (props, categoryFilter) => {
+  if (!categoryFilter || !props) {
+    return false;
+  }
+
+  return !categoryFilter.some(cat => props.tags.includes(cat));
 };
 
-export const filterDistricts = (data, districtFilter, districts) => {
+export const filterDistricts = (feature, districtFilter, districts) => {
   if (!districts || !districtFilter) {
-    return data;
+    return false;
   }
 
   const polygon = districts.features
     .find(feat => feat.properties.Gemeinde_schluessel === districtFilter);
 
-  const filteredFeatures = data.features.filter(feat => pointInPolygon(feat, polygon));
-
-  return Object.assign({}, data, { features: filteredFeatures });
+  return !pointInPolygon(feature, polygon);
 };
 
-export const filterLocation = (data, center, radius) => {
+export const filterLocation = (feat, center, radius) => {
   if (!center || !center.length) {
-    return data;
+    return false;
   }
 
-  const polygon = getPolygonFeature(center, radius);
-  const features = data.features.filter(feat => pointInPolygon(feat.geometry.coordinates, polygon));
-  return Object.assign({}, data, { features });
+  const polygon = getPolygonFeature(center, radius, 10);
+  return !pointInPolygon(feat.geometry.coordinates, polygon);
+};
+
+export const filterMapBounds = (feat, bounds) => {
+  if (!bounds || !feat) {
+    return false;
+  }
+
+  const bbox = mapboxToTurfBoundingBox(bounds);
+  const bboxPolygon = turfBboxPolygon(bbox);
+  return !pointInPolygon(feat, bboxPolygon);
+};
+
+export const sortData = (sortBy, direction = 'asc') => (aObj, bObj) => {
+  const a = get(aObj, sortBy);
+  const b = get(bObj, sortBy);
+  const type = typeof a;
+
+  if (type === 'string' && direction === 'asc') {
+    return a.localeCompare(b);
+  }
+
+  if (type === 'string' && direction === 'dec') {
+    return b.localeCompare(a);
+  }
+
+  if (type === 'boolean' && direction === 'asc') {
+    return (a === b) ? 0 : a ? 1 : -1; // eslint-disable-line
+  }
+
+  if (type === 'boolean' && direction === 'dec') {
+    return (a === b) ? 0 : a ? -1 : 1; // eslint-disable-line
+  }
+
+  return direction === 'asc' ? a - b : b - a;
+};
+
+export const getDistance = (feat, location) => {
+  if (!feat || !location || !location.length) {
+    return false;
+  }
+
+  return turfDistance(location, feat);
 };
 
 export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
@@ -55,12 +101,11 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
   const nearby = data.features
     .filter(feat => feat.properties.id !== detailData.id)
     .map((feat) => {
-      const res = Object.assign({}, feat);
-        res.properties.distance = turfDistance(detailData.location, feat);
-        return res;
-      })
-    .filter(feat => feat.properties.distance < maxDistance)
-    .sort((a, b) => a.properties.distance - b.properties.distance)
+      feat.properties.detailDistance = turfDistance(detailData.location, feat);
+      return feat;
+    })
+    .filter(feat => feat.properties.detailDistance < maxDistance)
+    .sort((a, b) => a.properties.detailDistance - b.properties.detailDistance)
     .slice(0, 3)
     .map(feat => feat.properties);
 
@@ -96,6 +141,7 @@ export const getIconByCategory = category => (
 export default {
   filterCategories,
   filterDistricts,
+  filterMapBounds,
   getNearbyVenues,
   getDistrictBounds,
   getColorByCategory,

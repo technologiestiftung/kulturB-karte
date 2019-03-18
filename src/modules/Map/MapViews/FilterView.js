@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'unistore/react';
-import { ZoomControl } from 'react-mapbox-gl';
 
 import Actions from '~/state/Actions';
 import { filteredDataSelector } from '~/state/Selectors';
@@ -19,7 +18,6 @@ class FilterView extends PureComponent {
 
     return (
       <Fragment>
-        <ZoomControl />
         <DistrictLayer />
         <MarkerLayer data={data} />
         <LocationFilterLayer />

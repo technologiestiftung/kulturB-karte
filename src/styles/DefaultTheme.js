@@ -7,10 +7,13 @@ export default {
     mono: '"Roboto Mono", monospace'
   },
   fontSizes: [12, 13, 15, 19, 24, 32, 48, 64].map(px),
-  boxShadow: '0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16)',
+  boxShadow: '0 0 50px rgba(0, 0, 0, 0.2)',
   borderRadius: '4px',
   colors: {
-    primary: '#0030ff'
+    primary: '#e60005',
+    secondary: '#1e3791',
+    lightgrey: '#f5f5f5',
+    midgrey: '#d8d8d8'
   },
   margin: [10, 15, 25].map(px),
   padding: [5, 10, 15].map(px)

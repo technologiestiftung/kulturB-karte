@@ -30,7 +30,7 @@ const NearbyCard = styled.div`
   cursor: pointer;
 
   &:hover {
-    background: #f0f0f0;
+    background: ${props => props.theme.colors.lightgrey};
   }
 `;
 
@@ -54,8 +54,8 @@ class CardNearby extends PureComponent {
           <NearbyCard onClick={() => this.handleNearbyClick(d)} key={`NearbyCard__${d.id}`}>
             <CardHeader data={d} />
             <CardDistance>
-              {Math.floor(d.distance * 1000)}
-              Meter entfernt
+              {Math.floor(d.detailDistance * 1000)}
+              <span> Meter entfernt</span>
             </CardDistance>
           </NearbyCard>
         ))}

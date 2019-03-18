@@ -5,7 +5,6 @@ import Select from 'react-select';
 
 import { dataAsArraySelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
-import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
 
 const SearchFilterWrapper = styled.div`
   display: block;
@@ -31,16 +30,13 @@ class SearchFilter extends PureComponent {
   render() {
     return (
       <SearchFilterWrapper>
-        <SidebarItemTitle
-          text="Namen suchen"
-        />
         <Select
           ref={(ref) => { this.select = ref; }}
           options={this.props.options}
           getOptionValue={option => (option.name)}
           getOptionLabel={option => (option.name)}
           onChange={item => this.onChange(item)}
-          placeholder="Namen eingeben ..."
+          placeholder="Nach einer Einrichtung suchen..."
           classNamePrefix="rs"
           isClearable
         />

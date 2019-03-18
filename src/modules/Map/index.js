@@ -12,9 +12,11 @@ import FilterView from './MapViews/FilterView';
 import AnalysisView from './MapViews/AnalysisView';
 import Tooltip from './Tooltip';
 import MapDetailCard from './MapDetailCard';
-
+import BoundingBoxToggle from './Controls/BoundingBoxToggle';
+import ZoomControl from './Controls/ZoomControl';
 
 const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer', 'LocationFilterLayer'];
+
 const mapConfig = {
   minZoom: 8,
   maxZoom: 15,
@@ -53,6 +55,8 @@ class Map extends PureComponent {
   onStyleLoad(map) {
     map.resize();
     window.map = map;
+    console.log(map);
+
     this.setState({ isLoading: false, map });
   }
 
@@ -64,6 +68,16 @@ class Map extends PureComponent {
     }
 
     this.lastLayerIds = layerIds;
+  }
+
+  onMoveEnd() {
+    const { map } = this.state;
+
+    if (!map) {
+      return false;
+    }
+
+    this.props.setMapBounds(map.getBounds());
   }
 
   render() {
@@ -84,17 +98,20 @@ class Map extends PureComponent {
             zoom={mapZoom}
             center={center}
             bearing={mapConfig.bearing}
-            style="https://maps.tilehosting.com/styles/positron/style.json?key=xJPXLulJcrAnFUN6VtSC" // eslint-disable-line
+            style={config.map.style} // eslint-disable-line
             containerStyle={{ height: '100%', width: '100%' }}
             onStyleLoad={map => this.onStyleLoad(map)}
             flyToOptions={config.map.flyToOptions}
             onData={map => this.onData(map)}
             fitBounds={districtBounds}
             maxBounds={mapConfig.maxBounds}
+            onMoveEnd={() => this.onMoveEnd()}
           >
-            <Route exact path={['/', '/filter/:id']} component={FilterView} />
+            <Route exact path={['/', '/filter', '/list']} component={FilterView} />
+            <Route path="/list" component={BoundingBoxToggle} />
             <Route path="/analysis" component={AnalysisView} />
             <Tooltip />
+            <ZoomControl position="bottom-left" />
           </MapGL>
         </MapProvider>
         <MapDetailCard />

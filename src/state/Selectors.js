@@ -3,9 +3,13 @@ import { createSelector } from 'reselect';
 import {
   filterCategories,
   filterDistricts,
+  filterMapBounds,
   getNearbyVenues,
   getDistrictBounds,
-  filterLocation
+  filterLocation,
+  sortData,
+  getDistance,
+  getColorByCategory
 } from './DataUtils';
 
 const dataSelector = state => state.data;
@@ -14,40 +18,105 @@ const additionalDataSelector = state => state.additionalData;
 const detailDataSelector = state => state.detailData;
 const districtDataSelector = state => state.additionalData.districts;
 const districtFilterSelector = state => state.filter.districtFilter;
+const listSortingSelector = state => state.listSorting;
+const mapBoundsSelector = state => state.mapBounds;
+const mapBoundsFilterActiveSelector = state => state.mapBoundsFilterActive;
+
+const geojsonToArray = geojson => geojson.features.map(d => d.properties);
+
+export const enrichedDataSelector = createSelector(
+  [
+    dataSelector,
+    additionalDataSelector,
+    filterSelector,
+    mapBoundsSelector
+  ],
+  (
+    data,
+    additionalData,
+    filter,
+    mapBounds
+  ) => {
+    const features = data.features
+      .map((feat) => {
+        const { properties } = feat;
+
+        properties.categoryFilter = filterCategories(properties, filter.categoryFilter);
+
+        properties.districtFilter = filterDistricts(
+          feat,
+          filter.districtFilter,
+          additionalData.districts
+        );
+
+        properties.locationFilter = filterLocation(
+          feat,
+          filter.locationFilterCoords,
+          filter.locationFilterRadius
+        );
+
+        properties.mapBoundsFilter = filterMapBounds(feat, mapBounds);
+
+        properties.color = getColorByCategory(properties.mainCategory);
+
+        properties.distance = getDistance(feat, filter.locationFilterCoords);
+
+        properties.isFiltered = false;
+
+        feat.properties = properties;
+
+        return feat;
+      });
+
+    return Object.assign({}, data, { features });
+  }
+);
 
 export const filteredDataSelector = createSelector(
-  [dataSelector, additionalDataSelector, filterSelector],
-  (data, additionalData, filter) => {
-    let filteredData = data;
+  [enrichedDataSelector],
+  (data) => {
+    const features = data.features
+      .map((feat) => {
+        feat.properties.isFiltered = (
+          feat.properties.categoryFilter
+          || feat.properties.districtFilter
+          || feat.properties.locationFilter
+        );
 
-    filteredData = filterCategories(filteredData, filter.categoryFilter);
-    filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
-    filteredData = filterLocation(filteredData, filter.locationFilterCoords, filter.locationFilterRadius);
+        return feat;
+      })
+      .sort(sortData('properties.isFiltered', 'dec'));
 
-    return filteredData;
+    return Object.assign({}, data, { features });
+  }
+);
+
+export const filteredListDataSelector = createSelector(
+  [filteredDataSelector, mapBoundsFilterActiveSelector, listSortingSelector],
+  (data, mapBoundsFilterActive, sortBy) => {
+    if (!data) {
+      return [];
+    }
+
+    const features = data.features.filter(feat => (
+      !feat.properties.isFiltered
+      && !(mapBoundsFilterActive && feat.properties.mapBoundsFilter)
+    ));
+
+    return features
+      .map(feat => feat.properties)
+      .sort(sortData(sortBy));
   }
 );
 
 export const filteredAnalysisDataSelector = createSelector(
-  [dataSelector, additionalDataSelector, filterSelector],
-  (data, additionalData, filter) => {
-    let filteredData = data;
+  [enrichedDataSelector, additionalDataSelector, filterSelector],
+  (data) => {
+    const features = data.features.filter(feat => (
+      !feat.properties.districtFilter && !feat.properties.categoryFilter
+    ));
 
-    filteredData = filterCategories(data, filter.categoryFilter);
-    filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
-
-    return filteredData;
-  }
-);
-
-export const filteredDistrictDataSelector = createSelector(
-  [dataSelector, additionalDataSelector, filterSelector],
-  (data, additionalData, filter) => {
-    let filteredData = data;
-
-    filteredData = filterDistricts(filteredData, filter.districtFilter, additionalData.districts);
-
-    return filteredData;
+    return Object.assign({}, data, { features });
   }
 );
 
@@ -62,17 +131,25 @@ export const allCategoriesSelector = createSelector(
 );
 
 export const enrichedDetailDataSelector = createSelector(
-  [dataSelector, detailDataSelector],
+  [enrichedDataSelector, detailDataSelector],
   (data, detailData) => {
     if (!detailData) {
       return false;
     }
 
-    const nearby = getNearbyVenues(data, detailData);
+    detailData.nearby = getNearbyVenues(data, detailData);
+    return detailData;
+  }
+);
 
-    return Object.assign({}, detailData, {
-      nearby
-    });
+export const filteredDistrictDataSelector = createSelector(
+  [enrichedDataSelector],
+  (data) => {
+    const features = data.features.filter(feat => (
+      !feat.properties.districtFilter
+    ));
+
+    return Object.assign({}, data, { features });
   }
 );
 
@@ -97,7 +174,7 @@ export const dataAsArraySelector = createSelector(
       return [];
     }
 
-    return data.features.map(d => d.properties);
+    return geojsonToArray(data);
   }
 );
 
@@ -106,4 +183,5 @@ export default {
   allCategoriesSelector,
   enrichedDetailDataSelector,
   dataAsArraySelector,
+  filteredListDataSelector,
 };
