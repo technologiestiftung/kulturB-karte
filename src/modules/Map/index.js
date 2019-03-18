@@ -14,8 +14,8 @@ import Tooltip from './Tooltip';
 import MapDetailCard from './MapDetailCard';
 import BoundingBoxToggle from './Controls/BoundingBoxToggle';
 
-
 const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 'HeatmapLayer', 'LocationFilterLayer'];
+
 const mapConfig = {
   minZoom: 8,
   maxZoom: 15,
@@ -104,7 +104,7 @@ class Map extends PureComponent {
             maxBounds={mapConfig.maxBounds}
             onMoveEnd={() => this.onMoveEnd()}
           >
-            <Route exact path={['/', '/filter/:id', '/list']} component={FilterView} />
+            <Route exact path={['/', '/filter', '/list']} component={FilterView} />
             <Route path="/list" component={BoundingBoxToggle} />
             <Route path="/analysis" component={AnalysisView} />
             <Tooltip />

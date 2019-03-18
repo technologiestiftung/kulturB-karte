@@ -11,7 +11,7 @@ class SidebarFilter extends PureComponent {
     return (
       <Fragment>
         <SidebarTitle>
-          Kultureinrichtungen in Berlin
+          Kultureinrichtungen filtern
         </SidebarTitle>
         <SearchFilter />
         <CategoryFilter />

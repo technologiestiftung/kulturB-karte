@@ -6,6 +6,8 @@ const CheckboxWrapper = styled.div``;
 const Label = styled.label`
   user-select: none;
   cursor: pointer;
+  font-family: ${props => props.theme.fonts.sans};
+  font-weight: 400;
 `;
 
 const Checkbox = styled.input.attrs({

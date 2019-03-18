@@ -8,9 +8,13 @@ const StyledCardWrapper = styled(CardWrapper)`
   margin-bottom: ${props => props.theme.margin[0]};
   padding: ${props => props.theme.padding[0]};
   cursor: pointer;
+  border: 3px solid ${props => props.theme.colors.lightgrey};
+  border-radius: 0;
+  will-change: border-color;
+  transition: border-color .2s;
 
   &:hover {
-    background: ${props => props.theme.colors.lightgrey};
+    border-color: #000;
   }
 `;
 
