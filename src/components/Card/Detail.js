@@ -13,7 +13,7 @@ import CardNearby from './CardNearby';
 const DetailCardWrapper = styled(CardWrapper)`
   position: absolute;
   z-index: 9000;
-  top: 20px;
+  top: 80px;
   right: 5%;
   left: 5%;
   margin: auto;
@@ -24,7 +24,11 @@ const DetailCardWrapper = styled(CardWrapper)`
     right: 20px;
     left: auto;
     width: 300px;
-  } 
+  }
+
+  @media screen and (min-width: 1024px) {
+    top: 110px;
+  }
 `;
 
 const StyledCardHeader = styled(CardHeader)`

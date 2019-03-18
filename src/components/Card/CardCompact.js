@@ -7,14 +7,17 @@ import CardHeader from './CardHeader';
 const StyledCardWrapper = styled(CardWrapper)`
   margin-bottom: ${props => props.theme.margin[0]};
   padding: ${props => props.theme.padding[0]};
+  padding-bottom: ${props => props.theme.margin[0]};
   cursor: pointer;
-  border: 3px solid ${props => props.theme.colors.lightgrey};
+  border-bottom: 2px solid ${props => props.theme.colors.lightgrey};
   border-radius: 0;
-  will-change: border-color;
-  transition: border-color .2s;
+  will-change: border-color, transform;
+  transition: border-color .2s, transform .2s;
 
   &:hover {
-    border-color: #000;
+    border-color: ${props => props.theme.colors.midgrey};
+    transform: translateX(5px);
+    // background: ${props => props.theme.colors.lightgrey};
   }
 `;
 

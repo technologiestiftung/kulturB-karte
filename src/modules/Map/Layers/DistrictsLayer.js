@@ -8,12 +8,12 @@ import { removeLayerAndSource } from '../MapUtils';
 
 function getPaintProps(props) {
   const linePaint = {
-    'line-color': '#777',
-    'line-width': 2,
+    'line-color': '#111',
+    'line-width': 1,
   };
 
   let fillPaint = {
-    'fill-color': '#777',
+    'fill-color': '#111',
     'fill-opacity': 0
   };
 
@@ -22,7 +22,7 @@ function getPaintProps(props) {
       ...fillPaint,
       'fill-opacity': [
         'case',
-        ['!=', ['string', ['get', 'Gemeinde_schluessel']], props.districtFilter.toString()], 0.2,
+        ['!=', ['string', ['get', 'Gemeinde_schluessel']], props.districtFilter.toString()], 0.1,
         0
       ]
     };

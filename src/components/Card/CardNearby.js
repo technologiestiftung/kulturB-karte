@@ -30,7 +30,7 @@ const NearbyCard = styled.div`
   cursor: pointer;
 
   &:hover {
-    background: #f0f0f0;
+    background: ${props => props.theme.colors.lightgrey};
   }
 `;
 

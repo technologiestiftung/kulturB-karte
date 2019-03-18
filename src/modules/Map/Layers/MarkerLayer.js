@@ -23,7 +23,7 @@ function getPaintProps(props) {
       ['get', 'isFiltered'], '#ddd',
       ['get', 'color']
     ],
-    'circle-stroke-color': '#777',
+    'circle-stroke-color': '#fff',
     'circle-stroke-width': [
       'case',
       ['==', ['string', ['get', 'name']], tooltipId], 2,
