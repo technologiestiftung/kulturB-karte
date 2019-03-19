@@ -84,6 +84,8 @@ export const loadEntryData = Store => async (state, detailId) => {
     [data.mainCategory] = data.tags;
 
     return {
+      mapCenter: data.location.coordinates,
+      mapZoom: [Math.max(14, state.mapZoom)],
       detailData: data,
       isLoading: false,
     };

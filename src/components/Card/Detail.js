@@ -42,7 +42,7 @@ const StyledCardBody = styled(CardBody)`
 const CloseButton = styled(RoundButton)`
   position: absolute;
   top: -15px;
-  right: -15px;
+  right: -12px;
 `;
 
 class DetailCard extends PureComponent {
