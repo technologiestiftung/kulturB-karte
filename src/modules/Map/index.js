@@ -55,8 +55,6 @@ class Map extends PureComponent {
   onStyleLoad(map) {
     map.resize();
     window.map = map;
-    console.log(map);
-
     this.setState({ isLoading: false, map });
   }
 
@@ -85,18 +83,16 @@ class Map extends PureComponent {
       mapZoom,
       mapCenter,
       districtBounds,
-      detailData
     } = this.props;
 
     const isLoading = this.props.isLoading || this.state.isLoading;
-    const center = detailData ? detailData.location.coordinates : mapCenter;
 
     return (
       <MapWrapper isLoading={isLoading}>
         <MapProvider value={this.state.map}>
           <MapGL
             zoom={mapZoom}
-            center={center}
+            center={mapCenter}
             bearing={mapConfig.bearing}
             style={config.map.style} // eslint-disable-line
             containerStyle={{ height: '100%', width: '100%' }}
@@ -107,9 +103,9 @@ class Map extends PureComponent {
             maxBounds={mapConfig.maxBounds}
             onMoveEnd={() => this.onMoveEnd()}
           >
-            <Route exact path={['/', '/filter', '/list']} component={FilterView} />
-            <Route path="/list" component={BoundingBoxToggle} />
-            <Route path="/analysis" component={AnalysisView} />
+            <Route exact path={['/', '/suche', '/liste']} component={FilterView} />
+            <Route path="/liste" component={BoundingBoxToggle} />
+            <Route path="/analyse" component={AnalysisView} />
             <Tooltip />
             <ZoomControl position="bottom-left" />
           </MapGL>
@@ -124,5 +120,4 @@ export default withRouter(connect(state => ({
   mapZoom: state.mapZoom,
   mapCenter: state.mapCenter,
   districtBounds: districtBoundsSelector(state),
-  detailData: state.detailData,
 }), Actions)(Map));

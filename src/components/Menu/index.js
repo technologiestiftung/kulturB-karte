@@ -26,12 +26,12 @@ class Menu extends PureComponent {
   render() {
     return (
       <MenuWrapper>
-        <MenuItem exact to="/filter">
+        <MenuItem exact to="/suche">
           <RoundButton>
             <FilterIcon />
           </RoundButton>
         </MenuItem>
-        <MenuItem exact to="/list">
+        <MenuItem exact to="/liste">
           <RoundButton>
             <ListIcon />
           </RoundButton>

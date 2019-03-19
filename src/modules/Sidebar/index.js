@@ -31,15 +31,15 @@ class Sidebar extends PureComponent {
   render() {
     return (
       <Route
-        path={['/analysis', '/list', '/filter']}
+        path={['/analyse', '/liste', '/suche']}
         children={({ match }) => (
           <SidebarWrapper isVisible={match}>
             <SidebarClose />
             <SidebarContent>
               <Switch>
-                <Route path="/filter" component={SidebarFilter} />
-                <Route path="/analysis" component={SidebarAnalysis} />
-                <Route path="/list" component={SidebarList} />
+                <Route path="/suche" component={SidebarFilter} />
+                <Route path="/analyse" component={SidebarAnalysis} />
+                <Route path="/liste" component={SidebarList} />
               </Switch>
             </SidebarContent>
           </SidebarWrapper>
