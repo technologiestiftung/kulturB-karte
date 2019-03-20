@@ -39,7 +39,7 @@ const SliderWrapper = styled.div`
 
   &:hover {
     .sliderinfo {
-      display: ${props => props.disabled ? 'block' : 'none'};
+      display: ${props => (props.disabled ? 'block' : 'none')};
     }
   }
 `;
