@@ -61,6 +61,14 @@ export const filterMapBounds = (feat, bounds) => {
   return !pointInPolygon(feat, bboxPolygon);
 };
 
+export const filterAccessibility = (properties, filter) => {
+  const isWheelChairFiltered = filter.a11yWheelChairFilter && (!properties.accessibility_wheelchair || properties.accessibility_wheelchair === 'no' || properties.accessibility_wheelchair === 'unknown');
+  const isDeafFiltered = filter.a11yDeafFilter;
+  const isBlindFiltered = filter.a11yBlindFilter;
+
+  return isWheelChairFiltered || isDeafFiltered || isBlindFiltered;
+};
+
 export const sortData = (sortBy, direction = 'asc') => (aObj, bObj) => {
   const a = get(aObj, sortBy);
   const b = get(bObj, sortBy);
@@ -141,6 +149,7 @@ export default {
   filterCategories,
   filterDistricts,
   filterMapBounds,
+  filterAccessibility,
   getNearbyVenues,
   getDistrictBounds,
   getColorByCategory,

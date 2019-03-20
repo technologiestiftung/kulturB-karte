@@ -9,7 +9,8 @@ import {
   filterLocation,
   sortData,
   getDistance,
-  getColorByCategory
+  getColorByCategory,
+  filterAccessibility,
 } from './DataUtils';
 
 const dataSelector = state => state.data;
@@ -55,6 +56,8 @@ export const enrichedDataSelector = createSelector(
           filter.locationFilterRadius
         );
 
+        properties.a11yFilter = filterAccessibility(properties, filter);
+
         properties.mapBoundsFilter = filterMapBounds(feat, mapBounds);
 
         properties.color = getColorByCategory(properties.mainCategory);
@@ -81,6 +84,7 @@ export const filteredDataSelector = createSelector(
           feat.properties.categoryFilter
           || feat.properties.districtFilter
           || feat.properties.locationFilter
+          || feat.properties.a11yFilter
         );
 
         return feat;

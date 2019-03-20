@@ -24,6 +24,6 @@
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
     "locations": "/locations",
-    "params": "?limit=0&fields=[\"_id\", \"name\", \"address\", \"location\", \"tags\", \"logo\"]"
+    "params": "?limit=0&fields=[\"_id\", \"name\", \"address\", \"location\", \"tags\", \"logo\", \"accessibility_wheelchair\"]"
   }
 }

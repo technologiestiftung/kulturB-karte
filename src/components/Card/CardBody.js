@@ -24,6 +24,7 @@ const CardSectionLeft = styled.div`
 
 const CardSectionRight = styled.div`
   margin-left: auto;
+  text-align: right;
 `;
 
 const Description = styled.div`

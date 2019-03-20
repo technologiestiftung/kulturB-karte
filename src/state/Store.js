@@ -16,7 +16,10 @@ const Store = createStore({
     categoryFilter: [],
     districtFilter: false,
     locationFilterCoords: false,
-    locationFilterRadius: 1000
+    locationFilterRadius: 1000,
+    a11yWheelChairFilter: false,
+    a11yBlindFilter: false,
+    a11yDeafFilter: false,
   },
   categoryFilterExpanded: false,
   mapBoundsFilterActive: true,

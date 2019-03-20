@@ -46,6 +46,8 @@ const loadData = Store => async () => {
 
     const allCategories = allCategoriesSelector({ data: parsedData });
 
+    window.d = parsedData.features;
+
     return {
       data: parsedData,
       isLoading: false,
@@ -194,6 +196,16 @@ const toggleMapBoundsFilter = state => ({
   mapBoundsFilterActive: !state.mapBoundsFilterActive
 });
 
+const toggleFilter = (state, toggleKey) => {
+  const result = {
+    filter: Object.assign({}, state.filter)
+  };
+
+  result.filter[toggleKey] = !state.filter[toggleKey];
+
+  return result;
+};
+
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
@@ -213,4 +225,5 @@ export default Store => ({
   setMapBounds,
   setListSorting,
   toggleMapBoundsFilter,
+  toggleFilter,
 });
