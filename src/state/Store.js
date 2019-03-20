@@ -12,6 +12,8 @@ const Store = createStore({
   tooltipData: false,
   detailData: false,
   tooltipPos: [0, 0],
+  colorizer: () => '#bbb',
+  categories: [],
   filter: {
     categoryFilter: [],
     districtFilter: false,
@@ -26,5 +28,7 @@ const Store = createStore({
   listSorting: 'name',
   activeAnalysis: null
 });
+
+window.Store = Store;
 
 export default Store;

@@ -1,5 +1,5 @@
 import { fetchJSON, fetchTopoJSON } from '~/utils';
-import { allCategoriesSelector } from './Selectors';
+import { getUniqueCategories, getColorizer } from './DataUtils';
 
 import history from '~/history';
 
@@ -44,17 +44,18 @@ const loadData = Store => async () => {
         .map(createPoint)
     };
 
-    const allCategories = allCategoriesSelector({ data: parsedData });
-
-    window.d = parsedData.features;
+    const categories = getUniqueCategories(parsedData);
+    const colorizer = getColorizer(categories);
 
     return {
       data: parsedData,
       isLoading: false,
       filter: {
         ...filter,
-        categoryFilter: allCategories
-      }
+        categoryFilter: categories
+      },
+      categories,
+      colorizer
     };
   } catch (err) {
     console.log(err);
@@ -163,7 +164,7 @@ const toggleCategoryFilter = (state, category, deactivate = false) => {
 };
 
 const resetCategoryFilter = (state) => {
-  const allCategories = allCategoriesSelector(state);
+  const allCategories = getUniqueCategories(state.data);
   const filter = Object.assign({}, state.filter, { categoryFilter: allCategories });
   return { filter };
 };

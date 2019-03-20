@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-
-import { getColorByCategory } from '~/state/DataUtils';
+import { connect } from 'unistore/react';
 
 const StackedBarsWrapper = styled.div`
   display: flex;
@@ -40,14 +39,14 @@ const BarLabel = styled.div`
 
 class StackedBars extends PureComponent {
   render() {
-    const { data, count } = this.props;
+    const { data, count, colorizer } = this.props;
 
     return (
       <StackedBarsWrapper>
         {data.map((d, i) => (
           <Bar
             key={`HorizontalBar__${d.category}`}
-            color={getColorByCategory(d.category)}
+            color={colorizer(d.category)}
             width={(d.items.length / count) * 100}
           >
             <BarLabel className="bar__label" isRight={i > (data.length / 2)}>
@@ -60,4 +59,6 @@ class StackedBars extends PureComponent {
   }
 }
 
-export default StackedBars;
+export default connect(state => ({
+  colorizer: state.colorizer
+}))(StackedBars);

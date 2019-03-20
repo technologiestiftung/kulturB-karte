@@ -14,10 +14,9 @@ import galleryIcon from '@material-ui/icons/ColorLens';
 import danceIcon from '@material-ui/icons/InsertEmoticon';
 import artIcon from '@material-ui/icons/Brush';
 import memorialIcon from '@material-ui/icons/Business';
+import defaultIcon from '@material-ui/icons/Place';
 
 import { getPolygonFeature } from '~/modules/Map/MapUtils';
-
-const colorScale = scaleOrdinal().range(config.colors);
 
 const mapboxToTurfBoundingBox = bounds => (
   [bounds._sw.lng, bounds._sw.lat, bounds._ne.lng, bounds._ne.lat] // eslint-disable-line
@@ -107,7 +106,7 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
   }
 
   const nearby = data.features
-    .filter(feat => feat.properties.id !== detailData.id)
+    .filter(feat => feat.properties.id !== detailData.id && !feat.properties.isFiltered)
     .map((feat) => {
       feat.properties.detailDistance = turfDistance(detailData.location, feat);
       return feat;
@@ -124,10 +123,6 @@ export const getDistrictBounds = districtFeature => (
   turfBbox(districtFeature)
 );
 
-export const getColorByCategory = category => (
-  typeof category === 'undefined' ? '#bbb' : colorScale(category)
-);
-
 const icons = {
   Museum: museumIcon,
   Bibliothek: libraryIcon,
@@ -142,8 +137,25 @@ const icons = {
 };
 
 export const getIconByCategory = category => (
-  icons[category] ? icons[category] : null
+  icons[category] ? icons[category] : defaultIcon
 );
+
+export const getUniqueCategories = (data) => {
+  const allCategories = data.features
+    .map(d => d.properties.tags)
+    .reduce((acc, value) => acc.concat(value), []);
+  return [...new Set(allCategories)].sort((a, b) => a.localeCompare(b));
+};
+
+export const getColorizer = (uniqueCategories) => {
+  const normalizedCategories = uniqueCategories.map(cat => cat.toLowerCase());
+  const colorScale = scaleOrdinal().domain(normalizedCategories).range(config.colors);
+
+  return (category) => {
+    const loweredCategory = category ? category.toString().toLowerCase() : '';
+    return normalizedCategories.includes(loweredCategory) ? colorScale(loweredCategory) : '#bbb';
+  };
+};
 
 export default {
   filterCategories,
@@ -152,5 +164,6 @@ export default {
   filterAccessibility,
   getNearbyVenues,
   getDistrictBounds,
-  getColorByCategory,
+  getColorizer,
+  getUniqueCategories,
 };
