@@ -120,7 +120,6 @@ export const getColorByCategory = category => (
   typeof category === 'undefined' ? '#bbb' : colorScale(category)
 );
 
-
 const icons = {
   Museum: museumIcon,
   Bibliothek: libraryIcon,

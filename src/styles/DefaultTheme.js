@@ -13,7 +13,8 @@ export default {
     primary: '#e60005',
     secondary: '#1e3791',
     lightgrey: '#f5f5f5',
-    midgrey: '#d8d8d8'
+    midgrey: '#d8d8d8',
+    textgrey: '#777'
   },
   margin: [10, 15, 25].map(px),
   padding: [5, 10, 15].map(px)
