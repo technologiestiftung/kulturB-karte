@@ -74,7 +74,7 @@ class OpeningHoursContainer extends PureComponent {
     const { data } = this.props;
 
     if (!data || typeof data !== 'object') {
-      return null;
+      return <OpeningHoursWrapper>keine Angaben</OpeningHoursWrapper>;
     }
 
     return (

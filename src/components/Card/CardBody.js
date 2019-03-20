@@ -6,6 +6,7 @@ import { parseOpeningHours } from '~/utils';
 
 import OpeningHours from '~/components/OpeningHours';
 import WebsiteLink from '~/components/Link';
+import Accessibility from '~/components/Accessibility';
 
 const CardBodyWrapper = styled.div`
   font-size: ${props => props.theme.fontSizes[0]};
@@ -59,11 +60,13 @@ class CardBody extends PureComponent {
 
     return (
       <CardBodyWrapper className={this.props.className}>
+
         {detailData.description && (
           <CardBodySection>
             <Description>{detailData.description}</Description>
           </CardBodySection>
         )}
+
         {detailData.website && (
           <CardBodySection>
             <CardSectionLeft>Website</CardSectionLeft>
@@ -74,14 +77,21 @@ class CardBody extends PureComponent {
             </WebsiteLinkContainer>
           </CardBodySection>
         )}
-        {openingHours && (
-          <CardBodySection>
-            <CardSectionLeft>Öffnungszeiten</CardSectionLeft>
-            <CardSectionRight>
-              <OpeningHours data={openingHours} />
-            </CardSectionRight>
-          </CardBodySection>
-        )}
+
+        <CardBodySection>
+          <CardSectionLeft>Öffnungszeiten</CardSectionLeft>
+          <CardSectionRight>
+            <OpeningHours data={openingHours} />
+          </CardSectionRight>
+        </CardBodySection>
+
+        <CardBodySection>
+          <CardSectionLeft>Barrierefreiheit</CardSectionLeft>
+          <CardSectionRight>
+            <Accessibility data={detailData} />
+          </CardSectionRight>
+        </CardBodySection>
+
       </CardBodyWrapper>
     );
   }
