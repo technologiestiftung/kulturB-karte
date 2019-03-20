@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-
-import { getColorByCategory } from '~/state/DataUtils';
+import { connect } from 'unistore/react';
 
 const CategoryLabelWrapper = styled.div`
   display: flex;
@@ -33,12 +32,14 @@ const CategoryLabel = styled.div`
 
 class CategoryLabels extends PureComponent {
   render() {
+    const { categories, colorizer } = this.props;
+
     return (
       <CategoryLabelWrapper>
-        {this.props.categories.map(cat => (
+        {categories.map(cat => (
           <CategoryLabel
             key={`CategoryLabel__${cat}`}
-            color={getColorByCategory(cat)}
+            color={colorizer(cat)}
           >
             {cat}
           </CategoryLabel>
@@ -48,4 +49,6 @@ class CategoryLabels extends PureComponent {
   }
 }
 
-export default CategoryLabels;
+export default connect(state => ({
+  colorizer: state.colorizer
+}))(CategoryLabels);

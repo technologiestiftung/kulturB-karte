@@ -9,7 +9,7 @@ import {
   filterLocation,
   sortData,
   getDistance,
-  getColorByCategory
+  filterAccessibility,
 } from './DataUtils';
 
 const dataSelector = state => state.data;
@@ -21,6 +21,7 @@ const districtFilterSelector = state => state.filter.districtFilter;
 const listSortingSelector = state => state.listSorting;
 const mapBoundsSelector = state => state.mapBounds;
 const mapBoundsFilterActiveSelector = state => state.mapBoundsFilterActive;
+const colorizerSelector = state => state.colorizer;
 
 const geojsonToArray = geojson => geojson.features.map(d => d.properties);
 
@@ -29,13 +30,15 @@ export const enrichedDataSelector = createSelector(
     dataSelector,
     additionalDataSelector,
     filterSelector,
-    mapBoundsSelector
+    mapBoundsSelector,
+    colorizerSelector
   ],
   (
     data,
     additionalData,
     filter,
-    mapBounds
+    mapBounds,
+    colorizer
   ) => {
     const features = data.features
       .map((feat) => {
@@ -55,9 +58,11 @@ export const enrichedDataSelector = createSelector(
           filter.locationFilterRadius
         );
 
+        properties.a11yFilter = filterAccessibility(properties, filter);
+
         properties.mapBoundsFilter = filterMapBounds(feat, mapBounds);
 
-        properties.color = getColorByCategory(properties.mainCategory);
+        properties.color = colorizer(properties.mainCategory);
 
         properties.distance = getDistance(feat, filter.locationFilterCoords);
 
@@ -81,6 +86,7 @@ export const filteredDataSelector = createSelector(
           feat.properties.categoryFilter
           || feat.properties.districtFilter
           || feat.properties.locationFilter
+          || feat.properties.a11yFilter
         );
 
         return feat;
@@ -120,18 +126,8 @@ export const filteredAnalysisDataSelector = createSelector(
   }
 );
 
-export const allCategoriesSelector = createSelector(
-  [dataSelector],
-  (data) => {
-    const allCategories = data.features
-      .map(d => d.properties.tags)
-      .reduce((acc, value) => acc.concat(value), []);
-    return [...new Set(allCategories)];
-  }
-);
-
 export const enrichedDetailDataSelector = createSelector(
-  [enrichedDataSelector, detailDataSelector],
+  [filteredDataSelector, detailDataSelector],
   (data, detailData) => {
     if (!detailData) {
       return false;
@@ -180,7 +176,6 @@ export const dataAsArraySelector = createSelector(
 
 export default {
   filteredDataSelector,
-  allCategoriesSelector,
   enrichedDetailDataSelector,
   dataAsArraySelector,
   filteredListDataSelector,

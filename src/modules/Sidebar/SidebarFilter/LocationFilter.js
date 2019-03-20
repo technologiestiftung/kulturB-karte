@@ -39,7 +39,7 @@ const SliderWrapper = styled.div`
 
   &:hover {
     .sliderinfo {
-      display: block;
+      display: ${props => (props.disabled ? 'block' : 'none')};
     }
   }
 `;
@@ -72,7 +72,10 @@ class SearchFilter extends PureComponent {
     }
 
     fetchJSON(`https://tsb.ara.uberspace.de/tsb-geocoding/num?street=${selectedStreet.id}`)
-      .then(numberOptions => this.setState({ numberOptions }));
+      .then((numberOptions) => {
+        const sortedOptions = numberOptions.sort((a, b) => parseInt(a.num, 0) - parseInt(b.num, 0));
+        this.setState({ numberOptions: sortedOptions });
+      });
   }
 
   onInputChange(input) {
@@ -148,7 +151,7 @@ class SearchFilter extends PureComponent {
             getOptionValue={option => (option.id)}
             getOptionLabel={option => (option.num)}
             onChange={evt => this.onSelectNumber(evt)}
-            placeholder="#"
+            placeholder="Nr."
             classNamePrefix="rs"
             noOptionsMessage={() => 'Keine Hausnummer gefunden'}
             isDisabled={!this.state.numberOptions.length}
@@ -156,7 +159,7 @@ class SearchFilter extends PureComponent {
             isClearable
           />
         </SelectWrapper>
-        <SliderWrapper>
+        <SliderWrapper disabled={!showReset}>
           <RadiusLabel>
             {formatNumber(radius / 1000, 1)} km
           </RadiusLabel>

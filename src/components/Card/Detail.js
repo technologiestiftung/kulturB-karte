@@ -45,6 +45,10 @@ const CloseButton = styled(RoundButton)`
   right: -12px;
 `;
 
+const ScrollWrapper = styled.div`
+  overflow: auto;
+`;
+
 class DetailCard extends PureComponent {
   render() {
     const { data } = this.props;
@@ -58,10 +62,12 @@ class DetailCard extends PureComponent {
         <CloseButton onClick={this.props.onClose}>
           <Clear />
         </CloseButton>
-        <StyledCardHeader data={data} />
-        <CardDivider />
-        <StyledCardBody data={data} />
-        <CardNearby data={data.nearby} />
+        <ScrollWrapper>
+          <StyledCardHeader data={data} />
+          <CardDivider />
+          <StyledCardBody data={data} />
+          <CardNearby data={data.nearby} />
+        </ScrollWrapper>
       </DetailCardWrapper>
     );
   }

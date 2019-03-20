@@ -23,8 +23,8 @@ const mapConfig = {
   dragRotate: false,
   bearing: 0,
   maxBounds: [
-    [12.85, 52.2],
-    [13.95, 52.8]
+    [10, 50],
+    [15, 54]
   ]
 };
 
@@ -37,7 +37,7 @@ const MapWrapper = styled.div`
   flex-shrink: 1;
   flex-grow: 1;
   position: relative;
-  opacity: 1;
+  opacity: ${props => (props.isLoading ? 0 : 1)};
 `;
 
 class Map extends PureComponent {
@@ -56,6 +56,11 @@ class Map extends PureComponent {
     map.resize();
     window.map = map;
     this.setState({ isLoading: false, map });
+
+    map.jumpTo({
+      center: this.props.mapCenter,
+      zoom: this.props.mapZoom[0]
+    });
   }
 
   onData(map) {

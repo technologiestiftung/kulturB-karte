@@ -15,6 +15,9 @@ export default styled.button`
   box-shadow: none;
   outline: none;
   border: none;
+  flex-shrink: 0;
+  flex-grow: 0;
+  box-sizing: border-box;
 
   &:hover {
     background-color: ${props => props.theme.colors.primary};

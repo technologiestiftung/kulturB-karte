@@ -11,9 +11,9 @@
     "#66bb6a",
     "#ffa726",
     "#8d6e63",
-    "#ffee58",
     "#26a69a",
-    "#ec407a"
+    "#ec407a",
+    "#FFD600"
   ],
   "map": {
     "flyToOptions": {
@@ -24,6 +24,6 @@
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
     "locations": "/locations",
-    "params": "?limit=0&fields=[\"_id\", \"name\", \"address\", \"location\", \"tags\", \"logo\"]"
+    "params": "?limit=0&fields=[\"_id\", \"name\", \"address\", \"location\", \"tags\", \"logo\", \"accessibility_wheelchair\"]"
   }
 }

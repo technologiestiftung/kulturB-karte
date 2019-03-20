@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import { connect } from 'unistore/react';
 
-import { getColorByCategory } from '~/state/DataUtils';
 import { formatNumber } from '~/utils';
 
 const maxX = 10;
@@ -74,7 +74,7 @@ const Title = styled.div`
 class CategoryBars extends PureComponent {
   render() {
     const {
-      data, title, districtId, districtName
+      data, title, districtId, districtName, colorizer
     } = this.props;
 
     return (
@@ -85,12 +85,12 @@ class CategoryBars extends PureComponent {
             <BarTitle>{d.category}</BarTitle>
             <BarOuter>
               <Bar
-                color={getColorByCategory(d.category)}
+                color={colorizer(d.category)}
                 width={(d.perPop / maxX) * 100}
               />
               {districtId && (
                 <Bar
-                  color={getColorByCategory(d.category)}
+                  color={colorizer(d.category)}
                   width={(d.perPopBerlin / maxX) * 100}
                   isComparison
                 />
@@ -115,4 +115,6 @@ class CategoryBars extends PureComponent {
   }
 }
 
-export default CategoryBars;
+export default connect(state => ({
+  colorizer: state.colorizer
+}))(CategoryBars);

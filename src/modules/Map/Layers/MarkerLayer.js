@@ -35,6 +35,10 @@ function getPaintProps(props) {
 
 class MarkerLayer extends PureComponent {
   timeoutClick(evt, feat) {
+    if (feat.properties && feat.properties.isFiltered) {
+      return false;
+    }
+
     clearTimeout(clickTimeout);
 
     clickTimeout = setTimeout(() => {
@@ -50,6 +54,10 @@ class MarkerLayer extends PureComponent {
   }
 
   handleMouseEnter({ properties = {} }) {
+    if (properties && properties.isFiltered) {
+      return false;
+    }
+
     this.props.setTooltipData(properties);
   }
 

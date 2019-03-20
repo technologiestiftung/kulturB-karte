@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
 
-import { allCategoriesSelector } from '~/state/Selectors';
 import Actions from '~/state/Actions';
 import SidebarItemTitle from '~/modules/Sidebar/SidebarItemTitle';
-import { getColorByCategory, getIconByCategory } from '~/state/DataUtils';
+import { getIconByCategory } from '~/state/DataUtils';
 import GhostButton from '~/components/GhostButton';
 
 const CategoryFilterWrapper = styled.div`
@@ -13,9 +12,6 @@ const CategoryFilterWrapper = styled.div`
 `;
 
 const CategoriesWrapper = styled.div`
-  > div:nth-child(n+10) {
-    display: ${props => (props.isExpanded ? 'block' : 'none')};
-  }
   display: flex;
   flex-wrap: wrap;
 `;
@@ -28,6 +24,7 @@ const CategoryFilterItem = styled.div`
   min-width: 50%;
   font-size: ${props => props.theme.fontSizes[1]};
   align-items: center;
+  user-select: none;
 
   &:hover {
     opacity: 0.85;
@@ -73,7 +70,12 @@ class CategoryFilter extends PureComponent {
   }
 
   render() {
-    const { expanded, categories, filter } = this.props;
+    const {
+      expanded,
+      categories,
+      filter,
+      colorizer
+    } = this.props;
     const { categoryFilter } = filter;
     const toggleLabel = categoryFilter.length > 0 ? 'abwählen' : 'anwählen';
 
@@ -97,7 +99,7 @@ class CategoryFilter extends PureComponent {
               >
                 <CategoryFilterIcon
                   isActive={isActive}
-                  bg={getColorByCategory(category)}
+                  bg={colorizer(category)}
                 >
                   {CategoryIcon && <CategoryIcon />}
                 </CategoryFilterIcon>
@@ -115,7 +117,8 @@ class CategoryFilter extends PureComponent {
 }
 
 export default connect(state => ({
-  categories: allCategoriesSelector(state),
+  categories: state.categories,
+  colorizer: state.colorizer,
   filter: state.filter,
   expanded: state.categoryFilterExpanded,
 }), Actions)(CategoryFilter);

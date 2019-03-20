@@ -12,16 +12,23 @@ const Store = createStore({
   tooltipData: false,
   detailData: false,
   tooltipPos: [0, 0],
+  colorizer: () => '#bbb',
+  categories: [],
   filter: {
     categoryFilter: [],
     districtFilter: false,
     locationFilterCoords: false,
-    locationFilterRadius: 1000
+    locationFilterRadius: 1000,
+    a11yWheelChairFilter: false,
+    a11yBlindFilter: false,
+    a11yDeafFilter: false,
   },
   categoryFilterExpanded: false,
   mapBoundsFilterActive: true,
   listSorting: 'name',
   activeAnalysis: null
 });
+
+window.Store = Store;
 
 export default Store;

@@ -34,7 +34,7 @@ const CardTitle = styled.div`
 
 const CardAddress = styled.div`
   font-size: 12px;
-  color: #777;
+  color: ${props => props.theme.colors.textgrey};
 `;
 
 class CardHeader extends PureComponent {
