@@ -39,7 +39,7 @@ const SliderWrapper = styled.div`
 
   &:hover {
     .sliderinfo {
-      display: block;
+      display: ${props => props.disabled ? 'block' : 'none'};
     }
   }
 `;
@@ -159,7 +159,7 @@ class SearchFilter extends PureComponent {
             isClearable
           />
         </SelectWrapper>
-        <SliderWrapper>
+        <SliderWrapper disabled={!showReset}>
           <RadiusLabel>
             {formatNumber(radius / 1000, 1)} km
           </RadiusLabel>
