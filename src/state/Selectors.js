@@ -157,7 +157,7 @@ export const districtBoundsSelector = createSelector(
     }
 
     const selectedDistrict = districtData.features
-      .find(feat => feat.properties.Gemeinde_schluessel === districtFilter);
+      .find(feat => feat.properties.spatial_name === districtFilter);
 
     return selectedDistrict && getDistrictBounds(selectedDistrict);
   }

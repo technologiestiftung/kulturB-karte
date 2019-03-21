@@ -36,7 +36,7 @@ export const filterDistricts = (feature, districtFilter, districts) => {
   }
 
   const polygon = districts.features
-    .find(feat => feat.properties.Gemeinde_schluessel === districtFilter);
+    .find(feat => feat.properties.spatial_name === districtFilter);
 
   return !pointInPolygon(feature, polygon);
 };
@@ -133,7 +133,8 @@ const icons = {
   Galerie: galleryIcon,
   Tanz: danceIcon,
   'Bildende Kunst': artIcon,
-  Gedenkstätte: memorialIcon
+  Gedenkstätte: memorialIcon,
+  Sonstige: () => null
 };
 
 export const getIconByCategory = category => (

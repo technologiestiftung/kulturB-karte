@@ -36,6 +36,8 @@ class DistrictVis extends PureComponent {
       return null;
     }
 
+    console.log(district);
+
     const additionalData = getData(district);
     const categoryArray = categories.map(category => ({ category, items: [] }));
     const dataBerlin = data.features.reduce(groupByCategory, categoryArray);

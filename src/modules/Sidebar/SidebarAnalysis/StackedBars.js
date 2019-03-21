@@ -35,6 +35,7 @@ const BarLabel = styled.div`
   width: 110px;
   text-align: center;
   border-radius: 2px;
+  pointer-events: none;
 `;
 
 class StackedBars extends PureComponent {
@@ -49,7 +50,7 @@ class StackedBars extends PureComponent {
             color={colorizer(d.category)}
             width={(d.items.length / count) * 100}
           >
-            <BarLabel className="bar__label" isRight={i > (data.length / 2)}>
+            <BarLabel className="bar__label" isRight={i > (data.length / 3)}>
               {d.category}: <strong>{d.items.length}</strong>
             </BarLabel>
           </Bar>

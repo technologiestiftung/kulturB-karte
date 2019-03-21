@@ -43,13 +43,14 @@ const BarLabel = styled.div`
   width: 200px;
   border-radius: 3px;
   display: none;
+  pointer-events: none;
 `;
 
 const Axis = styled.div`
   display: flex;
   color: #777;
   font-size: ${props => props.theme.fontSizes[0]};
-  margin-left: 90px;
+  margin-left: 110px;
   border-top: 1px solid #ddd;
   padding-top: 5px;
 `;
@@ -58,7 +59,7 @@ const AxisLabel = styled.div``;
 
 const BarTitle = styled.div`
   font-size: ${props => props.theme.fontSizes[0]};
-  min-width: 90px;
+  min-width: 110px;
 `;
 
 const CategoryBarsWrapper = styled.div`
