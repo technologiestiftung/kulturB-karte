@@ -103,7 +103,6 @@ const loadFilterData = Store => async () => {
   try {
     const districts = await fetchTopoJSON('/public/data/berliner-bezirke.json');
 
-    console.log(districts);
     return {
       additionalData: {
         ...Store.getState().additionalData,

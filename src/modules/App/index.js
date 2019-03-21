@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Router } from 'react-router-dom';
+import {
+  Router,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 import { connect } from 'unistore/react';
 import queryString from 'query-string';
 
@@ -30,11 +35,18 @@ history.listen(location => updateLocation(location));
 
 updateLocation(history.location);
 
+const NotFoundRoute = () => (
+  <Redirect to="/" />
+);
+
 class App extends Component {
   render() {
     return (
       <Router history={history}>
-        <AppWrapper />
+        <Switch>
+          <Route exact path={['/', '/suche', '/analyse', '/liste']} component={AppWrapper} />
+          <Route component={NotFoundRoute} />
+        </Switch>
       </Router>
     );
   }
