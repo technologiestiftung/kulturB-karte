@@ -5,62 +5,62 @@ export default [{
   population: 3613495,
   area: 891.68
 }, {
-  id: '012',
+  id: '12',
   name: 'Reinickendorf',
   population: 263920,
   area: 89.46
 }, {
-  id: '004',
+  id: '04',
   name: 'Charlottenburg-Wilmersdorf',
   population: 338923,
   area: 64.72
 }, {
-  id: '009',
+  id: '09',
   name: 'Treptow-Köpenick',
   population: 267167,
   area: 168.42
 }, {
-  id: '003',
+  id: '03',
   name: 'Pankow',
   population: 404534,
   area: 103.01
 }, {
-  id: '008',
+  id: '08',
   name: 'Neukölln',
   population: 329767,
   area: 44.93
 }, {
-  id: '011',
+  id: '11',
   name: 'Lichtenberg',
   population: 288320,
   area: 52.29
 }, {
-  id: '010',
+  id: '10',
   name: 'Marzahn-Hellersdorf',
   population: 267452,
   area: 61.74
 }, {
-  id: '005',
+  id: '05',
   name: 'Spandau',
   population: 241905,
   area: 91.91
 }, {
-  id: '006',
+  id: '06',
   name: 'Steglitz-Zehlendorf',
   population: 307088,
   area: 102.50
 }, {
-  id: '001',
+  id: '01',
   name: 'Mitte',
   population: 379610,
   area: 39.47
 }, {
-  id: '002',
+  id: '02',
   name: 'Friedrichshain-Kreuzberg',
   population: 285963,
   area: 20.16
 }, {
-  id: '007',
+  id: '07',
   name: 'Tempelhof-Schöneberg',
   population: 349265,
   area: 53.09

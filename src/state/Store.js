@@ -1,5 +1,15 @@
 import createStore from 'unistore';
 
+export const filterSection = {
+  categoryFilter: [],
+  districtFilter: false,
+  locationFilterCoords: false,
+  locationFilterRadius: 1000,
+  a11yWheelChairFilter: false,
+  a11yBlindFilter: false,
+  a11yDeafFilter: false,
+};
+
 const Store = createStore({
   isLoading: true,
   data: { features: [] },
@@ -14,15 +24,7 @@ const Store = createStore({
   tooltipPos: [0, 0],
   colorizer: () => '#bbb',
   categories: [],
-  filter: {
-    categoryFilter: [],
-    districtFilter: false,
-    locationFilterCoords: false,
-    locationFilterRadius: 1000,
-    a11yWheelChairFilter: false,
-    a11yBlindFilter: false,
-    a11yDeafFilter: false,
-  },
+  filter: filterSection,
   categoryFilterExpanded: false,
   mapBoundsFilterActive: true,
   listSorting: 'name',

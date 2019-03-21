@@ -38,7 +38,7 @@ const loadData = Store => async () => {
             ...d.location,
             coordinates: d.location.coordinates.map(c => randomizeCoord(c))
           } : false,
-          tags: d.tags.map(t => t.name)
+          tags: d.tags.length ? d.tags.map(t => t.name) : ['Sonstige']
         }))
         .filter(d => d.location)
         .map(createPoint)
@@ -101,7 +101,8 @@ const loadFilterData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
-    const districts = await fetchTopoJSON('/public/data/bezirksgrenzen.json');
+    const districts = await fetchTopoJSON('/public/data/berliner-bezirke.json');
+
     return {
       additionalData: {
         ...Store.getState().additionalData,
@@ -118,7 +119,7 @@ const loadAnalysisData = Store => async () => {
   Store.setState({ isLoading: true });
 
   try {
-    const districts = await fetchTopoJSON('/public/data/bezirksgrenzen.json');
+    const districts = await fetchTopoJSON('/public/data/berliner-bezirke.json');
     return {
       additionalData: {
         ...Store.getState().additionalData,
@@ -150,11 +151,18 @@ const setTooltipPos = (state, tooltipPos) => (
   { tooltipPos }
 );
 
+const setFilter = (state, filter) => ({
+  filter
+});
+
 const toggleCategoryFilter = (state, category, deactivate = false) => {
   let { categoryFilter } = state.filter;
+  const { categories } = state;
 
-  if (categoryFilter.includes(category) || deactivate) {
-    categoryFilter = categoryFilter.filter(cat => cat !== category);
+  if (categoryFilter.length === 1 && categoryFilter.includes(category)) {
+    categoryFilter = categories;
+  } else if (categoryFilter.includes(category) || deactivate) {
+    categoryFilter = [category];
   } else {
     categoryFilter.push(category);
   }
@@ -227,4 +235,5 @@ export default Store => ({
   setListSorting,
   toggleMapBoundsFilter,
   toggleFilter,
+  setFilter,
 });

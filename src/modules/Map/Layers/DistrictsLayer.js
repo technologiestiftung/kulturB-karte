@@ -22,7 +22,7 @@ function getPaintProps(props) {
       ...fillPaint,
       'fill-opacity': [
         'case',
-        ['!=', ['string', ['get', 'Gemeinde_schluessel']], props.districtFilter.toString()], 0.1,
+        ['!=', ['string', ['get', 'spatial_name']], props.districtFilter.toString()], 0.1,
         0
       ]
     };

@@ -11,8 +11,8 @@ const DistrictFilterWrapper = styled.div`
 `;
 
 const Option = (props) => {
-  const label = props.Gemeinde_name;
-  const value = props.Gemeinde_schluessel;
+  const label = props.spatial_alias;
+  const value = props.spatial_name;
 
   return (
     <option
@@ -58,7 +58,7 @@ class DistrictFilter extends PureComponent {
             Alle Bezirke
           </option>
           {districts.features.map(feat => (
-            <Option key={`DistrictOption__${feat.properties.Gemeinde_schluessel}`} {...feat.properties} />
+            <Option key={`DistrictOption__${feat.properties.spatial_alias}`} {...feat.properties} />
           ))}
         </Select>
       </DistrictFilterWrapper>

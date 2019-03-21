@@ -9,6 +9,7 @@ import CardCompact from '~/components/Card/CardCompact';
 
 import SidebarTitle from '../SidebarTitle';
 import Sorter from './Sorter';
+import ResetFilter from '../SidebarFilter/ResetFilter';
 
 const ListItems = styled.div``;
 
@@ -19,6 +20,7 @@ class SidebarList extends PureComponent {
     return (
       <Fragment>
         <SidebarTitle><strong>{data.length}</strong> Kulturorte gefunden.</SidebarTitle>
+        <ResetFilter />
         <Sorter />
         <ListItems>
           {data.map(d => (
