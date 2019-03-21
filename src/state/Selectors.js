@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import isEqual from 'lodash.isequal';
 
 import {
   filterCategories,
@@ -12,6 +13,8 @@ import {
   filterAccessibility,
 } from './DataUtils';
 
+import { filterSection } from './Store';
+
 const dataSelector = state => state.data;
 const filterSelector = state => state.filter;
 const additionalDataSelector = state => state.additionalData;
@@ -22,6 +25,7 @@ const listSortingSelector = state => state.listSorting;
 const mapBoundsSelector = state => state.mapBounds;
 const mapBoundsFilterActiveSelector = state => state.mapBoundsFilterActive;
 const colorizerSelector = state => state.colorizer;
+const categoriesSelector = state => state.categories;
 
 const geojsonToArray = geojson => geojson.features.map(d => d.properties);
 
@@ -174,9 +178,20 @@ export const dataAsArraySelector = createSelector(
   }
 );
 
+export const initialFilterSelector = createSelector(
+  [categoriesSelector],
+  categories => Object.assign({}, filterSection, { categoryFilter: categories })
+);
+
+export const hasFilterSelector = createSelector(
+  [filterSelector, initialFilterSelector],
+  (filter, initialFilter) => !isEqual(filter, initialFilter)
+);
+
 export default {
   filteredDataSelector,
   enrichedDetailDataSelector,
   dataAsArraySelector,
   filteredListDataSelector,
+  hasFilterSelector,
 };

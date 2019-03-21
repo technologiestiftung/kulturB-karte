@@ -16,7 +16,7 @@ class ControlContainer extends PureComponent {
     position: 'top-left'
   }
 
-  propTypes = {
+  static propTypes = {
     position: PropTypes.string,
   }
 

@@ -151,6 +151,10 @@ const setTooltipPos = (state, tooltipPos) => (
   { tooltipPos }
 );
 
+const setFilter = (state, filter) => ({
+  filter
+});
+
 const toggleCategoryFilter = (state, category, deactivate = false) => {
   let { categoryFilter } = state.filter;
   const { categories } = state;
@@ -231,4 +235,5 @@ export default Store => ({
   setListSorting,
   toggleMapBoundsFilter,
   toggleFilter,
+  setFilter,
 });
