@@ -44,7 +44,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path={['/', '/suche', '/analyse', '/liste']} component={AppWrapper} />
+          <Route exact path={['/', '/suche', '/analyse', '/liste', '/favoriten']} component={AppWrapper} />
           <Route component={NotFoundRoute} />
         </Switch>
       </Router>

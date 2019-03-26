@@ -5,6 +5,7 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 import SidebarFilter from './SidebarFilter';
 import SidebarAnalysis from './SidebarAnalysis';
 import SidebarList from './SidebarList';
+import SidebarFavorites from './SidebarFavorites';
 import SidebarClose from './SidebarClose';
 
 const SidebarWrapper = styled.div`
@@ -31,7 +32,7 @@ class Sidebar extends PureComponent {
   render() {
     return (
       <Route
-        path={['/analyse', '/liste', '/suche']}
+        path={['/analyse', '/liste', '/suche', '/favoriten']}
         children={({ match }) => (
           <SidebarWrapper isVisible={match}>
             <SidebarClose />
@@ -40,6 +41,7 @@ class Sidebar extends PureComponent {
                 <Route path="/suche" component={SidebarFilter} />
                 <Route path="/analyse" component={SidebarAnalysis} />
                 <Route path="/liste" component={SidebarList} />
+                <Route path="/favoriten" component={SidebarFavorites} />
               </Switch>
             </SidebarContent>
           </SidebarWrapper>

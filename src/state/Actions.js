@@ -1,5 +1,6 @@
+import xor from 'lodash.xor';
 import { fetchJSON, fetchTopoJSON } from '~/utils';
-import { getUniqueCategories, getColorizer } from './DataUtils';
+import { getUniqueCategories, getColorizer, setFavs } from './DataUtils';
 
 import history from '~/history';
 
@@ -215,6 +216,16 @@ const toggleFilter = (state, toggleKey) => {
   return result;
 };
 
+const toggleFav = (state, favId) => {
+  let { favs } = state;
+
+  favs = xor(favs, [favId]);
+
+  setFavs(favs);
+
+  return { favs };
+};
+
 export default Store => ({
   loadData: loadData(Store),
   loadFilterData: loadFilterData(Store),
@@ -236,4 +247,5 @@ export default Store => ({
   toggleMapBoundsFilter,
   toggleFilter,
   setFilter,
+  toggleFav,
 });

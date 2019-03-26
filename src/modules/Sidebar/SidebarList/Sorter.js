@@ -23,6 +23,7 @@ class Sorter extends PureComponent {
         <StyledSelect onChange={this.handleChange} value={this.props.listSorting}>
           <option value="name">Name</option>
           <option value="mainCategory">Kategorie</option>
+          <option value="isFav">Favoriten</option>
           {this.props.locationFilterCoords && <option value="distance">Enfernung</option>}
         </StyledSelect>
       </div>

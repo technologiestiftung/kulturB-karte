@@ -4,6 +4,7 @@ import Clear from '@material-ui/icons/Clear';
 
 import RoundButton from '~/components/RoundButton';
 
+import CardActions from './CardActions';
 import CardWrapper from './CardWrapper';
 import CardHeader from './CardHeader';
 import CardBody from './CardBody';
@@ -19,6 +20,7 @@ const DetailCardWrapper = styled(CardWrapper)`
   margin: auto;
   max-width: 500px;
   box-shadow: ${props => props.theme.boxShadow};
+  border-radius: 2px;
 
   @media screen and (min-width: 768px) {
     right: 20px;
@@ -64,6 +66,7 @@ class DetailCard extends PureComponent {
         </CloseButton>
         <ScrollWrapper>
           <StyledCardHeader data={data} />
+          <CardActions data={data} />
           <CardDivider />
           <StyledCardBody data={data} />
           <CardNearby data={data.nearby} />
