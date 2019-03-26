@@ -21,7 +21,22 @@ const MenuWrapper = styled.div`
 
 const MenuItem = styled(NavLink)`
   margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
+
+// const MenuLabel = styled.div`
+//   z-index: 1000;
+//   border-radius: ${props => props.theme.borderRadius};
+//   color: #000;
+//   background: rgba(255, 255, 255, .5);
+//   font-size: 10px;
+//   padding: 3px 5px 3px 5px;
+//   text-decoration: none !important;
+// `;
 
 class Menu extends PureComponent {
   render() {

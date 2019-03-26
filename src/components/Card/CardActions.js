@@ -38,6 +38,7 @@ class CardActions extends PureComponent {
   render() {
     const { data, toggleFav, favs } = this.props;
     const isFav = favs.includes(data.id);
+    const favButtonLabel = isFav ? 'nicht mehr merken' : 'zur Merkliste';
 
     return (
       <CardActionsWrapper>
@@ -46,7 +47,7 @@ class CardActions extends PureComponent {
           active={isFav}
         >
           {isFav ? <StyledUnFavIcon /> : <StyledFavIcon />}
-          <span>Merken</span>
+          <span>{favButtonLabel}</span>
         </Button>
         { /* <Button><StyledShareIcon /> Teilen</Button> */ }
       </CardActionsWrapper>
