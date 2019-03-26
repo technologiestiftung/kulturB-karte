@@ -23,7 +23,6 @@ module.exports = merge(common, {
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
   ],
-
   module: {
     rules: [
       {
@@ -37,8 +36,8 @@ module.exports = merge(common, {
       },
       {
         test: /\.js$/,
-        include: Path.resolve(__dirname, '../src'),
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
