@@ -8,7 +8,7 @@ export default {
   },
   fontSizes: [12, 13, 15, 19, 24, 32, 48, 64].map(px),
   boxShadow: '0 0 50px rgba(0, 0, 0, 0.2)',
-  borderRadius: '0px',
+  borderRadius: '2px',
   colors: {
     primary: '#e60005',
     secondary: '#1e3791',

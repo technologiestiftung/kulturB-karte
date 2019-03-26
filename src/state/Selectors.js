@@ -26,6 +26,7 @@ const mapBoundsSelector = state => state.mapBounds;
 const mapBoundsFilterActiveSelector = state => state.mapBoundsFilterActive;
 const colorizerSelector = state => state.colorizer;
 const categoriesSelector = state => state.categories;
+const favsSelector = state => state.favs;
 
 const geojsonToArray = geojson => geojson.features.map(d => d.properties);
 
@@ -35,14 +36,16 @@ export const enrichedDataSelector = createSelector(
     additionalDataSelector,
     filterSelector,
     mapBoundsSelector,
-    colorizerSelector
+    colorizerSelector,
+    favsSelector,
   ],
   (
     data,
     additionalData,
     filter,
     mapBounds,
-    colorizer
+    colorizer,
+    favs
   ) => {
     const features = data.features
       .map((feat) => {
@@ -69,6 +72,8 @@ export const enrichedDataSelector = createSelector(
         properties.color = colorizer(properties.mainCategory);
 
         properties.distance = getDistance(feat, filter.locationFilterCoords);
+
+        properties.isFav = favs.includes(properties.id);
 
         properties.isFiltered = false;
 
@@ -188,10 +193,19 @@ export const hasFilterSelector = createSelector(
   (filter, initialFilter) => !isEqual(filter, initialFilter)
 );
 
+export const favoritesSelector = createSelector(
+  [enrichedDataSelector],
+  (data) => {
+    const features = data.features.filter(feat => feat.properties.isFav);
+    return geojsonToArray(Object.assign({}, data, { features }));
+  }
+);
+
 export default {
   filteredDataSelector,
   enrichedDetailDataSelector,
   dataAsArraySelector,
   filteredListDataSelector,
   hasFilterSelector,
+  favoritesSelector,
 };

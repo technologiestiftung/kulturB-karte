@@ -4,6 +4,7 @@ import turfBbox from '@turf/bbox';
 import turfBboxPolygon from '@turf/bbox-polygon';
 import { scaleOrdinal } from 'd3-scale';
 import get from 'lodash.get';
+import Store from 'store';
 import museumIcon from '@material-ui/icons/AccountBalance';
 import libraryIcon from '@material-ui/icons/LocalLibrary';
 import theaterIcon from '~/../public/images/icons/theater.svg';
@@ -82,11 +83,11 @@ export const sortData = (sortBy, direction = 'asc') => (aObj, bObj) => {
   }
 
   if (type === 'boolean' && direction === 'asc') {
-    return (a === b) ? 0 : a ? 1 : -1; // eslint-disable-line
+    return (a === b) ? 0 : a ? -1 : 1; // eslint-disable-line
   }
 
   if (type === 'boolean' && direction === 'dec') {
-    return (a === b) ? 0 : a ? -1 : 1; // eslint-disable-line
+    return (a === b) ? 0 : a ? 1 : -1; // eslint-disable-line
   }
 
   return direction === 'asc' ? a - b : b - a;
@@ -158,6 +159,12 @@ export const getColorizer = (uniqueCategories) => {
   };
 };
 
+export const getFavs = () => Store.get(config.localStorage.favKey) || [];
+
+export const setFavs = favs => Store.set(config.localStorage.favKey, favs);
+
+window.Store = Store;
+
 export default {
   filterCategories,
   filterDistricts,
@@ -167,4 +174,6 @@ export default {
   getDistrictBounds,
   getColorizer,
   getUniqueCategories,
+  getFavs,
+  setFavs,
 };

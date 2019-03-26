@@ -1,5 +1,7 @@
 import createStore from 'unistore';
 
+import { getFavs } from './DataUtils';
+
 export const filterSection = {
   categoryFilter: [],
   districtFilter: false,
@@ -28,7 +30,8 @@ const Store = createStore({
   categoryFilterExpanded: false,
   mapBoundsFilterActive: true,
   listSorting: 'name',
-  activeAnalysis: null
+  activeAnalysis: null,
+  favs: getFavs()
 });
 
 window.Store = Store;
