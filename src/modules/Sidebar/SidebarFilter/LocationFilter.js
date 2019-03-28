@@ -141,7 +141,7 @@ class SearchFilter extends PureComponent {
             placeholder="Straße suchen ..."
             classNamePrefix="rs"
             onInputChange={input => this.onInputChange(input)}
-            noOptionsMessage={() => 'Keine Straße gefunden'}
+            noOptionsMessage={({ inputValue }) => (inputValue.length < 3 ? null : 'Keine Straße gefunden')}
             className="react-select"
             isClearable
           />
