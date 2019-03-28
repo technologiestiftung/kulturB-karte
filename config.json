@@ -5,15 +5,15 @@
     "robots": "noindex,nofollow"
   },
   "colors": [
-    "#42a5f5",
-    "#7e57c2",
-    "#ff7043",
-    "#66bb6a",
-    "#ffa726",
+    "#4094D7",
+    "#7450AF",
+    "#EF6940",
+    "#64AB67",
+    "#EB9D2C",
     "#8d6e63",
-    "#26a69a",
-    "#ec407a",
-    "#FFD600"
+    "#289B90",
+    "#D33C6F",
+    "#F7D008"
   ],
   "map": {
     "flyToOptions": {
