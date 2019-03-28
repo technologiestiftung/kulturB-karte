@@ -48,10 +48,20 @@ const CloseButton = styled(RoundButton)`
 `;
 
 const ScrollWrapper = styled.div`
-  overflow: auto;
+  overflow-y: auto;
 `;
 
 class DetailCard extends PureComponent {
+  state = {
+    maxHeight: 'auto'
+  }
+
+  componentDidMount() {
+    this.setState({
+      maxHeight: Math.max(250, window.innerHeight - 200)
+    });
+  }
+
   render() {
     const { data } = this.props;
 
@@ -64,7 +74,7 @@ class DetailCard extends PureComponent {
         <CloseButton onClick={this.props.onClose}>
           <Clear />
         </CloseButton>
-        <ScrollWrapper>
+        <ScrollWrapper style={{ maxHeight: this.state.maxHeight }}>
           <StyledCardHeader data={data} />
           <CardActions data={data} />
           <CardDivider />

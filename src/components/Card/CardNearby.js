@@ -9,6 +9,7 @@ import CardDivider from './CardDivider';
 
 const CardNearbyWrapper = styled.div`
   display: block;
+  background: white;
 `;
 
 const CardDistance = styled.div`
