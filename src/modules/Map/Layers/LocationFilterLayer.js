@@ -40,7 +40,7 @@ class LocationFilterLayer extends PureComponent {
         />
         <StyledMarker
           coordinates={coordinates}
-          anchor="bottom"
+          anchor="center"
         >
           <Home />
         </StyledMarker>

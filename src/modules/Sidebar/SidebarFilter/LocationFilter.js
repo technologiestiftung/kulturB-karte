@@ -57,6 +57,13 @@ const SliderInfo = styled.div`
   top: 10px;
 `;
 
+const StyledSlider = styled(Slider)`
+  &.rc-slider-disabled {
+    background: transparent;
+    opacity: 0.4;
+  }
+`;
+
 class SearchFilter extends PureComponent {
   state = {
     streetOptions: [],
@@ -163,13 +170,19 @@ class SearchFilter extends PureComponent {
           <RadiusLabel>
             {formatNumber(radius / 1000, 1)} km
           </RadiusLabel>
-          <Slider
+          <StyledSlider
             min={500}
             max={10000}
             step={500}
             onChange={value => this.onRadiusChange(value)}
             value={radius}
             disabled={!showReset}
+            trackStyle={{
+              background: 'transparent'
+            }}
+            handleStyle={{
+              border: '2px solid #222'
+            }}
           />
           <SliderInfo
             className="sliderinfo"
