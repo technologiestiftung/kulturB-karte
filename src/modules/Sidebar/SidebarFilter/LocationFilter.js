@@ -57,6 +57,13 @@ const SliderInfo = styled.div`
   top: 10px;
 `;
 
+const StyledSlider = styled(Slider)`
+  &.rc-slider-disabled {
+    background: transparent;
+    opacity: 0.5;
+  }
+`;
+
 class SearchFilter extends PureComponent {
   state = {
     streetOptions: [],
@@ -141,7 +148,7 @@ class SearchFilter extends PureComponent {
             placeholder="Straße suchen ..."
             classNamePrefix="rs"
             onInputChange={input => this.onInputChange(input)}
-            noOptionsMessage={() => 'Keine Straße gefunden'}
+            noOptionsMessage={({ inputValue }) => (inputValue.length < 3 ? null : 'Keine Straße gefunden')}
             className="react-select"
             isClearable
           />
@@ -163,13 +170,19 @@ class SearchFilter extends PureComponent {
           <RadiusLabel>
             {formatNumber(radius / 1000, 1)} km
           </RadiusLabel>
-          <Slider
+          <StyledSlider
             min={500}
             max={10000}
             step={500}
             onChange={value => this.onRadiusChange(value)}
             value={radius}
             disabled={!showReset}
+            trackStyle={{
+              background: 'transparent'
+            }}
+            handleStyle={{
+              border: '2px solid #222'
+            }}
           />
           <SliderInfo
             className="sliderinfo"

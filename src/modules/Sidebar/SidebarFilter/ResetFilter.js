@@ -7,9 +7,12 @@ import Actions from '~/state/Actions';
 
 import GhostButton from '~/components/GhostButton';
 
+const ResetFilterButtonWrapper = styled.div`
+  height: 15px;
+`;
+
 const ResetFilterButton = styled(GhostButton)`
   display: block;
-  margin: ${props => props.theme.margin[0]} 0;
   color: ${props => props.theme.colors.primary};
 `;
 
@@ -17,14 +20,14 @@ class ResetFilter extends PureComponent {
   render() {
     const { hasFilter, initialFilter } = this.props;
 
-    if (!hasFilter) {
-      return null;
-    }
-
     return (
-      <ResetFilterButton onClick={() => this.props.setFilter(initialFilter)}>
-      × Alle Filter Zurücksetzen
-      </ResetFilterButton>
+      <ResetFilterButtonWrapper>
+        {hasFilter && (
+          <ResetFilterButton onClick={() => this.props.setFilter(initialFilter)}>
+          × Alle Filter Zurücksetzen
+          </ResetFilterButton>
+        )}
+      </ResetFilterButtonWrapper>
     );
   }
 }

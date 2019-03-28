@@ -5,6 +5,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import ListIcon from '@material-ui/icons/FilterList';
 import FilterIcon from '@material-ui/icons/Search';
 import FavIcon from '@material-ui/icons/BookmarkBorder';
+import AnalyseIcon from '@material-ui/icons/Equalizer';
 
 import RoundButton from '~/components/RoundButton';
 
@@ -43,7 +44,7 @@ class Menu extends PureComponent {
     return (
       <MenuWrapper>
         <MenuItem exact to="/suche">
-          <RoundButton>
+          <RoundButton title="Suche...">
             <FilterIcon />
           </RoundButton>
         </MenuItem>
@@ -55,6 +56,11 @@ class Menu extends PureComponent {
         <MenuItem exact to="/favoriten">
           <RoundButton>
             <FavIcon />
+          </RoundButton>
+        </MenuItem>
+        <MenuItem exact to="/analyse">
+          <RoundButton>
+            <AnalyseIcon />
           </RoundButton>
         </MenuItem>
       </MenuWrapper>

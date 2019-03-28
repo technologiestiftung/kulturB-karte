@@ -19,7 +19,7 @@ const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'MarkerLayer', 
 
 const mapConfig = {
   minZoom: 8,
-  maxZoom: 15,
+  maxZoom: 17,
   dragRotate: false,
   bearing: 0,
   maxBounds: [

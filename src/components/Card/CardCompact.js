@@ -17,7 +17,6 @@ const StyledCardWrapper = styled(CardWrapper)`
   &:hover {
     border-color: ${props => props.theme.colors.midgrey};
     transform: translateX(5px);
-    // background: ${props => props.theme.colors.lightgrey};
   }
 `;
 
@@ -25,7 +24,10 @@ class CardCompact extends PureComponent {
   render() {
     return (
       <StyledCardWrapper onClick={this.props.onClick}>
-        <CardHeader data={this.props.data} />
+        <CardHeader
+          data={this.props.data}
+          isListMode
+        />
       </StyledCardWrapper>
     );
   }

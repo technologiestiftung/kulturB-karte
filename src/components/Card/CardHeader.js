@@ -1,8 +1,13 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'unistore/react';
 import styled from 'styled-components';
 import idx from 'idx';
+import FavIcon from '@material-ui/icons/BookmarkBorder';
+import UnFavIcon from '@material-ui/icons/Bookmark';
 
 import CategoryLabels from '~/components/CategoryLabels';
+import Button from '~/components/GhostButton';
+import Actions from '~/state/Actions';
 
 const CardHeaderWrapper = styled.div`
   display: flex;
@@ -38,10 +43,28 @@ const CardAddress = styled.div`
   color: ${props => props.theme.colors.textgrey};
 `;
 
+const FavButton = styled(Button)`
+  color: #222;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: ${props => (props.active ? 1 : 0.7)};
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`;
+
 class CardHeader extends PureComponent {
   render() {
-    const { data, className } = this.props;
+    const {
+      data, className, isListMode, toggleFav, favs
+    } = this.props;
     const hasLogo = idx(data, _ => _.logo.url);
+    const isFav = favs.includes(data.id);
 
     return (
       <CardHeaderWrapper className={className}>
@@ -51,11 +74,21 @@ class CardHeader extends PureComponent {
           <CardAddress>{data.address}</CardAddress>
         </CardHeaderLeft>
         <CardHeaderRight>
-          {hasLogo && <CardImage src={data.logo.url} />}
+          {(hasLogo && !isListMode) && <CardImage src={data.logo.url} />}
+          {isListMode && (
+            <FavButton
+              onClick={() => toggleFav(data.id)}
+              active={isFav}
+            >
+              {isFav ? <UnFavIcon /> : <FavIcon />}
+            </FavButton>
+          )}
         </CardHeaderRight>
       </CardHeaderWrapper>
     );
   }
 }
 
-export default CardHeader;
+export default connect(state => ({
+  favs: state.favs
+}), Actions)(CardHeader);
