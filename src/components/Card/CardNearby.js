@@ -49,7 +49,7 @@ class CardNearby extends PureComponent {
     return (
       <CardNearbyWrapper>
         <CardDivider />
-        <CardTitle>Weitere Orte in der Nähe</CardTitle>
+        <CardTitle>In der Nähe</CardTitle>
         {data.map(d => (
           <NearbyCard onClick={() => this.handleNearbyClick(d)} key={`NearbyCard__${d.id}`}>
             <CardHeader data={d} />

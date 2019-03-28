@@ -8,8 +8,8 @@ import { removeLayerAndSource } from '../MapUtils';
 
 function getPaintProps(props) {
   const linePaint = {
-    'line-color': '#111',
-    'line-width': 1,
+    'line-color': '#999',
+    'line-width': 1.5
   };
 
   let fillPaint = {
