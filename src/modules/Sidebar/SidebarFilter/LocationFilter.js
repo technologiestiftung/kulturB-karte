@@ -60,7 +60,7 @@ const SliderInfo = styled.div`
 const StyledSlider = styled(Slider)`
   &.rc-slider-disabled {
     background: transparent;
-    opacity: 0.4;
+    opacity: 0.5;
   }
 `;
 
