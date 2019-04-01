@@ -15,7 +15,7 @@ const ListItems = styled.div``;
 
 class SidebarList extends PureComponent {
   render() {
-    const { data, setDetailRoute } = this.props;
+    const { data, setDetailRoute, setHighlightData } = this.props;
 
     return (
       <Fragment>
@@ -24,7 +24,13 @@ class SidebarList extends PureComponent {
         <Sorter />
         <ListItems>
           {data.map(d => (
-            <CardCompact onClick={() => setDetailRoute(d.id)} key={d.id} data={d} />
+            <CardCompact
+              key={d.id}
+              data={d}
+              onClick={() => setDetailRoute(d.id)}
+              onMouseEnter={() => setHighlightData(d)}
+              onMouseLeave={() => setHighlightData(false)}
+            />
           ))}
         </ListItems>
       </Fragment>

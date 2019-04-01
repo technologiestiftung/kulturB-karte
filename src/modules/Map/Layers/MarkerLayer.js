@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'unistore/react';
 import Actions from '~/state/Actions';
 import { Layer, Feature } from 'react-mapbox-gl';
@@ -8,7 +8,7 @@ let clickTimeout = null;
 
 function getPaintProps(props) {
   const radius = props.radius || 5;
-  const detailId = idx(props, _ => _.detailData.name) || '';
+  const detailId = idx(props, _ => _.detailData.name) || idx(props, _ => _.highlightData.name) || '';
   const tooltipId = idx(props, _ => _.tooltipData.name) || '';
 
   return {
@@ -70,32 +70,49 @@ class MarkerLayer extends PureComponent {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, highlightData } = this.props;
     const paintProps = getPaintProps(this.props);
+    const highlightFeat = data.features.find(feat => highlightData && (feat.properties.name === highlightData.name));
 
     return (
-      <Layer
-        id="MarkerLayer"
-        type="circle"
-        paint={paintProps}
-        onMouseMove={evt => this.handleMouseMove(evt)}
-      >
-        {data.features.map(feat => (
-          <Feature
-            coordinates={feat.geometry.coordinates}
-            key={feat.properties.name}
-            onClick={evt => this.timeoutClick(evt, feat)}
-            onMouseEnter={() => this.handleMouseEnter(feat)}
-            onMouseLeave={() => this.handleMouseLeave()}
-            properties={feat.properties}
-          />
-        ))}
-      </Layer>
+      <Fragment>
+        <Layer
+          id="MarkerLayer"
+          type="circle"
+          paint={paintProps}
+          onMouseMove={evt => this.handleMouseMove(evt)}
+        >
+          {data.features.map(feat => (
+            <Feature
+              coordinates={feat.geometry.coordinates}
+              key={feat.properties.name}
+              onClick={evt => this.timeoutClick(evt, feat)}
+              onMouseEnter={() => this.handleMouseEnter(feat)}
+              onMouseLeave={() => this.handleMouseLeave()}
+              properties={feat.properties}
+            />
+          ))}
+        </Layer>
+        {highlightFeat && (
+          <Layer
+            id="HighlightLayer"
+            type="circle"
+            paint={paintProps}
+          >
+            <Feature
+              coordinates={highlightFeat.geometry.coordinates}
+              key={highlightFeat.properties.name}
+              properties={highlightFeat.properties}
+            />
+          </Layer>
+        )}
+      </Fragment>
     );
   }
 }
 
 export default connect(state => ({
   detailData: state.detailData,
+  highlightData: state.highlightData,
   tooltipData: state.tooltipData,
 }), Actions)(MarkerLayer);

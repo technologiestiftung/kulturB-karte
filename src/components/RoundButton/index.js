@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export default styled.button`
   width: ${props => props.size || 36}px;
   height: ${props => props.size || 36}px;
-  background-color: #000;
+  background-color: ${props => (props.isActive ? props.theme.colors.primary : '#000')};
   color: white;
   transition: background-color .3s;
   will-change: background-color;

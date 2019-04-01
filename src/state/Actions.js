@@ -98,6 +98,8 @@ export const loadEntryData = Store => async (state, detailId) => {
   }
 };
 
+export const setHighlightData = (state, highlightData) => ({ highlightData });
+
 const loadFilterData = Store => async () => {
   Store.setState({ isLoading: true });
 
@@ -231,6 +233,7 @@ export default Store => ({
   loadFilterData: loadFilterData(Store),
   loadAnalysisData: loadAnalysisData(Store),
   loadEntryData: loadEntryData(Store),
+  setHighlightData,
   setDetailRoute,
   setMapCenter,
   setMapView,

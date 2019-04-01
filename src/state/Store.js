@@ -23,6 +23,7 @@ const Store = createStore({
   mapBounds: false,
   tooltipData: false,
   detailData: false,
+  highlightData: false,
   tooltipPos: [0, 0],
   colorizer: () => '#bbb',
   categories: [],
@@ -31,7 +32,7 @@ const Store = createStore({
   mapBoundsFilterActive: true,
   listSorting: 'name',
   activeAnalysis: null,
-  favs: getFavs()
+  favs: getFavs(),
 });
 
 window.Store = Store;

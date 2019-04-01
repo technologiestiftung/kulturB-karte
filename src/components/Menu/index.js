@@ -45,34 +45,29 @@ const MenuItem = styled(NavLink)`
 //   text-decoration: none !important;
 // `;
 
+const menuConfig = [
+  { path: '/suche', title: 'Suche und Filter', icon: <FilterIcon /> },
+  { path: '/liste', title: 'Listenansicht', icon: <ListIcon /> },
+  { path: '/favoriten', title: 'Favoriten', icon: <FavIcon /> },
+  { path: '/analyse', title: 'Analyse', icon: <AnalyseIcon /> },
+];
+
 class Menu extends PureComponent {
   render() {
-    const isMenuOpen = matchPath(this.props.location.pathname, {
+    const { pathname } = this.props.location;
+    const isMenuOpen = matchPath(pathname, {
       path: ['/analyse', '/liste', '/suche', '/favoriten'],
     }) !== null;
 
     return (
       <MenuWrapper isMenuOpen={isMenuOpen}>
-        <MenuItem exact to="/suche">
-          <RoundButton title="Suche...">
-            <FilterIcon />
-          </RoundButton>
-        </MenuItem>
-        <MenuItem exact to="/liste">
-          <RoundButton>
-            <ListIcon />
-          </RoundButton>
-        </MenuItem>
-        <MenuItem exact to="/favoriten">
-          <RoundButton>
-            <FavIcon />
-          </RoundButton>
-        </MenuItem>
-        <MenuItem exact to="/analyse">
-          <RoundButton>
-            <AnalyseIcon />
-          </RoundButton>
-        </MenuItem>
+        {menuConfig.map(m => (
+          <MenuItem exact to={m.path} key={m.path}>
+            <RoundButton title="Suche..." isActive={pathname === m.path}>
+              {m.icon}
+            </RoundButton>
+          </MenuItem>
+        ))}
       </MenuWrapper>
     );
   }
