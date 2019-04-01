@@ -7,11 +7,7 @@ import Store from '~/state/Store';
 import App from '~/modules/App';
 import GlobalStyles from '~/styles/Global';
 
-import { parseOpeningHours } from './utils';
-
 const root = document.createElement('div');
-
-window.oh = parseOpeningHours;
 
 ReactDOM.render(
   <Provider store={Store}>

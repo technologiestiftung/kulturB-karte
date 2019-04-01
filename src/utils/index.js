@@ -1,7 +1,6 @@
 import fetch from 'unfetch';
 import { feature } from 'topojson';
 import { formatDefaultLocale } from 'd3-format';
-import parseOpeningHours from './parseOpeningHours';
 
 const germanNumberFormat = formatDefaultLocale({
   decimal: ',',
@@ -34,11 +33,9 @@ export function formatNumber(num, decimals = 0) {
   return germanNumberFormat.format(`,.${decimals}f`)(num);
 }
 
-export { default as parseOpeningHours } from './parseOpeningHours';
 
 export default {
   fetchJSON,
   fetchTopoJSON,
-  formatNumber,
-  parseOpeningHours
+  formatNumber
 };

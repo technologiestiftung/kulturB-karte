@@ -17,12 +17,12 @@ const Weekday = styled.div`
 `;
 
 const OpeningTimes = (props) => {
-  if (!props.data) {
+  if (!props.data || props.data.length === 0) {
     return 'Geschlossen';
   }
 
   return (
-    <div>{props.data[0]}-{props.data[1]}</div>
+    <div>{props.data[0]}</div>
   );
 };
 

@@ -33,10 +33,10 @@ class ZoomControl extends PureComponent {
   render() {
     return (
       <StyledContainer position={this.props.position}>
-        <StyledRoundButton onClick={() => this.zoomIn()} size={30}>
+        <StyledRoundButton onClick={() => this.zoomIn()}>
           <div>+</div>
         </StyledRoundButton>
-        <StyledRoundButton onClick={() => this.zoomOut()} size={30}>
+        <StyledRoundButton onClick={() => this.zoomOut()}>
           <div>-</div>
         </StyledRoundButton>
       </StyledContainer>

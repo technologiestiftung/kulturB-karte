@@ -19,7 +19,7 @@
     "flyToOptions": {
       "speed": 0.8
     },
-    "style": "https://maps.tilehosting.com/styles/positron/style.json?key=IA1qWrAbZAe6JUuSfLgB"
+    "style": "https://maps.tilehosting.com/c/b3425739-d81e-44a0-9ab1-7259909a6d1c/styles/positron/style.json?key=IA1qWrAbZAe6JUuSfLgB"
   },
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",

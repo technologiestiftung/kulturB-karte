@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
-
-import { parseOpeningHours } from '~/utils';
+import { SimpleOpeningHours } from 'simple-opening-hours';
 
 import OpeningHours from '~/components/OpeningHours';
 import WebsiteLink from '~/components/Link';
@@ -19,7 +18,6 @@ const CardBodySection = styled.div`
 
 const CardSectionLeft = styled.div`
   margin-right: 10px;
-  font-weight: 700;
   min-width: 35%;
 `;
 
@@ -38,6 +36,10 @@ const WebsiteLinkContainer = styled(CardSectionRight)`
   width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  a {
+    font-weight: 400;
+  }
 `;
 
 function formatWebsite(str) {
@@ -56,7 +58,7 @@ function formatWebsite(str) {
 class CardBody extends PureComponent {
   render() {
     const { detailData } = this.props;
-    const openingHours = detailData.openingHours && parseOpeningHours(detailData.openingHours);
+    const openingHours = detailData.openingHours && new SimpleOpeningHours(detailData.openingHours);
 
     return (
       <CardBodyWrapper className={this.props.className}>
@@ -81,7 +83,7 @@ class CardBody extends PureComponent {
         <CardBodySection>
           <CardSectionLeft>Öffnungszeiten</CardSectionLeft>
           <CardSectionRight>
-            <OpeningHours data={openingHours} />
+            <OpeningHours data={detailData.openingHours ? openingHours.getTable() : null} />
           </CardSectionRight>
         </CardBodySection>
 
