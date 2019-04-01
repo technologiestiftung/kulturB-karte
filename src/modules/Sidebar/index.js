@@ -7,6 +7,7 @@ import SidebarAnalysis from './SidebarAnalysis';
 import SidebarList from './SidebarList';
 import SidebarFavorites from './SidebarFavorites';
 import SidebarClose from './SidebarClose';
+import SidebarInfo from './SidebarInfo';
 
 const SidebarWrapper = styled.div`
   display: block;
@@ -32,7 +33,7 @@ class Sidebar extends PureComponent {
   render() {
     return (
       <Route
-        path={['/analyse', '/liste', '/suche', '/favoriten']}
+        path={['/analyse', '/liste', '/suche', '/favoriten', '/info']}
         children={({ match }) => (
           <SidebarWrapper isVisible={match}>
             <SidebarClose />
@@ -42,6 +43,7 @@ class Sidebar extends PureComponent {
                 <Route path="/analyse" component={SidebarAnalysis} />
                 <Route path="/liste" component={SidebarList} />
                 <Route path="/favoriten" component={SidebarFavorites} />
+                <Route path="/info" component={SidebarInfo} />
               </Switch>
             </SidebarContent>
           </SidebarWrapper>

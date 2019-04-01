@@ -6,6 +6,7 @@ import ListIcon from '@material-ui/icons/FilterList';
 import FilterIcon from '@material-ui/icons/Search';
 import FavIcon from '@material-ui/icons/BookmarkBorder';
 import AnalyseIcon from '@material-ui/icons/Equalizer';
+import InfoIcon from '@material-ui/icons/HelpOutline';
 
 import RoundButton from '~/components/RoundButton';
 import { media } from '~/styles/Utils';
@@ -50,13 +51,14 @@ const menuConfig = [
   { path: '/liste', title: 'Listenansicht', icon: <ListIcon /> },
   { path: '/favoriten', title: 'Favoriten', icon: <FavIcon /> },
   { path: '/analyse', title: 'Analyse', icon: <AnalyseIcon /> },
+  { path: '/info', title: 'Info', icon: <InfoIcon /> },
 ];
 
 class Menu extends PureComponent {
   render() {
     const { pathname } = this.props.location;
     const isMenuOpen = matchPath(pathname, {
-      path: ['/analyse', '/liste', '/suche', '/favoriten'],
+      path: menuConfig.map(m => m.path),
     }) !== null;
 
     return (

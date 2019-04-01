@@ -7,7 +7,7 @@ import ControlContainer from './ControlContainer';
 import withMap from '../hoc/withMap';
 
 const StyledContainer = styled(ControlContainer)`
-  
+
 `;
 
 const StyledRoundButton = styled(RoundButton)`

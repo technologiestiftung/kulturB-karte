@@ -108,7 +108,7 @@ class Map extends PureComponent {
             maxBounds={mapConfig.maxBounds}
             onMoveEnd={() => this.onMoveEnd()}
           >
-            <Route exact path={['/', '/suche', '/liste', '/favoriten']} component={FilterView} />
+            <Route exact path={['/', '/suche', '/liste', '/favoriten', '/info']} component={FilterView} />
             <Route path="/liste" component={BoundingBoxToggle} />
             <Route path="/analyse" component={AnalysisView} />
             <Tooltip />
