@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, matchPath } from 'react-router-dom';
 
 import ListIcon from '@material-ui/icons/FilterList';
 import FilterIcon from '@material-ui/icons/Search';
@@ -8,6 +8,7 @@ import FavIcon from '@material-ui/icons/BookmarkBorder';
 import AnalyseIcon from '@material-ui/icons/Equalizer';
 
 import RoundButton from '~/components/RoundButton';
+import { media } from '~/styles/Utils';
 
 const MenuWrapper = styled.div`
   display: flex;
@@ -18,6 +19,11 @@ const MenuWrapper = styled.div`
   top: 15px;
   left: 15px;
   z-index: 1000;
+
+  ${media.m`
+    transform: ${props => (props.isMenuOpen ? 'translate3d(375px, 0, 0)' : 'none')};
+    transition: transform 500ms;
+  `}
 `;
 
 const MenuItem = styled(NavLink)`
@@ -41,8 +47,12 @@ const MenuItem = styled(NavLink)`
 
 class Menu extends PureComponent {
   render() {
+    const isMenuOpen = matchPath(this.props.location.pathname, {
+      path: ['/analyse', '/liste', '/suche', '/favoriten'],
+    }) !== null;
+
     return (
-      <MenuWrapper>
+      <MenuWrapper isMenuOpen={isMenuOpen}>
         <MenuItem exact to="/suche">
           <RoundButton title="Suche...">
             <FilterIcon />
