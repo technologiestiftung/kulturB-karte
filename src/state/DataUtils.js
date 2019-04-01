@@ -74,6 +74,15 @@ export const sortData = (sortBy, direction = 'asc') => (aObj, bObj) => {
   const b = get(bObj, sortBy);
   const type = typeof a;
 
+  // we always want to display Sonstige as the last category
+  if (sortBy === 'mainCategory' && a === 'Sonstige') {
+    return 1;
+  }
+
+  if (sortBy === 'mainCategory' && b === 'Sonstige') {
+    return -1;
+  }
+
   if (type === 'string' && direction === 'asc') {
     return a.localeCompare(b);
   }

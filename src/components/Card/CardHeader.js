@@ -33,7 +33,7 @@ const CardImage = styled.div`
 `;
 
 const CardTitle = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   margin: 5px 0;
 `;

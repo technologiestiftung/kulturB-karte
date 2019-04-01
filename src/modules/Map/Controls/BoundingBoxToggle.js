@@ -11,7 +11,7 @@ const StyledContainer = styled(ControlContainer)`
   background: white;
   padding: ${props => `${props.theme.padding[0]} ${props.theme.padding[1]}`};
   border-radius: ${props => props.theme.borderRadius};
-  left: 400px;
+  left: 435px;
   display: none;
 
   @media screen and (min-width: 768px) {

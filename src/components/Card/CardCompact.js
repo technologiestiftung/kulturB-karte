@@ -23,7 +23,11 @@ const StyledCardWrapper = styled(CardWrapper)`
 class CardCompact extends PureComponent {
   render() {
     return (
-      <StyledCardWrapper onClick={this.props.onClick}>
+      <StyledCardWrapper
+        onClick={this.props.onClick}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
+      >
         <CardHeader
           data={this.props.data}
           isListMode

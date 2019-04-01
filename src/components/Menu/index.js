@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, matchPath } from 'react-router-dom';
 
 import ListIcon from '@material-ui/icons/FilterList';
 import FilterIcon from '@material-ui/icons/Search';
 import FavIcon from '@material-ui/icons/BookmarkBorder';
 import AnalyseIcon from '@material-ui/icons/Equalizer';
+import InfoIcon from '@material-ui/icons/HelpOutline';
 
 import RoundButton from '~/components/RoundButton';
+import { media } from '~/styles/Utils';
 
 const MenuWrapper = styled.div`
   display: flex;
@@ -18,6 +20,11 @@ const MenuWrapper = styled.div`
   top: 15px;
   left: 15px;
   z-index: 1000;
+
+  ${media.m`
+    transform: ${props => (props.isMenuOpen ? 'translate3d(375px, 0, 0)' : 'none')};
+    transition: transform 500ms;
+  `}
 `;
 
 const MenuItem = styled(NavLink)`
@@ -39,30 +46,30 @@ const MenuItem = styled(NavLink)`
 //   text-decoration: none !important;
 // `;
 
+const menuConfig = [
+  { path: '/suche', title: 'Suche und Filter', icon: <FilterIcon /> },
+  { path: '/liste', title: 'Listenansicht', icon: <ListIcon /> },
+  { path: '/favoriten', title: 'Favoriten', icon: <FavIcon /> },
+  { path: '/analyse', title: 'Analyse', icon: <AnalyseIcon /> },
+  { path: '/info', title: 'Info', icon: <InfoIcon /> },
+];
+
 class Menu extends PureComponent {
   render() {
+    const { pathname } = this.props.location;
+    const isMenuOpen = matchPath(pathname, {
+      path: menuConfig.map(m => m.path),
+    }) !== null;
+
     return (
-      <MenuWrapper>
-        <MenuItem exact to="/suche">
-          <RoundButton title="Suche...">
-            <FilterIcon />
-          </RoundButton>
-        </MenuItem>
-        <MenuItem exact to="/liste">
-          <RoundButton>
-            <ListIcon />
-          </RoundButton>
-        </MenuItem>
-        <MenuItem exact to="/favoriten">
-          <RoundButton>
-            <FavIcon />
-          </RoundButton>
-        </MenuItem>
-        <MenuItem exact to="/analyse">
-          <RoundButton>
-            <AnalyseIcon />
-          </RoundButton>
-        </MenuItem>
+      <MenuWrapper isMenuOpen={isMenuOpen}>
+        {menuConfig.map(m => (
+          <MenuItem exact to={m.path} key={m.path}>
+            <RoundButton title="Suche..." isActive={pathname === m.path}>
+              {m.icon}
+            </RoundButton>
+          </MenuItem>
+        ))}
       </MenuWrapper>
     );
   }
