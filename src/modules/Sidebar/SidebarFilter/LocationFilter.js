@@ -104,7 +104,7 @@ class SearchFilter extends PureComponent {
     fetchJSON(`https://tsb.ara.uberspace.de/tsb-geocoding/geo?num=${selectedNumber.id}`)
       .then((res) => {
         this.props.setLocationFilterCoords([res.lat, res.lon]);
-        this.props.setMapView({ center: [res.lat, res.lon], zoom: 12 });
+        this.props.setMapView({ center: [res.lat, res.lon], zoom: 14.5 });
         this.props.setListSorting('distance');
       });
   }
