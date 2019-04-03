@@ -69,6 +69,19 @@ export const filterAccessibility = (properties, filter) => {
   return isWheelChairFiltered || isDeafFiltered || isBlindFiltered;
 };
 
+export const sortCategories = (a, b) => {
+    // we always want to display Sonstige as the last category
+    if (a === 'Sonstige') {
+      return 1;
+    }
+
+    if (b === 'Sonstige') {
+      return -1;
+    }
+
+    return a.localeCompare(b);
+};
+
 export const sortData = (sortBy, direction = 'asc') => (aObj, bObj) => {
   const a = get(aObj, sortBy);
   const b = get(bObj, sortBy);
@@ -155,7 +168,7 @@ export const getUniqueCategories = (data) => {
   const allCategories = data.features
     .map(d => d.properties.tags)
     .reduce((acc, value) => acc.concat(value), []);
-  return [...new Set(allCategories)].sort((a, b) => a.localeCompare(b));
+  return [...new Set(allCategories)].sort(sortCategories);
 };
 
 export const getColorizer = (uniqueCategories) => {
