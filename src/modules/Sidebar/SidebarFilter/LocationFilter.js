@@ -14,6 +14,7 @@ const SearchFilterWrapper = styled.div`
   display: block;
   margin-bottom: ${props => props.theme.margin[2]};
   font-size: ${props => props.theme.fontSizes[1]};
+  padding-bottom: ${props => props.theme.margin[2]};
 `;
 
 const SelectWrapper = styled.div`
@@ -36,6 +37,7 @@ const SliderWrapper = styled.div`
   line-height: 1;
   margin: 10px 0;
   position: relative;
+  opacity: ${props => (props.disabled ? 0.4 : 1)};
 
   &:hover {
     .sliderinfo {
@@ -60,7 +62,6 @@ const SliderInfo = styled.div`
 const StyledSlider = styled(Slider)`
   &.rc-slider-disabled {
     background: transparent;
-    opacity: 0.5;
   }
 `;
 
