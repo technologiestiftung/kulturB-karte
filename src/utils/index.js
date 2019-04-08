@@ -33,9 +33,18 @@ export function formatNumber(num, decimals = 0) {
   return germanNumberFormat.format(`,.${decimals}f`)(num);
 }
 
+export const isMobile = navigator.userAgent.match(/Android/i)
+  || navigator.userAgent.match(/webOS/i)
+  || navigator.userAgent.match(/iPhone/i)
+  || navigator.userAgent.match(/iPad/i)
+  || navigator.userAgent.match(/iPod/i);
+
+export function noop() {}
 
 export default {
   fetchJSON,
   fetchTopoJSON,
-  formatNumber
+  formatNumber,
+  isMobile,
+  noop
 };

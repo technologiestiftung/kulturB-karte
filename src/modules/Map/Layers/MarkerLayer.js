@@ -4,6 +4,8 @@ import Actions from '~/state/Actions';
 import { Layer, Feature } from 'react-mapbox-gl';
 import idx from 'idx';
 
+import { isMobile, noop } from '~/utils';
+
 let clickTimeout = null;
 
 function getPaintProps(props) {
@@ -54,6 +56,10 @@ class MarkerLayer extends PureComponent {
   }
 
   handleMouseEnter({ properties = {} }) {
+    if (isMobile) {
+      return this.props.setDetailRoute(properties.id);
+    }
+
     if (properties && properties.isFiltered) {
       return false;
     }
@@ -72,7 +78,9 @@ class MarkerLayer extends PureComponent {
   render() {
     const { data, highlightData } = this.props;
     const paintProps = getPaintProps(this.props);
-    const highlightFeat = data.features.find(feat => highlightData && (feat.properties.name === highlightData.name));
+    const highlightFeat = data.features.find(
+      feat => highlightData && (feat.properties.name === highlightData.name)
+    );
 
     return (
       <Fragment>
@@ -86,7 +94,7 @@ class MarkerLayer extends PureComponent {
             <Feature
               coordinates={feat.geometry.coordinates}
               key={feat.properties.name}
-              onClick={evt => this.timeoutClick(evt, feat)}
+              onClick={evt => (isMobile ? noop() : this.timeoutClick(evt, feat))}
               onMouseEnter={() => this.handleMouseEnter(feat)}
               onMouseLeave={() => this.handleMouseLeave()}
               properties={feat.properties}
