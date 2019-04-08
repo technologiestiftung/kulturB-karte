@@ -55,6 +55,7 @@ export default createGlobalStyle`
     position: relative;
     font-family: 'ClanPro', Helvetica, sans-serif;
     color: #222;
+    line-height: 1.4;
   }
 
   body, html, #root {
