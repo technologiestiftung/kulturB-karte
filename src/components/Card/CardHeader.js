@@ -35,7 +35,8 @@ const CardImage = styled.div`
 const CardTitle = styled.div`
   font-size: 14px;
   font-weight: bold;
-  margin: 5px 0;
+  margin: 4px 0;
+  line-height: 1.2;
 `;
 
 const CardAddress = styled.div`
