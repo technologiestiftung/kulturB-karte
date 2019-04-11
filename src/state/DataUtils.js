@@ -3,7 +3,6 @@ import turfDistance from '@turf/distance';
 import turfBbox from '@turf/bbox';
 import turfBboxPolygon from '@turf/bbox-polygon';
 import { scaleOrdinal } from 'd3-scale';
-import get from 'lodash.get';
 import idx from 'idx';
 import Store from 'store';
 import museumIcon from '@material-ui/icons/AccountBalance';
@@ -85,8 +84,8 @@ export const sortCategories = (a, b) => {
 };
 
 export const sortData = (sortBy, direction = 'asc') => (aObj, bObj) => {
-  const a = get(aObj, sortBy);
-  const b = get(bObj, sortBy);
+  const a = idx(aObj, _ => _[sortBy]);
+  const b = idx(bObj, _ => _[sortBy]);
   const type = typeof a;
 
   // we always want to display Sonstige as the last category
