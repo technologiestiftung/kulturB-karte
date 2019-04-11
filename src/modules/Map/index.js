@@ -71,6 +71,14 @@ class Map extends PureComponent {
     }
 
     this.lastLayerIds = layerIds;
+
+    map.on('mouseenter', 'MarkerLayer', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'MarkerLayer', () => {
+      map.getCanvas().style.cursor = '';
+    });
   }
 
   onMoveEnd() {
