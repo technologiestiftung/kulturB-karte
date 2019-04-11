@@ -64,8 +64,12 @@ export const filterMapBounds = (feat, bounds) => {
 export const filterAccessibility = (properties, filter) => {
   const wheelchair = idx(properties, _ => _.accessibility.wheelchair.accessible);
   const isWheelChairFiltered = filter.a11yWheelChairFilter && (!wheelchair || wheelchair === 'no' || wheelchair === 'unknown');
-  const isDeafFiltered = filter.a11yDeafFilter;
-  const isBlindFiltered = filter.a11yBlindFilter;
+
+  const deaf = idx(properties, _ => _.accessibility.deaf);
+  const isDeafFiltered = filter.a11yDeafFilter && !deaf;
+
+  const blind = idx(properties, _ => _.accessibility.blind);
+  const isBlindFiltered = filter.a11yBlindFilter && !blind;
 
   return isWheelChairFiltered || isDeafFiltered || isBlindFiltered;
 };
