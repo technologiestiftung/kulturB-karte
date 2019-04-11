@@ -55,10 +55,12 @@ class MarkerLayer extends PureComponent {
     this.props.setDetailRoute(properties.id);
   }
 
-  handleMouseEnter({ properties = {} }) {
+  handleMouseEnter(evt, { properties = {} }) {
     if (isMobile) {
       return this.props.setDetailRoute(properties.id);
     }
+
+    evt.map.getCanvas().style.cursor = 'pointer';
 
     if (properties && properties.isFiltered) {
       return false;
@@ -67,7 +69,9 @@ class MarkerLayer extends PureComponent {
     this.props.setTooltipData(properties);
   }
 
-  handleMouseLeave() {
+  handleMouseLeave(evt) {
+    evt.map.getCanvas().style.cursor = '';
+
     this.props.setTooltipData(null);
   }
 
@@ -95,8 +99,8 @@ class MarkerLayer extends PureComponent {
               coordinates={feat.geometry.coordinates}
               key={feat.properties.name}
               onClick={evt => (isMobile ? noop() : this.timeoutClick(evt, feat))}
-              onMouseEnter={() => this.handleMouseEnter(feat)}
-              onMouseLeave={() => this.handleMouseLeave()}
+              onMouseEnter={evt => this.handleMouseEnter(evt, feat)}
+              onMouseLeave={evt => this.handleMouseLeave(evt)}
               properties={feat.properties}
             />
           ))}

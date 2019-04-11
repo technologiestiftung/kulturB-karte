@@ -70,7 +70,6 @@
     "history": "^4.7.2",
     "i18next-client": "^1.11.4",
     "idx": "^2.5.4",
-    "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
     "lodash.xor": "^4.5.0",
     "mapbox-gl": "^0.53.1",
