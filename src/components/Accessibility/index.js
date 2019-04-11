@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import idx from 'idx';
 
 import WheelChairIcon from '@material-ui/icons/Accessible';
 import BlindIcon from '@material-ui/icons/VisibilityOff';
@@ -37,28 +38,31 @@ function getAccessibilityLabel(property) {
 class Accessibility extends PureComponent {
   render() {
     const { data } = this.props;
+    const wheelchair = idx(data, _ => _.accessibility.wheelchair.accessible);
+    const blind = idx(data, _ => _.accessibility.blind);
+    const deaf = idx(data, _ => _.accessibility.deaf);
 
     return (
       <AccessibilityWrapper>
         <AccessibilityItem>
-          <IconContainer highlight={data.accessibility_wheelchair}>
+          <IconContainer highlight={wheelchair}>
             <WheelChairIcon fontSize="inherit" />
           </IconContainer>
-          {getAccessibilityLabel(data.accessibility_wheelchair)}
+          {getAccessibilityLabel(wheelchair)}
         </AccessibilityItem>
 
         <AccessibilityItem>
-          <IconContainer highlight={data.accessibility_blind}>
+          <IconContainer highlight={blind}>
             <BlindIcon fontSize="inherit" />
           </IconContainer>
-          {getAccessibilityLabel(data.accessibility_blind)}
+          {getAccessibilityLabel(blind)}
         </AccessibilityItem>
 
         <AccessibilityItem>
-          <IconContainer highlight={data.accessibility_deaf}>
+          <IconContainer highlight={deaf}>
             <DeafIcon fontSize="inherit" />
           </IconContainer>
-          {getAccessibilityLabel(data.accessibility_deaf)}
+          {getAccessibilityLabel(deaf)}
         </AccessibilityItem>
       </AccessibilityWrapper>
     );

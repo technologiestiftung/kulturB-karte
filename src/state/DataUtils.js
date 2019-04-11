@@ -4,6 +4,7 @@ import turfBbox from '@turf/bbox';
 import turfBboxPolygon from '@turf/bbox-polygon';
 import { scaleOrdinal } from 'd3-scale';
 import get from 'lodash.get';
+import idx from 'idx';
 import Store from 'store';
 import museumIcon from '@material-ui/icons/AccountBalance';
 import libraryIcon from '@material-ui/icons/LocalLibrary';
@@ -62,7 +63,8 @@ export const filterMapBounds = (feat, bounds) => {
 };
 
 export const filterAccessibility = (properties, filter) => {
-  const isWheelChairFiltered = filter.a11yWheelChairFilter && (!properties.accessibility_wheelchair || properties.accessibility_wheelchair === 'no' || properties.accessibility_wheelchair === 'unknown');
+  const wheelchair = idx(properties, _ => _.accessibility.wheelchair.accessible);
+  const isWheelChairFiltered = filter.a11yWheelChairFilter && (!wheelchair || wheelchair === 'no' || wheelchair === 'unknown');
   const isDeafFiltered = filter.a11yDeafFilter;
   const isBlindFiltered = filter.a11yBlindFilter;
 
