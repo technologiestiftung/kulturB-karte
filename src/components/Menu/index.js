@@ -65,7 +65,7 @@ class Menu extends PureComponent {
       <MenuWrapper isMenuOpen={isMenuOpen}>
         {menuConfig.map(m => (
           <MenuItem exact to={m.path} key={m.path}>
-            <RoundButton title="Suche..." isActive={pathname === m.path}>
+            <RoundButton title={m.title} isActive={pathname === m.path}>
               {m.icon}
             </RoundButton>
           </MenuItem>
