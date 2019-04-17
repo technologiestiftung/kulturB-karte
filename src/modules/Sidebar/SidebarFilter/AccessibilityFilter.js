@@ -51,15 +51,27 @@ class AccessibilityFilter extends PureComponent {
           text="Barrierefreiheit"
         />
         <FilterButtonContainer>
-          <FilterButton onClick={() => toggleFilter('a11yWheelChairFilter')} isActive={a11yWheelChairFilter} title="Zugänglich für Menschen im Rollstuhl und Gehbehinderte">
+          <FilterButton
+            onClick={() => toggleFilter('a11yWheelChairFilter')}
+            isActive={a11yWheelChairFilter}
+            title="Zugänglich für Menschen im Rollstuhl und Gehbehinderte"
+          >
             <WheelChairIcon fontSize="inherit" />
           </FilterButton>
 
-          <FilterButton onClick={() => toggleFilter('a11yBlindFilter')} isActive={a11yBlindFilter} title="Zugänglich für Blinde und Sehbehinderte">
+          <FilterButton
+            onClick={() => toggleFilter('a11yBlindFilter')}
+            isActive={a11yBlindFilter}
+            title="Zugänglich für Blinde und Sehbehinderte"
+          >
             <BlindIcon fontSize="inherit" />
           </FilterButton>
 
-          <FilterButton onClick={() => toggleFilter('a11yDeafFilter')} isActive={a11yDeafFilter} title="Zugänglich für Gehörlose und Hörgeschädigte">
+          <FilterButton
+            onClick={() => toggleFilter('a11yDeafFilter')}
+            isActive={a11yDeafFilter}
+            title="Zugänglich für Gehörlose und Hörgeschädigte"
+          >
             <DeafIcon fontSize="inherit" />
           </FilterButton>
         </FilterButtonContainer>

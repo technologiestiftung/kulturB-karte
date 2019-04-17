@@ -225,6 +225,14 @@ const toggleFilter = (state, toggleKey) => {
 
   result.filter[toggleKey] = !state.filter[toggleKey];
 
+  const a11yFilterKeys = ['a11yWheelChairFilter', 'a11yBlindFilter', 'a11yDeafFilter'];
+
+  if (a11yFilterKeys.includes(toggleKey)) {
+    a11yFilterKeys.forEach((key) => {
+      result.filter[key] = !state.filter[key] && key === toggleKey;
+    });
+  }
+
   return result;
 };
 
