@@ -16,6 +16,7 @@ import danceIcon from '@material-ui/icons/InsertEmoticon';
 import artIcon from '@material-ui/icons/Brush';
 import memorialIcon from '@material-ui/icons/Business';
 import defaultIcon from '@material-ui/icons/Place';
+import othersIcon from '@material-ui/icons/FilterTiltShift';
 
 import { getPolygonFeature } from '~/modules/Map/MapUtils';
 
@@ -162,7 +163,7 @@ const icons = {
   Tanz: danceIcon,
   'Bildende Kunst': artIcon,
   Gedenkstätte: memorialIcon,
-  Sonstige: () => null
+  Sonstige: othersIcon
 };
 
 export const getIconByCategory = category => (
