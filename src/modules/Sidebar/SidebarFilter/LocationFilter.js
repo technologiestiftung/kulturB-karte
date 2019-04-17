@@ -145,7 +145,7 @@ class SearchFilter extends PureComponent {
             ref={(ref) => { this.streetSelect = ref; }}
             options={this.state.streetOptions}
             getOptionValue={option => (option.id)}
-            getOptionLabel={option => (option.street)}
+            getOptionLabel={option => `${option.street}${option.plz !== 0 ? ` (${option.plz})` : ''}`}
             onChange={evt => this.onSelectStreet(evt)}
             placeholder="Straße suchen ..."
             classNamePrefix="rs"
