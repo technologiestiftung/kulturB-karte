@@ -142,7 +142,6 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
     })
     .filter(feat => feat.properties.detailDistance < maxDistance)
     .sort((a, b) => a.properties.detailDistance - b.properties.detailDistance)
-    .slice(0, 3)
     .map(feat => feat.properties);
 
   return nearby;
