@@ -57,6 +57,7 @@ const SliderInfo = styled.div`
   display: none;
   position: absolute;
   top: 10px;
+  line-height: 1.4;
 `;
 
 const StyledSlider = styled(Slider)`
@@ -179,10 +180,11 @@ class SearchFilter extends PureComponent {
             value={radius}
             disabled={!showReset}
             trackStyle={{
-              background: 'transparent'
+              background: '#aaa'
             }}
             handleStyle={{
-              border: '2px solid #222'
+              border: 'none',
+              background: '#555'
             }}
           />
           <SliderInfo
