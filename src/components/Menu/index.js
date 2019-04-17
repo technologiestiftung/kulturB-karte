@@ -6,7 +6,7 @@ import ListIcon from '@material-ui/icons/FilterList';
 import FilterIcon from '@material-ui/icons/Search';
 import FavIcon from '@material-ui/icons/BookmarkBorder';
 import AnalyseIcon from '@material-ui/icons/Equalizer';
-import InfoIcon from '@material-ui/icons/HelpOutline';
+import InfoIcon from '@material-ui/icons/Info';
 
 import RoundButton from '~/components/RoundButton';
 import { media } from '~/styles/Utils';
