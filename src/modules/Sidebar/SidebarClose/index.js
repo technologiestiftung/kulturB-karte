@@ -15,7 +15,7 @@ class SidebarClose extends PureComponent {
   render() {
     return (
       <StyledLink to={{ pathname: '/', search: this.props.location.search }}>
-        <RoundButton>
+        <RoundButton title="Leiste schließen">
           <CloseIcon />
         </RoundButton>
       </StyledLink>
