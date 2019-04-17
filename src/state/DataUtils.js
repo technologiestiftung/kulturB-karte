@@ -75,6 +75,8 @@ export const filterAccessibility = (properties, filter) => {
   return isWheelChairFiltered || isDeafFiltered || isBlindFiltered;
 };
 
+export const filterFunded = (props, fundedFilter) => !fundedFilter && !props.funded;
+
 export const sortCategories = (a, b) => {
     // we always want to display Sonstige as the last category
     if (a === 'Sonstige') {

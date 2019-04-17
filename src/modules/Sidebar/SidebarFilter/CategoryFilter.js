@@ -49,6 +49,23 @@ const CategoryFilterIcon = styled.div`
   }
 `;
 
+const CheckboxWrapper = styled.div`
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const Checkbox = styled.input`
+  margin-right: 8px;
+`;
+
+const CheckboxLabel = styled.label`
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
+`;
+
 class CategoryFilter extends PureComponent {
   onChange(category) {
     this.props.toggleCategoryFilter(category);
@@ -65,7 +82,7 @@ class CategoryFilter extends PureComponent {
       filter,
       colorizer
     } = this.props;
-    const { categoryFilter } = filter;
+    const { categoryFilter, fundedFilter } = filter;
 
     return (
       <CategoryFilterWrapper>
@@ -96,6 +113,15 @@ class CategoryFilter extends PureComponent {
             );
           })}
         </CategoriesWrapper>
+        <CheckboxWrapper>
+          <Checkbox
+            id="funded"
+            type="checkbox"
+            checked={fundedFilter}
+            onChange={() => this.props.toggleFilter('fundedFilter')}
+          />
+          <CheckboxLabel htmlFor="funded">Nicht-landesgeförderte Orte anzeigen</CheckboxLabel>
+        </CheckboxWrapper>
       </CategoryFilterWrapper>
     );
   }

@@ -11,6 +11,7 @@ import {
   sortData,
   getDistance,
   filterAccessibility,
+  filterFunded
 } from './DataUtils';
 
 import { filterSection } from './Store';
@@ -67,6 +68,8 @@ export const enrichedDataSelector = createSelector(
 
         properties.a11yFilter = filterAccessibility(properties, filter);
 
+        properties.fundedFilter = filterFunded(properties, filter.fundedFilter);
+
         properties.mapBoundsFilter = filterMapBounds(feat, mapBounds);
 
         properties.color = colorizer(properties.mainCategory);
@@ -96,6 +99,7 @@ export const filteredDataSelector = createSelector(
           || feat.properties.districtFilter
           || feat.properties.locationFilter
           || feat.properties.a11yFilter
+          || feat.properties.fundedFilter
         );
 
         return feat;

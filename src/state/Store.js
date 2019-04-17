@@ -10,6 +10,7 @@ export const filterSection = {
   a11yWheelChairFilter: false,
   a11yBlindFilter: false,
   a11yDeafFilter: false,
+  fundedFilter: true
 };
 
 const Store = createStore({
