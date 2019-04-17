@@ -98,6 +98,10 @@ export const loadEntryData = Store => async (state, detailId) => {
   }
 };
 
+export const setDetailData = (state, detailData) => ({
+  detailData
+});
+
 export const setHighlightData = (state, highlightData) => ({ highlightData });
 
 const loadFilterData = Store => async () => {
@@ -181,11 +185,17 @@ const resetCategoryFilter = (state) => {
 };
 
 const setDistrictFilter = (state, districtFilter) => (
-  { filter: Object.assign({}, state.filter, { districtFilter }) }
+  {
+    filter: Object.assign({}, state.filter, { districtFilter }),
+    detailData: false
+  }
 );
 
 const setLocationFilterCoords = (state, locationFilterCoords) => (
-  { filter: Object.assign({}, state.filter, { locationFilterCoords }) }
+  {
+    filter: Object.assign({}, state.filter, { locationFilterCoords }),
+    detailData: false
+  }
 );
 
 const setLocationFilterRadius = (state, locationFilterRadius) => (
@@ -233,6 +243,7 @@ export default Store => ({
   loadFilterData: loadFilterData(Store),
   loadAnalysisData: loadAnalysisData(Store),
   loadEntryData: loadEntryData(Store),
+  setDetailData,
   setHighlightData,
   setDetailRoute,
   setMapCenter,

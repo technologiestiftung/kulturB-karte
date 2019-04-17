@@ -23,7 +23,12 @@ class ResetFilter extends PureComponent {
     return (
       <ResetFilterButtonWrapper>
         {hasFilter && (
-          <ResetFilterButton onClick={() => this.props.setFilter(initialFilter)}>
+          <ResetFilterButton
+            onClick={() => {
+              this.props.setDetailData(false);
+              this.props.setFilter(initialFilter);
+            }}
+          >
           × Alle Filter Zurücksetzen
           </ResetFilterButton>
         )}
