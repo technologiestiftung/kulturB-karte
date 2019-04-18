@@ -98,6 +98,10 @@ export const loadEntryData = Store => async (state, detailId) => {
   }
 };
 
+export const setDetailData = (state, detailData) => ({
+  detailData
+});
+
 export const setHighlightData = (state, highlightData) => ({ highlightData });
 
 const loadFilterData = Store => async () => {
@@ -181,11 +185,17 @@ const resetCategoryFilter = (state) => {
 };
 
 const setDistrictFilter = (state, districtFilter) => (
-  { filter: Object.assign({}, state.filter, { districtFilter }) }
+  {
+    filter: Object.assign({}, state.filter, { districtFilter }),
+    detailData: false
+  }
 );
 
 const setLocationFilterCoords = (state, locationFilterCoords) => (
-  { filter: Object.assign({}, state.filter, { locationFilterCoords }) }
+  {
+    filter: Object.assign({}, state.filter, { locationFilterCoords }),
+    detailData: false
+  }
 );
 
 const setLocationFilterRadius = (state, locationFilterRadius) => (
@@ -215,6 +225,14 @@ const toggleFilter = (state, toggleKey) => {
 
   result.filter[toggleKey] = !state.filter[toggleKey];
 
+  const a11yFilterKeys = ['a11yWheelChairFilter', 'a11yBlindFilter', 'a11yDeafFilter'];
+
+  if (a11yFilterKeys.includes(toggleKey)) {
+    a11yFilterKeys.forEach((key) => {
+      result.filter[key] = !state.filter[key] && key === toggleKey;
+    });
+  }
+
   return result;
 };
 
@@ -233,6 +251,7 @@ export default Store => ({
   loadFilterData: loadFilterData(Store),
   loadAnalysisData: loadAnalysisData(Store),
   loadEntryData: loadEntryData(Store),
+  setDetailData,
   setHighlightData,
   setDetailRoute,
   setMapCenter,

@@ -79,6 +79,19 @@ class MarkerLayer extends PureComponent {
     this.props.setTooltipPos([evt.lngLat.lng, evt.lngLat.lat]);
   }
 
+  renderFeat(feat) {
+    return (
+      <Feature
+        coordinates={feat.geometry.coordinates}
+        key={feat.properties.name}
+        onClick={evt => (isMobile ? noop() : this.timeoutClick(evt, feat))}
+        onMouseEnter={evt => this.handleMouseEnter(evt, feat)}
+        onMouseLeave={evt => this.handleMouseLeave(evt)}
+        properties={feat.properties}
+      />
+    );
+  }
+
   render() {
     const { data, highlightData } = this.props;
     const paintProps = getPaintProps(this.props);
@@ -94,16 +107,14 @@ class MarkerLayer extends PureComponent {
           paint={paintProps}
           onMouseMove={evt => this.handleMouseMove(evt)}
         >
-          {data.features.map(feat => (
-            <Feature
-              coordinates={feat.geometry.coordinates}
-              key={feat.properties.name}
-              onClick={evt => (isMobile ? noop() : this.timeoutClick(evt, feat))}
-              onMouseEnter={evt => this.handleMouseEnter(evt, feat)}
-              onMouseLeave={evt => this.handleMouseLeave(evt)}
-              properties={feat.properties}
-            />
-          ))}
+          {data.features.filter(d => !d.properties.isFiltered).map(feat => this.renderFeat(feat))}
+        </Layer>
+        <Layer
+          id="FilteredMarkerLayer"
+          type="circle"
+          paint={paintProps}
+        >
+          {data.features.filter(d => d.properties.isFiltered).map(feat => this.renderFeat(feat))}
         </Layer>
         {highlightFeat && (
           <Layer

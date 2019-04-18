@@ -26,10 +26,10 @@ const CardImage = styled.div`
   display: block;
   width: 70px;
   height: 70px;
-  border-radius: 50%;
   background-image: ${props => `url(${props.src})`};
   background-position: center;
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: 100%;
 `;
 
 const CardTitle = styled.div`

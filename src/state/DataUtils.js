@@ -16,6 +16,7 @@ import danceIcon from '@material-ui/icons/InsertEmoticon';
 import artIcon from '@material-ui/icons/Brush';
 import memorialIcon from '@material-ui/icons/Business';
 import defaultIcon from '@material-ui/icons/Place';
+import othersIcon from '@material-ui/icons/FilterTiltShift';
 
 import { getPolygonFeature } from '~/modules/Map/MapUtils';
 
@@ -64,11 +65,17 @@ export const filterMapBounds = (feat, bounds) => {
 export const filterAccessibility = (properties, filter) => {
   const wheelchair = idx(properties, _ => _.accessibility.wheelchair.accessible);
   const isWheelChairFiltered = filter.a11yWheelChairFilter && (!wheelchair || wheelchair === 'no' || wheelchair === 'unknown');
-  const isDeafFiltered = filter.a11yDeafFilter;
-  const isBlindFiltered = filter.a11yBlindFilter;
+
+  const deaf = idx(properties, _ => _.accessibility.deaf);
+  const isDeafFiltered = filter.a11yDeafFilter && !deaf;
+
+  const blind = idx(properties, _ => _.accessibility.blind);
+  const isBlindFiltered = filter.a11yBlindFilter && !blind;
 
   return isWheelChairFiltered || isDeafFiltered || isBlindFiltered;
 };
+
+export const filterFunded = (props, fundedFilter) => !fundedFilter && !props.funded;
 
 export const sortCategories = (a, b) => {
     // we always want to display Sonstige as the last category
@@ -137,7 +144,6 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
     })
     .filter(feat => feat.properties.detailDistance < maxDistance)
     .sort((a, b) => a.properties.detailDistance - b.properties.detailDistance)
-    .slice(0, 3)
     .map(feat => feat.properties);
 
   return nearby;
@@ -158,7 +164,7 @@ const icons = {
   Tanz: danceIcon,
   'Bildende Kunst': artIcon,
   Gedenkstätte: memorialIcon,
-  Sonstige: () => null
+  Sonstige: othersIcon
 };
 
 export const getIconByCategory = category => (
