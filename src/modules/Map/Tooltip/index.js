@@ -7,9 +7,11 @@ import { Popup } from 'react-mapbox-gl';
 import CardHeader from '~/components/Card/CardHeader';
 
 const StyledPopup = styled(Popup)`
-  max-width: 250px;
-  line-height: 1;
-  font-family: ${props => props.theme.fonts.sans};
+  &&& {
+    max-width: 250px;
+    line-height: 1;
+    font-family: ${props => props.theme.fonts.sans};
+  }
 `;
 
 class Tooltip extends PureComponent {
@@ -21,7 +23,7 @@ class Tooltip extends PureComponent {
     }
 
     return (
-      <StyledPopup coordinates={tooltipPos}>
+      <StyledPopup coordinates={tooltipPos} style={{ zIndex: 2000 }}>
         <CardHeader data={data} />
       </StyledPopup>
     );

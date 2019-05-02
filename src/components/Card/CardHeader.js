@@ -16,15 +16,25 @@ const CardAddress = styled.div`
   color: ${props => props.theme.colors.textgrey};
 `;
 
+const CardTitle = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  margin: 4px 0;
+  line-height: 1.2;
+`;
+
 const CardHeaderWrapper = styled.div`
   display: flex;
   background: ${props => (props.teaserUrl ? `url(${props.teaserUrl}) no-repeat center center` : 'none')};
   background-size: cover;
-  color: white;
   height: ${props => (props.teaserUrl ? '150px' : 'auto')};
 
   ${CardAddress} {
     color: ${props => (props.teaserUrl ? 'white' : props.theme.colors.textgrey)};
+  }
+
+  ${CardTitle} {
+    color: ${props => (props.teaserUrl ? 'white' : props.theme.colors.black)};
   }
 `;
 
@@ -45,13 +55,6 @@ const CardImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-`;
-
-const CardTitle = styled.div`
-  font-size: 14px;
-  font-weight: bold;
-  margin: 4px 0;
-  line-height: 1.2;
 `;
 
 const FavButton = styled(Button)`
