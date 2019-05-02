@@ -9,8 +9,23 @@ import CategoryLabels from '~/components/CategoryLabels';
 import Button from '~/components/GhostButton';
 import Actions from '~/state/Actions';
 
+const StyledCategoryLabels = styled(CategoryLabels)``;
+
+const CardAddress = styled.div`
+  font-size: 12px;
+  color: ${props => props.theme.colors.textgrey};
+`;
+
 const CardHeaderWrapper = styled.div`
   display: flex;
+  background: ${props => (props.teaserUrl ? `url(${props.teaserUrl}) no-repeat center center` : 'none')};
+  background-size: cover;
+  color: white;
+  height: ${props => (props.teaserUrl ? '150px' : 'auto')};
+
+  ${CardAddress} {
+    color: ${props => (props.teaserUrl ? 'white' : props.theme.colors.textgrey)};
+  }
 `;
 
 const CardHeaderLeft = styled.div`
@@ -39,11 +54,6 @@ const CardTitle = styled.div`
   line-height: 1.2;
 `;
 
-const CardAddress = styled.div`
-  font-size: 12px;
-  color: ${props => props.theme.colors.textgrey};
-`;
-
 const FavButton = styled(Button)`
   color: #222;
   width: 24px;
@@ -64,18 +74,22 @@ class CardHeader extends PureComponent {
     const {
       data, className, isListMode, toggleFav, favs
     } = this.props;
-    const hasLogo = idx(data, _ => _.logo.url);
+    const logoUrl = idx(data, _ => _.logo.url);
+    const teaserUrl = idx(data, _ => _.teaser.url);
     const isFav = favs.includes(data.id);
 
     return (
-      <CardHeaderWrapper className={className}>
+      <CardHeaderWrapper
+        className={className}
+        teaserUrl={teaserUrl}
+      >
         <CardHeaderLeft>
-          <CategoryLabels categories={data.tags} />
+          <StyledCategoryLabels categories={data.tags} hasBorder={teaserUrl} />
           <CardTitle>{data.name}</CardTitle>
           <CardAddress>{data.address}</CardAddress>
         </CardHeaderLeft>
         <CardHeaderRight>
-          {(hasLogo && !isListMode) && <CardImage src={data.logo.url} />}
+          {(logoUrl && !isListMode && !teaserUrl) && <CardImage src={logoUrl} />}
           {isListMode && (
             <FavButton
               onClick={() => toggleFav(data.id)}

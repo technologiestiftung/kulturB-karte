@@ -11,12 +11,12 @@ const CategoryLabel = styled.div`
   display: block;
   font-size: ${props => props.theme.fontSizes[0]};
   margin-right: 5px;
-  padding: 2px 5px;
+  padding: 2px 5px 2px 12px;
   border-radius: 8px;
   color: ${props => props.color || '#ddd'};
   position: relative;
-  padding-left: 12px;
   line-height: 1;
+  background: ${props => (props.hasBorder ? 'white' : 'none')};
 
   &:before {
     content: '';
@@ -25,21 +25,24 @@ const CategoryLabel = styled.div`
     width: 8px;
     background: ${props => props.color || '#ddd'};
     border-radius: 100%;
-    left: 0;
-    top: 3px;
+    left: ${props => (props.hasBorder ? '3px' : 0)};
+    top: ${props => (props.hasBorder ? '3px' : '2px')};
   }
 `;
 
 class CategoryLabels extends PureComponent {
   render() {
-    const { categories, colorizer } = this.props;
+    const {
+      categories, colorizer, className, hasBorder
+    } = this.props;
 
     return (
-      <CategoryLabelWrapper>
+      <CategoryLabelWrapper className={className}>
         {categories.map(cat => (
           <CategoryLabel
             key={`CategoryLabel__${cat}`}
             color={colorizer(cat)}
+            hasBorder={hasBorder}
           >
             {cat}
           </CategoryLabel>
