@@ -36,6 +36,4 @@ const Store = createStore({
   favs: getFavs(),
 });
 
-window.Store = Store;
-
 export default Store;

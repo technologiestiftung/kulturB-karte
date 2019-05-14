@@ -1,6 +1,7 @@
 import xor from 'lodash.xor';
-import { fetchJSON, fetchTopoJSON } from '~/utils';
-import { getUniqueCategories, getColorizer, setFavs } from './DataUtils';
+import destination from '@turf/destination';
+import { fetchJSON, fetchTopoJSON, isMobile } from '~/utils';
+import { getUniqueCategories, getColorizer, setFavs, getNearbyVenues } from './DataUtils';
 
 import history from '~/history';
 
@@ -23,6 +24,38 @@ const randomizeCoord = (coord) => {
   return Math.random() < .5 ? coord + randomValue : coord - randomValue;
 };
 
+const collide = (data, distance = 0.005, iterations = 5) => {
+  let result = data;
+
+  for (let i = 0; i < iterations; i++) {
+    const degree = (i * (360 / iterations)) - 180;
+    console.log(degree);
+
+    result.features = data.features.map(feat => {
+      const nearby = getNearbyVenues(result, feat.properties, distance); 
+      
+      if (nearby.length > iterations - i) {
+        feat.geometry = destination(feat, distance + 0.05, degree).geometry;
+
+        if (feat.properties.address.includes('Mariannenplatz')) {
+          console.log('correcting', feat.properties);
+        }
+      }
+
+      return feat;
+    });
+  }
+
+
+  // data.features.forEach(feat => {
+  //   const nearby = getNearbyVenues(data, feat.properties, distance);
+
+  //   console.log(nearby);
+  // });
+
+  return result;
+};
+
 const loadData = Store => async () => {
   Store.setState({ isLoading: true });
 
@@ -30,20 +63,22 @@ const loadData = Store => async () => {
     const { data } = await fetchJSON(`${config.api.base}${config.api.locations}${config.api.params}`);
     const { filter } = Store.getState();
 
-    const parsedData = {
+    const features = data
+      .map(d => ({
+        ...d,
+        location: d.location ? {
+          ...d.location,
+          coordinates: d.location.coordinates
+        } : false,
+        tags: d.tags.length ? d.tags.map(t => t.name) : ['Sonstige']
+      }))
+      .filter(d => d.location)
+      .map(createPoint);
+
+    const parsedData = collide({
       type: 'FeatureCollection',
-      features: data
-        .map(d => ({
-          ...d,
-          location: d.location ? {
-            ...d.location,
-            coordinates: d.location.coordinates.map(c => randomizeCoord(c))
-          } : false,
-          tags: d.tags.length ? d.tags.map(t => t.name) : ['Sonstige']
-        }))
-        .filter(d => d.location)
-        .map(createPoint)
-    };
+      features
+    });
 
     const categories = getUniqueCategories(parsedData);
     const colorizer = getColorizer(categories);
@@ -66,7 +101,8 @@ const loadData = Store => async () => {
 
 const setDetailRoute = (state, id = false) => {
   if (id) {
-    return history.push(`?location=${id}`);
+    const nextLocation = isMobile ? `/?location=${id}` : `?location=${id}`;
+    return history.push(nextLocation);
   }
 
   history.push(history.location.pathname.replace(/\?location=.+/, ''));
