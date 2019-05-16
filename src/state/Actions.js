@@ -32,13 +32,13 @@ const collide = (data, distance = 0.005, iterations = 5) => {
     console.log(degree);
 
     result.features = data.features.map(feat => {
-      const nearby = getNearbyVenues(result, feat.properties, distance); 
-      
+      const nearby = getNearbyVenues(result, feat.properties, distance);
+
       if (nearby.length > iterations - i) {
         feat.geometry = destination(feat, distance + 0.05, degree).geometry;
 
         if (feat.properties.address.includes('Mariannenplatz')) {
-          console.log('correcting', feat.properties);
+          // console.log('correcting', feat.properties);
         }
       }
 

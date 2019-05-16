@@ -23,8 +23,8 @@ const CardDistance = styled.div`
 const CardTitle = styled.div`
   font-weight: bold;
   font-size: 14px;
-  margin-bottom: ${props => props.theme.margin[0]};
-  padding: 0 ${props => props.theme.padding[1]};
+  padding: ${props => props.theme.padding[1]};
+  background: #eee;
 `;
 
 const NearbyCard = styled.div`
@@ -75,8 +75,8 @@ class CardNearby extends PureComponent {
 
     return (
       <CardNearbyWrapper>
-        <CardDivider />
-        <CardTitle>In der Nähe</CardTitle>
+        <CardDivider style={{ marginBottom: 0 }} />
+        <CardTitle>In der Nähe:</CardTitle>
         {data.slice(0, endIndex).map(d => (
           <NearbyCard onClick={() => this.handleNearbyClick(d)} key={`NearbyCard__${d.id}`}>
             <CardHeader data={d} />

@@ -6,6 +6,7 @@ import { SimpleOpeningHours } from 'simple-opening-hours';
 import OpeningHours from '~/components/OpeningHours';
 import WebsiteLink from '~/components/Link';
 import Accessibility from '~/components/Accessibility';
+import Transportation from '~/components/Transportation';
 
 const CardBodyWrapper = styled.div`
   font-size: ${props => props.theme.fontSizes[0]};
@@ -60,6 +61,8 @@ class CardBody extends PureComponent {
     const { detailData } = this.props;
     const openingHours = detailData.openingHours && new SimpleOpeningHours(detailData.openingHours);
 
+    console.log(1, detailData);
+
     return (
       <CardBodyWrapper className={this.props.className}>
 
@@ -86,6 +89,15 @@ class CardBody extends PureComponent {
             <OpeningHours data={detailData.openingHours ? openingHours.getTable() : null} />
           </CardSectionRight>
         </CardBodySection>
+
+        {detailData.transportation && (
+          <CardBodySection>
+            <CardSectionLeft>ÖPNV</CardSectionLeft>
+            <CardSectionRight>
+              <Transportation data={detailData.transportation} />
+            </CardSectionRight>
+          </CardBodySection>
+        )}
 
         <CardBodySection>
           <CardSectionLeft>Barrierefreiheit</CardSectionLeft>
