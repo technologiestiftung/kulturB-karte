@@ -81,6 +81,7 @@
     "rc-slider": "^8.6.6",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-icons": "^3.7.0",
     "react-mapbox-gl": "^4.2.0",
     "react-markdown": "^4.0.8",
     "react-router": "^4.3.1",

@@ -20,13 +20,21 @@ const Data = styled.div``;
 class Transportation extends PureComponent {
   render() {
     const { data } = this.props;
-    console.log(this.props.data);
+
     return (
       <TransportationWrapper>
-        {data.subway && <TransportationItem><Label>U-Bahn:</Label><Data>{data.subway}</Data></TransportationItem>}
-        {data.bus && <TransportationItem><Label>Bus:</Label><Data>{data.bus}</Data></TransportationItem>}
-        {data.tram && <TransportationItem><Label>Tram:</Label><Data>{data.tram}</Data></TransportationItem>}
-        {data.railway && <TransportationItem><Label>S-Bahn:</Label><Data>{data.railway}</Data></TransportationItem>}
+        {data.subway && (
+          <TransportationItem><Label>U-Bahn:</Label><Data>{data.subway}</Data></TransportationItem>
+        )}
+        {data.bus && (
+          <TransportationItem><Label>Bus:</Label><Data>{data.bus}</Data></TransportationItem>
+        )}
+        {data.tram && (
+          <TransportationItem><Label>Tram:</Label><Data>{data.tram}</Data></TransportationItem>
+        )}
+        {data.railway && (
+          <TransportationItem><Label>S-Bahn:</Label><Data>{data.railway}</Data></TransportationItem>
+        )}
       </TransportationWrapper>
     );
   }
