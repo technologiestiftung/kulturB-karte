@@ -1,7 +1,6 @@
 import xor from 'lodash.xor';
-import destination from '@turf/destination';
 import { fetchJSON, fetchTopoJSON, isMobile } from '~/utils';
-import { getUniqueCategories, getColorizer, setFavs, getNearbyVenues } from './DataUtils';
+import { getUniqueCategories, getColorizer, setFavs } from './DataUtils';
 
 import history from '~/history';
 
