@@ -20,40 +20,8 @@ const createPoint = d => ({
 // for overlapping points
 // @TODO: should we implement a collision detection?
 const randomizeCoord = (coord) => {
-  const randomValue = Math.random() / 20000 + 0.0001;
+  const randomValue = Math.random() / 20000 + 0.0002;
   return Math.random() < .5 ? coord + randomValue : coord - randomValue;
-};
-
-const collide = (data, distance = 0.005, iterations = 5) => {
-  let result = data;
-
-  for (let i = 0; i < iterations; i++) {
-    const degree = (i * (360 / iterations)) - 180;
-    console.log(degree);
-
-    result.features = data.features.map(feat => {
-      const nearby = getNearbyVenues(result, feat.properties, distance);
-
-      if (nearby.length > iterations - i) {
-        feat.geometry = destination(feat, distance + 0.05, degree).geometry;
-
-        if (feat.properties.address.includes('Mariannenplatz')) {
-          // console.log('correcting', feat.properties);
-        }
-      }
-
-      return feat;
-    });
-  }
-
-
-  // data.features.forEach(feat => {
-  //   const nearby = getNearbyVenues(data, feat.properties, distance);
-
-  //   console.log(nearby);
-  // });
-
-  return result;
 };
 
 const loadData = Store => async () => {
@@ -68,17 +36,17 @@ const loadData = Store => async () => {
         ...d,
         location: d.location ? {
           ...d.location,
-          coordinates: d.location.coordinates
+          coordinates: d.location.coordinates.map(randomizeCoord)
         } : false,
         tags: d.tags.length ? d.tags.map(t => t.name) : ['Sonstige']
       }))
       .filter(d => d.location)
       .map(createPoint);
 
-    const parsedData = collide({
+    const parsedData = {
       type: 'FeatureCollection',
       features
-    });
+    };
 
     const categories = getUniqueCategories(parsedData);
     const colorizer = getColorizer(categories);
