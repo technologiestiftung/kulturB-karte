@@ -100,6 +100,11 @@ class MarkerLayer extends PureComponent {
       feat => highlightData && (feat.properties.name === highlightData.name)
     );
 
+    const detailId = idx(this.props, _ => _.detailData.id);
+    const activeFeat = data.features.find(
+      feat => feat.properties.id === detailId
+    );
+
     return (
       <Fragment>
         <Layer
@@ -127,6 +132,19 @@ class MarkerLayer extends PureComponent {
               coordinates={highlightFeat.geometry.coordinates}
               key={highlightFeat.properties.name}
               properties={highlightFeat.properties}
+            />
+          </Layer>
+        )}
+        {activeFeat && (
+          <Layer
+            id="HighlightLayer"
+            type="circle"
+            paint={paintProps}
+          >
+            <Feature
+              coordinates={activeFeat.geometry.coordinates}
+              key={activeFeat.properties.name}
+              properties={activeFeat.properties}
             />
           </Layer>
         )}
