@@ -8,7 +8,7 @@ const maxX = 10;
 
 const BarWrapper = styled.div`
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   align-items: center;
 `;
 
@@ -46,12 +46,19 @@ const BarLabel = styled.div`
   pointer-events: none;
 `;
 
+const BarDescription = styled.div`
+  position: absolute;
+  color: #999;
+  font-size: 10px;
+  line-height: 1;
+`;
+
 const Axis = styled.div`
   display: flex;
   color: #777;
   font-size: ${props => props.theme.fontSizes[0]};
   margin-left: 110px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #777;
   padding-top: 5px;
 `;
 
@@ -83,20 +90,32 @@ class CategoryBars extends PureComponent {
     return (
       <CategoryBarsWrapper>
         <Title>{title}</Title>
-        {data.map(d => (
+        {data.map((d, i) => (
           <BarWrapper key={`Bar__${d.category}`}>
             <BarTitle>{d.category}</BarTitle>
             <BarOuter>
               <Bar
                 color={colorizer(d.category)}
                 width={(d.perPop / maxX) * 100}
-              />
+              >
+                {(i === 0 && districtName !== 'Berlin') && (
+                  <BarDescription style={{ left: `${((d.perPop / maxX) * 100) + 1}%` }}>
+                    {districtName}
+                  </BarDescription>
+                )}
+              </Bar>
               {districtId && (
                 <Bar
                   color={colorizer(d.category)}
                   width={(d.perPopBerlin / maxX) * 100}
                   isComparison
-                />
+                >
+                  {i === 0 && (
+                    <BarDescription style={{ left: `${((d.perPopBerlin / maxX) * 100) + 1}%` }}>
+                      Berlin
+                    </BarDescription>
+                  )}
+                </Bar>
               )}
               <BarLabel className="bar__label" hasDistrictId={districtId}>
                 {districtId && (
