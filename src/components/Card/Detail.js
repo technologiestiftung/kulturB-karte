@@ -29,7 +29,7 @@ const DetailCardWrapper = styled(CardWrapper)`
   }
 
   @media screen and (min-width: 1024px) {
-    top: 110px;
+    top: 120px;
   }
 `;
 
