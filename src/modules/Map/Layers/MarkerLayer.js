@@ -87,6 +87,7 @@ class MarkerLayer extends PureComponent {
         onClick={evt => (isMobile ? noop() : this.timeoutClick(evt, feat))}
         onMouseEnter={evt => this.handleMouseEnter(evt, feat)}
         onMouseLeave={evt => this.handleMouseLeave(evt)}
+        onTouchStart={evt => this.handleClick(evt)}
         properties={feat.properties}
       />
     );
