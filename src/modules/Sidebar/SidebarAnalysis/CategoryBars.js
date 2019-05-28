@@ -60,6 +60,8 @@ const AxisLabel = styled.div``;
 const BarTitle = styled.div`
   font-size: ${props => props.theme.fontSizes[0]};
   min-width: 110px;
+  text-align: right;
+  margin-right: 5px;
 `;
 
 const CategoryBarsWrapper = styled.div`
