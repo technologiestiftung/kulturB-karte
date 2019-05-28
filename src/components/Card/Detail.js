@@ -66,6 +66,13 @@ class DetailCard extends PureComponent {
     this.setState({ maxHeight });
   }
 
+  onClose(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    this.props.onClose(evt);
+  }
+
   render() {
     const { data } = this.props;
 
@@ -75,7 +82,7 @@ class DetailCard extends PureComponent {
 
     return (
       <DetailCardWrapper>
-        <CloseButton onClick={this.props.onClose} onTouchStart={this.props.onClose}>
+        <CloseButton onClick={evt => this.onClose(evt)}>
           <Clear />
         </CloseButton>
         <ScrollWrapper style={{ maxHeight: this.state.maxHeight }}>
