@@ -9,15 +9,16 @@ import { isMobile, noop } from '~/utils';
 let clickTimeout = null;
 
 function getPaintProps(props) {
-  const radius = props.radius || 5;
   const detailId = idx(props, _ => _.detailData.name) || idx(props, _ => _.highlightData.name) || '';
   const tooltipId = idx(props, _ => _.tooltipData.name) || '';
+  const activeExpr = ['case', ['==', ['string', ['get', 'name']], detailId], 10, 5];
+  const activeExprZoomedIn = ['case', ['==', ['string', ['get', 'name']], detailId], 15, isMobile ? 12 : 10];
 
   return {
     'circle-radius': [
-      'case',
-      ['==', ['string', ['get', 'name']], detailId], 10,
-      radius
+      'interpolate', ['linear'], ['zoom'],
+      12, activeExpr,
+      20, activeExprZoomedIn
     ],
     'circle-color': [
       'case',
