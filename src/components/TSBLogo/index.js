@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import TSBLogoSrc from '!file-loader!~/../public/images/kbd_logo_headr.svg'; // eslint-disable-line
+import TSBLogoSrc from '!file-loader!~/../public/images/kbd_logo_header.svg'; // eslint-disable-line
 
 const TSBLogo = styled.a.attrs({
   href: 'https://kultur-b-digital.de',
@@ -14,7 +14,7 @@ const TSBLogo = styled.a.attrs({
   z-index: 1000;
 
   @media screen and (min-width: 768px) {
-    width: 500px;
+    width: 360px;
   }
 
   img {

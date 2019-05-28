@@ -45,21 +45,21 @@ class Accessibility extends PureComponent {
     return (
       <AccessibilityWrapper>
         <AccessibilityItem>
-          <IconContainer highlight={wheelchair}>
+          <IconContainer highlight={wheelchair} title="Icon: Rollstuhl und Gehbehinderte">
             <WheelChairIcon fontSize="inherit" />
           </IconContainer>
           {getAccessibilityLabel(wheelchair)}
         </AccessibilityItem>
 
         <AccessibilityItem>
-          <IconContainer highlight={blind}>
+          <IconContainer highlight={blind} title="Icon: Blinde und Sehbehinderte">
             <BlindIcon fontSize="inherit" />
           </IconContainer>
           {getAccessibilityLabel(blind)}
         </AccessibilityItem>
 
         <AccessibilityItem>
-          <IconContainer highlight={deaf}>
+          <IconContainer highlight={deaf} title="Icon: Gehörlose und Hörgeschädigte">
             <DeafIcon fontSize="inherit" />
           </IconContainer>
           {getAccessibilityLabel(deaf)}

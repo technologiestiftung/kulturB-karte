@@ -29,7 +29,7 @@
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
     "locations": "/locations",
-    "params": "?limit=0&fields=[\"_id\",\"name\",\"address\",\"location\",\"tags\",\"logo\",\"accessibility\",\"funded\"]&published=true"
+    "params": "?limit=0&fields=[\"_id\",\"name\",\"address\",\"location\",\"tags\",\"logo\",\"accessibility\",\"funded\",\"transportation\",\"openingHours\",\"twitter\",\"facebook\",\"instagram\",\"youtube\"]&published=true"
   },
   "localStorage": {
     "favKey": "tsb:favs"

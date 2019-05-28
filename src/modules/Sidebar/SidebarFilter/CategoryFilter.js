@@ -101,6 +101,7 @@ class CategoryFilter extends PureComponent {
                 key={`CategoryFilter__${category}`}
                 onClick={() => this.onChange(category)}
                 isActive={isActive}
+                title={`${category} auswählen`}
               >
                 <CategoryFilterIcon
                   isActive={isActive}
