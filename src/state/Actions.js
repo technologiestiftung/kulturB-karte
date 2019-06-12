@@ -1,5 +1,5 @@
 import xor from 'lodash.xor';
-import { fetchJSON, fetchTopoJSON } from '~/utils';
+import { fetchJSON, fetchTopoJSON, isMobile } from '~/utils';
 import { getUniqueCategories, getColorizer, setFavs } from './DataUtils';
 
 import history from '~/history';
@@ -19,7 +19,7 @@ const createPoint = d => ({
 // for overlapping points
 // @TODO: should we implement a collision detection?
 const randomizeCoord = (coord) => {
-  const randomValue = Math.random() / 20000 + 0.0001;
+  const randomValue = Math.random() / 20000 + 0.0002;
   return Math.random() < .5 ? coord + randomValue : coord - randomValue;
 };
 
@@ -30,19 +30,21 @@ const loadData = Store => async () => {
     const { data } = await fetchJSON(`${config.api.base}${config.api.locations}${config.api.params}`);
     const { filter } = Store.getState();
 
+    const features = data
+      .map(d => ({
+        ...d,
+        location: d.location ? {
+          ...d.location,
+          coordinates: d.location.coordinates.map(randomizeCoord)
+        } : false,
+        tags: d.tags.length ? d.tags.map(t => t.name) : ['Sonstige']
+      }))
+      .filter(d => d.location)
+      .map(createPoint);
+
     const parsedData = {
       type: 'FeatureCollection',
-      features: data
-        .map(d => ({
-          ...d,
-          location: d.location ? {
-            ...d.location,
-            coordinates: d.location.coordinates.map(c => randomizeCoord(c))
-          } : false,
-          tags: d.tags.length ? d.tags.map(t => t.name) : ['Sonstige']
-        }))
-        .filter(d => d.location)
-        .map(createPoint)
+      features
     };
 
     const categories = getUniqueCategories(parsedData);
@@ -66,7 +68,8 @@ const loadData = Store => async () => {
 
 const setDetailRoute = (state, id = false) => {
   if (id) {
-    return history.push(`?location=${id}`);
+    const nextLocation = isMobile ? `/?location=${id}` : `?location=${id}`;
+    return history.push(nextLocation);
   }
 
   history.push(history.location.pathname.replace(/\?location=.+/, ''));
@@ -97,6 +100,10 @@ export const loadEntryData = Store => async (state, detailId) => {
     return { isLoading: false };
   }
 };
+
+export const setDetailData = (state, detailData) => ({
+  detailData
+});
 
 export const setHighlightData = (state, highlightData) => ({ highlightData });
 
@@ -181,11 +188,17 @@ const resetCategoryFilter = (state) => {
 };
 
 const setDistrictFilter = (state, districtFilter) => (
-  { filter: Object.assign({}, state.filter, { districtFilter }) }
+  {
+    filter: Object.assign({}, state.filter, { districtFilter }),
+    detailData: false
+  }
 );
 
 const setLocationFilterCoords = (state, locationFilterCoords) => (
-  { filter: Object.assign({}, state.filter, { locationFilterCoords }) }
+  {
+    filter: Object.assign({}, state.filter, { locationFilterCoords }),
+    detailData: false
+  }
 );
 
 const setLocationFilterRadius = (state, locationFilterRadius) => (
@@ -215,6 +228,14 @@ const toggleFilter = (state, toggleKey) => {
 
   result.filter[toggleKey] = !state.filter[toggleKey];
 
+  const a11yFilterKeys = ['a11yWheelChairFilter', 'a11yBlindFilter', 'a11yDeafFilter'];
+
+  if (a11yFilterKeys.includes(toggleKey)) {
+    a11yFilterKeys.forEach((key) => {
+      result.filter[key] = !state.filter[key] && key === toggleKey;
+    });
+  }
+
   return result;
 };
 
@@ -233,6 +254,7 @@ export default Store => ({
   loadFilterData: loadFilterData(Store),
   loadAnalysisData: loadAnalysisData(Store),
   loadEntryData: loadEntryData(Store),
+  setDetailData,
   setHighlightData,
   setDetailRoute,
   setMapCenter,

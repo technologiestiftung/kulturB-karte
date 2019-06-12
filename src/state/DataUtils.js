@@ -5,17 +5,38 @@ import turfBboxPolygon from '@turf/bbox-polygon';
 import { scaleOrdinal } from 'd3-scale';
 import idx from 'idx';
 import Store from 'store';
-import museumIcon from '@material-ui/icons/AccountBalance';
-import libraryIcon from '@material-ui/icons/LocalLibrary';
+
+import {
+  IoIosCube as projectRoomIcon,
+  IoIosMusicalNotes as musicIcon,
+  IoIosMic as operaIcon,
+} from 'react-icons/io';
+
+import {
+  MdAccountBalance as museumIcon,
+  MdLocalLibrary as libraryIcon,
+  MdMusicNote as musicSchoolIcon,
+  MdImportContacts as bookHouse,
+  MdColorLens as galleryIcon,
+  MdBrush as artIcon,
+  MdBusiness as memorialIcon,
+  MdPlace as defaultIcon,
+  MdFilterTiltShift as othersIcon,
+} from 'react-icons/md';
+
+import {
+  GiJuggler as dancePerformanceIcon
+} from 'react-icons/gi';
+
+import {
+  GoOrganization as associationIcon
+} from 'react-icons/go';
+
+import {
+  FaGuitar as concertIcon
+} from 'react-icons/fa';
+
 import theaterIcon from '~/../public/images/icons/theater.svg';
-import musicSchoolIcon from '@material-ui/icons/MusicNote';
-import projectRoomIcon from '@material-ui/icons/Store';
-import bookHouse from '@material-ui/icons/ImportContacts';
-import galleryIcon from '@material-ui/icons/ColorLens';
-import danceIcon from '@material-ui/icons/InsertEmoticon';
-import artIcon from '@material-ui/icons/Brush';
-import memorialIcon from '@material-ui/icons/Business';
-import defaultIcon from '@material-ui/icons/Place';
 
 import { getPolygonFeature } from '~/modules/Map/MapUtils';
 
@@ -73,6 +94,8 @@ export const filterAccessibility = (properties, filter) => {
 
   return isWheelChairFiltered || isDeafFiltered || isBlindFiltered;
 };
+
+export const filterFunded = (props, fundedFilter) => !fundedFilter && !props.funded;
 
 export const sortCategories = (a, b) => {
     // we always want to display Sonstige as the last category
@@ -141,7 +164,6 @@ export const getNearbyVenues = (data, detailData, maxDistance = 1) => {
     })
     .filter(feat => feat.properties.detailDistance < maxDistance)
     .sort((a, b) => a.properties.detailDistance - b.properties.detailDistance)
-    .slice(0, 3)
     .map(feat => feat.properties);
 
   return nearby;
@@ -154,15 +176,26 @@ export const getDistrictBounds = districtFeature => (
 const icons = {
   Museum: museumIcon,
   Bibliothek: libraryIcon,
+  Archiv: libraryIcon,
+  'Bibliothek/Archiv': libraryIcon,
   Theater: theaterIcon,
   Musikschule: musicSchoolIcon,
+  Musik: musicIcon,
+  Konzert: concertIcon,
+  Oper: operaIcon,
   Projektraum: projectRoomIcon,
   Literaturhaus: bookHouse,
   Galerie: galleryIcon,
-  Tanz: danceIcon,
+  Tanz: dancePerformanceIcon,
+  Performance: dancePerformanceIcon,
+  'Tanz/Performance': dancePerformanceIcon,
+  Kunst: artIcon,
   'Bildende Kunst': artIcon,
   Gedenkstätte: memorialIcon,
-  Sonstige: () => null
+  Verband: associationIcon,
+  Verein: associationIcon,
+  'Verband/Verein': associationIcon,
+  Sonstige: othersIcon
 };
 
 export const getIconByCategory = category => (

@@ -57,6 +57,7 @@ const SliderInfo = styled.div`
   display: none;
   position: absolute;
   top: 10px;
+  line-height: 1.4;
 `;
 
 const StyledSlider = styled(Slider)`
@@ -144,7 +145,7 @@ class SearchFilter extends PureComponent {
             ref={(ref) => { this.streetSelect = ref; }}
             options={this.state.streetOptions}
             getOptionValue={option => (option.id)}
-            getOptionLabel={option => (option.street)}
+            getOptionLabel={option => `${option.street}${option.plz !== 0 ? ` (${option.plz})` : ''}`}
             onChange={evt => this.onSelectStreet(evt)}
             placeholder="Straße suchen ..."
             classNamePrefix="rs"
@@ -179,10 +180,11 @@ class SearchFilter extends PureComponent {
             value={radius}
             disabled={!showReset}
             trackStyle={{
-              background: 'transparent'
+              background: '#aaa'
             }}
             handleStyle={{
-              border: '2px solid #222'
+              border: 'none',
+              background: '#555'
             }}
           />
           <SliderInfo

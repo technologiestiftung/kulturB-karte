@@ -1,15 +1,17 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { connect } from 'unistore/react';
+import PlusIcon from '@material-ui/icons/Add';
 
 import Actions from '~/state/Actions';
 
+import Button from '~/components/Button';
 import CardHeader from './CardHeader';
 import CardDivider from './CardDivider';
 
 const CardNearbyWrapper = styled.div`
   display: block;
-  background: white;
+  background: #f8f8f8;
 `;
 
 const CardDistance = styled.div`
@@ -21,8 +23,8 @@ const CardDistance = styled.div`
 const CardTitle = styled.div`
   font-weight: bold;
   font-size: 14px;
-  margin-bottom: ${props => props.theme.margin[0]};
-  padding: 0 ${props => props.theme.padding[1]};
+  padding: ${props => props.theme.padding[1]};
+  background: #eee;
 `;
 
 const NearbyCard = styled.div`
@@ -35,13 +37,37 @@ const NearbyCard = styled.div`
   }
 `;
 
+const ButtonWrapper = styled.div`
+  margin-top: 10px;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    font-size: 12px;
+  }
+`;
+
 class CardNearby extends PureComponent {
+  state = {
+    index: 0
+  }
+
+  onShowMore() {
+    this.setState(prevState => ({
+      index: prevState.index + 1
+    }));
+  }
+
   handleNearbyClick(props) {
     this.props.setDetailRoute(props.id);
   }
 
   render() {
     const { data } = this.props;
+    const endIndex = 3 + (this.state.index * 3);
+    const hasShowMore = endIndex < data.length;
 
     if (!data || !data.length) {
       return null;
@@ -49,9 +75,9 @@ class CardNearby extends PureComponent {
 
     return (
       <CardNearbyWrapper>
-        <CardDivider />
-        <CardTitle>In der Nähe</CardTitle>
-        {data.map(d => (
+        <CardDivider style={{ marginBottom: 0 }} />
+        <CardTitle>In der Nähe:</CardTitle>
+        {data.slice(0, endIndex).map(d => (
           <NearbyCard onClick={() => this.handleNearbyClick(d)} key={`NearbyCard__${d.id}`}>
             <CardHeader data={d} />
             <CardDistance>
@@ -60,6 +86,13 @@ class CardNearby extends PureComponent {
             </CardDistance>
           </NearbyCard>
         ))}
+        {hasShowMore && (
+          <ButtonWrapper>
+            <Button onClick={() => this.onShowMore()}>
+              <PlusIcon /> Mehr anzeigen
+            </Button>
+          </ButtonWrapper>
+        )}
       </CardNearbyWrapper>
     );
   }

@@ -15,6 +15,12 @@ const StyledRoundButton = styled(RoundButton)`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.sans};
   font-size: 18px;
+  line-height: 1;
+
+  div {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 class ZoomControl extends PureComponent {
@@ -34,10 +40,10 @@ class ZoomControl extends PureComponent {
     return (
       <StyledContainer position={this.props.position}>
         <StyledRoundButton onClick={() => this.zoomIn()}>
-          <div>+</div>
+          <div title="Heranzoomen">+</div>
         </StyledRoundButton>
         <StyledRoundButton onClick={() => this.zoomOut()}>
-          <div>-</div>
+          <div title="Herauszoomen">−</div>
         </StyledRoundButton>
       </StyledContainer>
     );

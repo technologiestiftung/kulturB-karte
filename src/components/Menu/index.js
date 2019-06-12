@@ -6,7 +6,6 @@ import ListIcon from '@material-ui/icons/FilterList';
 import FilterIcon from '@material-ui/icons/Search';
 import FavIcon from '@material-ui/icons/BookmarkBorder';
 import AnalyseIcon from '@material-ui/icons/Equalizer';
-import InfoIcon from '@material-ui/icons/HelpOutline';
 
 import RoundButton from '~/components/RoundButton';
 import { media } from '~/styles/Utils';
@@ -34,6 +33,7 @@ const MenuItem = styled(NavLink)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 `;
 
 // const MenuLabel = styled.div`
@@ -51,7 +51,7 @@ const menuConfig = [
   { path: '/liste', title: 'Listenansicht', icon: <ListIcon /> },
   { path: '/favoriten', title: 'Favoriten', icon: <FavIcon /> },
   { path: '/analyse', title: 'Analyse', icon: <AnalyseIcon /> },
-  { path: '/info', title: 'Info', icon: <InfoIcon /> },
+  { path: '/info', title: 'Info', icon: 'i' },
 ];
 
 class Menu extends PureComponent {
@@ -64,7 +64,11 @@ class Menu extends PureComponent {
     return (
       <MenuWrapper isMenuOpen={isMenuOpen}>
         {menuConfig.map(m => (
-          <MenuItem exact to={m.path} key={m.path}>
+          <MenuItem
+            exact
+            to={{ pathname: m.path, search: this.props.location.search }}
+            key={m.path}
+          >
             <RoundButton title={m.title} isActive={pathname === m.path}>
               {m.icon}
             </RoundButton>

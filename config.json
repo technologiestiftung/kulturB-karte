@@ -5,15 +5,20 @@
     "robots": "noindex,nofollow"
   },
   "colors": [
-    "#4094D7",
-    "#7450AF",
-    "#EF6940",
-    "#64AB67",
-    "#EB9D2C",
-    "#8d6e63",
-    "#289B90",
-    "#D33C6F",
-    "#F7D008"
+    "#1f77b4",
+    "#ff7f0e",
+    "#aec7e8",
+    "#d62728",
+    "#bcbd22",
+    "#98df8a",
+    "#8c564b",
+    "#e377c2",
+    "#9467bd",
+    "#17becf",
+    "#2ca02c",
+    "#ffbb78",
+    "#8f8f8f",
+    "#ff9896"
   ],
   "map": {
     "flyToOptions": {
@@ -24,7 +29,7 @@
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
     "locations": "/locations",
-    "params": "?limit=0&fields=[\"_id\", \"name\", \"address\", \"location\", \"tags\", \"logo\", \"accessibility\"]&published=true"
+    "params": "?limit=0&fields=[\"_id\",\"name\",\"address\",\"location\",\"tags\",\"logo\",\"accessibility\",\"funded\",\"transportation\",\"openingHours\",\"twitter\",\"facebook\",\"instagram\",\"youtube\"]&published=true"
   },
   "localStorage": {
     "favKey": "tsb:favs"
