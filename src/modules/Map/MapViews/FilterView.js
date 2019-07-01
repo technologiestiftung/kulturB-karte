@@ -7,6 +7,7 @@ import { filteredDataSelector } from '~/state/Selectors';
 import DistrictLayer from '../Layers/DistrictsLayer';
 import MarkerLayer from '../Layers/MarkerLayer';
 import LocationFilterLayer from '../Layers/LocationFilterLayer';
+import IsolineLayer from '../Layers/IsolineLayer';
 
 class FilterView extends PureComponent {
   componentDidMount() {
@@ -14,12 +15,13 @@ class FilterView extends PureComponent {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, detailData } = this.props;
 
     return (
       <Fragment>
         <DistrictLayer />
         <MarkerLayer data={data} />
+        {detailData && <IsolineLayer detailData={detailData} />}
         <LocationFilterLayer />
       </Fragment>
     );
@@ -27,5 +29,6 @@ class FilterView extends PureComponent {
 }
 
 export default connect(state => ({
-  data: filteredDataSelector(state)
+  data: filteredDataSelector(state),
+  detailData: state.detailData
 }), Actions)(FilterView);
