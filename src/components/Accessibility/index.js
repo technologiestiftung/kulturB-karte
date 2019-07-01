@@ -11,9 +11,17 @@ const AccessibilityWrapper = styled.div`
 `;
 
 const AccessibilityItem = styled.div`
+  color: ${props => props.theme.colors.textgrey};
+`;
+
+const LabelWrapper = styled.div`
   display: flex;
   align-items: center;
-  color: ${props => props.theme.colors.textgrey};
+`;
+
+const Description = styled.div`
+  margin: 0 0 10px 0;
+  text-align: left;
 `;
 
 const IconContainer = styled.div`
@@ -42,27 +50,40 @@ class Accessibility extends PureComponent {
     const blind = idx(data, _ => _.accessibility.blind);
     const deaf = idx(data, _ => _.accessibility.deaf);
 
+    const wheelchairDescription = idx(data, _ => _.accessibility.wheelchair.accessible.description);
+    const blindDescription = idx(data, _ => _.accessibility.blind.description);
+    const deafDescription = idx(data, _ => _.accessibility.deaf.description);
+
     return (
       <AccessibilityWrapper>
         <AccessibilityItem>
-          <IconContainer highlight={wheelchair} title="Icon: Rollstuhl und Gehbehinderte">
-            <WheelChairIcon fontSize="inherit" />
-          </IconContainer>
-          {getAccessibilityLabel(wheelchair)}
+          <LabelWrapper>
+            <IconContainer highlight={wheelchair} title="Icon: Rollstuhl und Gehbehinderte">
+              <WheelChairIcon fontSize="inherit" />
+            </IconContainer>
+            {getAccessibilityLabel(wheelchair)}
+          </LabelWrapper>
+          {wheelchairDescription && <Description>{wheelchairDescription}</Description>}
         </AccessibilityItem>
 
         <AccessibilityItem>
-          <IconContainer highlight={blind} title="Icon: Blinde und Sehbehinderte">
-            <BlindIcon fontSize="inherit" />
-          </IconContainer>
-          {getAccessibilityLabel(blind)}
+          <LabelWrapper>
+            <IconContainer highlight={blind} title="Icon: Blinde und Sehbehinderte">
+              <BlindIcon fontSize="inherit" />
+            </IconContainer>
+            {getAccessibilityLabel(blind)}
+          </LabelWrapper>
+          {blindDescription && <Description>{blindDescription}</Description>}
         </AccessibilityItem>
 
         <AccessibilityItem>
-          <IconContainer highlight={deaf} title="Icon: Gehörlose und Hörgeschädigte">
-            <DeafIcon fontSize="inherit" />
-          </IconContainer>
-          {getAccessibilityLabel(deaf)}
+          <LabelWrapper>
+            <IconContainer highlight={deaf} title="Icon: Gehörlose und Hörgeschädigte">
+              <DeafIcon fontSize="inherit" />
+            </IconContainer>
+            {getAccessibilityLabel(deaf)}
+          </LabelWrapper>
+          {deafDescription && <Description>{deafDescription}</Description>}
         </AccessibilityItem>
       </AccessibilityWrapper>
     );
