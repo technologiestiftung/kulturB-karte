@@ -1,4 +1,4 @@
-# Technologiestiftung Culture Map
+# TSB KulturB Map
 
 ## Datawrangler
 

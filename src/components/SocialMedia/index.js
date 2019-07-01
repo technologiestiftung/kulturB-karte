@@ -6,7 +6,7 @@ import {
 } from 'react-icons/io';
 
 const SocialMediaWrapper = styled.div`
-  justify-content: space-between;
+  justify-content: flex-end;
   display: flex;
   font-size: 18px;
 

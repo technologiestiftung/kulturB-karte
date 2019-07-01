@@ -25,7 +25,7 @@ const DetailCardWrapper = styled(CardWrapper)`
   @media screen and (min-width: 768px) {
     right: 20px;
     left: auto;
-    width: 300px;
+    width: 325px;
   }
 
   @media screen and (min-width: 1024px) {

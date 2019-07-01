@@ -21,11 +21,13 @@ const CardBodySection = styled.div`
 const CardSectionLeft = styled.div`
   margin-right: 10px;
   min-width: 35%;
+  width: 35%;
 `;
 
 const CardSectionRight = styled.div`
   margin-left: auto;
   text-align: right;
+  flex-grow: 1;
 `;
 
 const Description = styled.div`

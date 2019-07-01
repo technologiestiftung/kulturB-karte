@@ -11,14 +11,14 @@ let clickTimeout = null;
 function getPaintProps(props) {
   const detailId = idx(props, _ => _.detailData.name) || idx(props, _ => _.highlightData.name) || '';
   const tooltipId = idx(props, _ => _.tooltipData.name) || '';
-  const activeExpr = ['case', ['==', ['string', ['get', 'name']], detailId], 10, 5];
-  const activeExprZoomedIn = ['case', ['==', ['string', ['get', 'name']], detailId], 15, isMobile ? 12 : 10];
+  const activeExpr = ['case', ['==', ['string', ['get', 'name']], detailId], 10, 2];
+  const activeExprZoomedIn = ['case', ['==', ['string', ['get', 'name']], detailId], 16, isMobile ? 14 : 12];
 
   return {
     'circle-radius': [
       'interpolate', ['linear'], ['zoom'],
       12, activeExpr,
-      20, activeExprZoomedIn
+      18, activeExprZoomedIn
     ],
     'circle-color': [
       'case',
