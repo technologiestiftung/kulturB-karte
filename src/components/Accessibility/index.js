@@ -58,7 +58,7 @@ class Accessibility extends PureComponent {
       <AccessibilityWrapper>
         <AccessibilityItem>
           <LabelWrapper>
-            <IconContainer highlight={wheelchair} title="Icon: Rollstuhl und Gehbehinderte">
+            <IconContainer highlight={wheelchair} role="img" title="Zugänglich für Menschen im Rollstuhl und Gehbehinderte">
               <WheelChairIcon fontSize="inherit" />
             </IconContainer>
             {getAccessibilityLabel(wheelchair)}
@@ -68,7 +68,7 @@ class Accessibility extends PureComponent {
 
         <AccessibilityItem>
           <LabelWrapper>
-            <IconContainer highlight={blind} title="Icon: Blinde und Sehbehinderte">
+            <IconContainer highlight={blind} role="img" title="Zugänglich für Blinde und Sehbehinderte">
               <BlindIcon fontSize="inherit" />
             </IconContainer>
             {getAccessibilityLabel(blind)}
@@ -78,7 +78,7 @@ class Accessibility extends PureComponent {
 
         <AccessibilityItem>
           <LabelWrapper>
-            <IconContainer highlight={deaf} title="Icon: Gehörlose und Hörgeschädigte">
+            <IconContainer highlight={deaf} role="img" title="Zugänglich für Gehörlose und Hörgeschädigte">
               <DeafIcon fontSize="inherit" />
             </IconContainer>
             {getAccessibilityLabel(deaf)}
