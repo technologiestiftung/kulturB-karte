@@ -69,7 +69,7 @@ class Menu extends PureComponent {
             to={{ pathname: m.path, search: this.props.location.search }}
             key={m.path}
           >
-            <RoundButton title={m.title} isActive={pathname === m.path}>
+            <RoundButton title={m.title} aria-label={m.title} isActive={pathname === m.path}>
               {m.icon}
             </RoundButton>
           </MenuItem>

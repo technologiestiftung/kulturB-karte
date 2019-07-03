@@ -82,7 +82,7 @@ class DetailCard extends PureComponent {
 
     return (
       <DetailCardWrapper>
-        <CloseButton onClick={evt => this.onClose(evt)}>
+        <CloseButton onClick={evt => this.onClose(evt)} aria-label="Detailansicht schließen">
           <Clear />
         </CloseButton>
         <ScrollWrapper style={{ maxHeight: this.state.maxHeight }}>
