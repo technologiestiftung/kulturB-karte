@@ -51,6 +51,8 @@ const CloseButton = styled(RoundButton)`
 const ScrollWrapper = styled.div`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  height: 100%;
+  width: 100%;
 `;
 
 class DetailCard extends PureComponent {

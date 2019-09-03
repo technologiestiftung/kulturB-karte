@@ -5,6 +5,7 @@ const CardWrapper = styled.div`
   background: #fff;
   border-radius: ${props => props.theme.borderRadius};
   max-height: 75vh;
+  display: flex;
 `;
 
 export default CardWrapper;
