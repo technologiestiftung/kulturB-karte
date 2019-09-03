@@ -20,7 +20,7 @@ const CategoryFilterItem = styled.div`
   color: ${props => (props.isActive ? '#222' : '#777')};
   margin-bottom: 8px;
   cursor: pointer;
-  min-width: 50%;
+  width: 50%;
   font-size: ${props => props.theme.fontSizes[1]};
   align-items: center;
   user-select: none;
@@ -40,6 +40,7 @@ const CategoryFilterIcon = styled.div`
   display: flex;
   justify-items: center;
   align-items: center;
+  flex-shrink: 0;
 
   svg {
     width: 16px;
@@ -47,6 +48,12 @@ const CategoryFilterIcon = styled.div`
     display: block;
     margin: 0 auto;
   }
+`;
+
+const CategoryFilterLabel = styled.div`
+  overflow: hidden;
+  word-wrap: break-word;
+  hyphens: auto;
 `;
 
 const CheckboxWrapper = styled.div`
@@ -109,7 +116,7 @@ class CategoryFilter extends PureComponent {
                 >
                   {CategoryIcon && <CategoryIcon />}
                 </CategoryFilterIcon>
-                <div>{category}</div>
+                <CategoryFilterLabel>{category}</CategoryFilterLabel>
               </CategoryFilterItem>
             );
           })}
