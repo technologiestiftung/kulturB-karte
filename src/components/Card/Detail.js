@@ -53,6 +53,7 @@ const ScrollWrapper = styled.div`
   -webkit-overflow-scrolling: touch;
   height: 100%;
   width: 100%;
+  background: #fff;
 `;
 
 class DetailCard extends PureComponent {
