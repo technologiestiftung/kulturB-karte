@@ -15,7 +15,7 @@ import MapDetailCard from './MapDetailCard';
 import BoundingBoxToggle from './Controls/BoundingBoxToggle';
 import ZoomControl from './Controls/ZoomControl';
 
-const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'FilteredMarkerLayer', 'MarkerLayer', 'IsolineLayer', 'HighlightLayer', 'HeatmapLayer', 'LocationFilterLayer'];
+const LayerOrder = ['LorLayer', 'DistrictsLayer', 'RadiusLayer', 'FilteredMarkerLayer', 'MarkerLayer', 'HighlightLayer', 'HeatmapLayer', 'LocationFilterLayer'];
 
 const mapConfig = {
   minZoom: 8,
@@ -54,7 +54,6 @@ class Map extends PureComponent {
 
   onStyleLoad(map) {
     map.resize();
-    window.map = map;
     this.setState({ isLoading: false, map });
 
     map.jumpTo({

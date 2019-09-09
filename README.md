@@ -1,31 +1,45 @@
-# TSB KulturB Map
+# Technologiestiftung kulturB Map
 
-## Datawrangler
+An interactive map application that shows cultural institutions in Berlin.
 
-1. Export data as csv from the [Spreadsheet](https://docs.google.com/spreadsheets/d/137apgGo8hqU02NlEOp1HKmQudt0z-0mDjZrLPeahngw/edit#gid=0)
-2. Copy the csv file to the `/datawrangler` directory
-3. Run `node datawrangler/index.js`
-4. This will create `public/data/data.geojson`
+## Getting started
 
-## Installation
+This frontend application is derived from [webkid/react-starter](https://github.com/wbkd/react-starter) which is based on [React](https://facebook.github.io/react/), [unistore](https://www.npmjs.com/package/unistore), [Styled Components](https://www.styled-components.com/) and [webpack v4](https://webpack.js.org/). For the interactive map, [mapbox-gl-js](https://github.com/mapbox/mapbox-gl-js) is used.
+
+To run the app locally, you have to clone this repository:
 
 ```sh
+$ git clone git@github.com:technologiestiftung/kulturB-karte.git
+```
+
+Then, navigate to the project directory and install the dependencies using [npm](https://www.npmjs.com/):
+
+```sh
+$ cd kulturB-karte
 $ npm install
 ```
 
 ## Development
 
-Builds the application and starts a webserver with hot loading.
-Runs on [localhost:8080](http://localhost:8080/)
+To run the development server with live reloading, you can use the following command:
 
 ```sh
-$ npm run start
+$ npm start
 ```
+
+The website will be available at [localhost:8080](http://localhost:8080/).
 
 ## Build
 
-Builds a minified version of the application in the build folder.
+To create a minified and bundled version of the application, you can use the following command:
 
 ```sh
 $ npm run build
 ```
+
+The packaged application will be available in the `build` folder.
+
+## See also
+
+* [technologiestiftung/kulturB-cms](https://github.com/technologiestiftung/kulturB-cms) - the content management system for the culture locations
+* [technologiestiftung/kulturB-api](https://github.com/technologiestiftung/kulturB-api) - the api that drives the cms and map application
