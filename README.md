@@ -39,6 +39,19 @@ $ npm run build
 
 The packaged application will be available in the `build` folder.
 
+## Isolines
+
+For displaying isolines in the detail view of a location, the [here isoline api](https://developer.here.com/documentation/routing/topics/example-isoline-simple-distance.html) is used. To make it work, you need to enter your own `app_id` and `app_code` in the [config.json](/blob/develop/config.json).
+
+```
+...
+"geocoder": {
+  "app_id": {YOUR_APP_ID_HERE},
+  "app_code": {YOU_APP_CODE_HERE}
+}
+...
+```
+
 ## See also
 
 * [technologiestiftung/kulturB-cms](https://github.com/technologiestiftung/kulturB-cms) - the content management system for the culture locations
