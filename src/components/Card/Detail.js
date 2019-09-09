@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import Clear from '@material-ui/icons/Clear';
 
 import RoundButton from '~/components/RoundButton';
-import Button from '~/components/Button';
-import Link from '~/components/Link';
 
 import CardActions from './CardActions';
 import CardWrapper from './CardWrapper';
@@ -92,9 +90,6 @@ class DetailCard extends PureComponent {
         <ScrollWrapper style={{ maxHeight: this.state.maxHeight }}>
           <StyledCardHeader data={data} />
           <CardActions data={data} />
-          <Button>
-            <Link href={`${config.api.base}${config.api.locations}${config.api.edit}`}>Eintrag bearbeiten</Link>
-          </Button>
           <CardDivider />
           <StyledCardBody data={data} />
           <CardNearby data={data.nearby} />
