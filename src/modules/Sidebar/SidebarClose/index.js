@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 

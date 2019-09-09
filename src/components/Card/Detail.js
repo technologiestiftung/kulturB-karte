@@ -61,9 +61,9 @@ class DetailCard extends PureComponent {
   }
 
   componentDidMount() {
-    const maxHeight = window.innerWidth <= 768 ?
-      window.innerHeight - 100 :
-      Math.max(250, window.innerHeight - 200);
+    const maxHeight = window.innerWidth <= 768
+    ? window.innerHeight - 100
+    : Math.max(250, window.innerHeight - 200);
 
     this.setState({ maxHeight });
   }
