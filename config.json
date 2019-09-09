@@ -38,5 +38,9 @@
   },
   "localStorage": {
     "favKey": "tsb:favs"
+  },
+  "geocoder": {
+    "app_id": "",
+    "app_code": ""
   }
 }
