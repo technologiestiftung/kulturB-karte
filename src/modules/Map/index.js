@@ -54,7 +54,6 @@ class Map extends PureComponent {
 
   onStyleLoad(map) {
     map.resize();
-    window.map = map;
     this.setState({ isLoading: false, map });
 
     map.jumpTo({

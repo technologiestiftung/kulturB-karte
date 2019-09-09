@@ -51,6 +51,8 @@ const CloseButton = styled(RoundButton)`
 const ScrollWrapper = styled.div`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  height: 100%;
+  width: 100%;
 `;
 
 class DetailCard extends PureComponent {
@@ -59,9 +61,9 @@ class DetailCard extends PureComponent {
   }
 
   componentDidMount() {
-    const maxHeight = window.innerWidth <= 768 ?
-      window.innerHeight - 100 :
-      Math.max(250, window.innerHeight - 200);
+    const maxHeight = window.innerWidth <= 768
+    ? window.innerHeight - 100
+    : Math.max(250, window.innerHeight - 200);
 
     this.setState({ maxHeight });
   }
@@ -82,7 +84,7 @@ class DetailCard extends PureComponent {
 
     return (
       <DetailCardWrapper>
-        <CloseButton onClick={evt => this.onClose(evt)}>
+        <CloseButton onClick={evt => this.onClose(evt)} aria-label="Detailansicht schließen">
           <Clear />
         </CloseButton>
         <ScrollWrapper style={{ maxHeight: this.state.maxHeight }}>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -15,7 +15,7 @@ class SidebarClose extends PureComponent {
   render() {
     return (
       <StyledLink to={{ pathname: '/', search: this.props.location.search }}>
-        <RoundButton title="Leiste schließen">
+        <RoundButton aria-label="Leiste schließen" title="Leiste schließen">
           <CloseIcon />
         </RoundButton>
       </StyledLink>

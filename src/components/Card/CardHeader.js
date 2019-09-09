@@ -30,8 +30,8 @@ const CardHeaderWrapper = styled.div`
     color: ${props => (props.teaserUrl ? 'white' : props.theme.colors.textgrey)};
   }
 
-  ${CardTitle} {
-    color: ${props => (props.teaserUrl ? 'white' : props.theme.colors.black)};
+  ${CardTitle} {
+    color: ${props => (props.teaserUrl ? 'white' : props.theme.colors.black)};
   }
 `;
 

@@ -63,7 +63,12 @@ class CardBody extends PureComponent {
   render() {
     const { detailData } = this.props;
     const openingHours = detailData.openingHours && new SimpleOpeningHours(detailData.openingHours);
-    const hasSocial = detailData.twitter || detailData.facebook || detailData.instagram || detailData.youtube;
+    const hasSocial = (
+      detailData.twitter
+      || detailData.facebook
+      || detailData.instagram
+      || detailData.youtube
+    );
 
     return (
       <CardBodyWrapper className={this.props.className}>

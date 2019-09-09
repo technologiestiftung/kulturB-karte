@@ -29,9 +29,18 @@
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
     "locations": "/locations",
+    "edit": "/change",
     "params": "?limit=0&fields=[\"_id\",\"name\",\"address\",\"location\",\"tags\",\"logo\",\"accessibility\",\"funded\",\"transportation\",\"openingHours\",\"twitter\",\"facebook\",\"instagram\",\"youtube\"]&published=true"
+  },
+  "cms": {
+    "base": "https://tsb-culture-admin.netlify.com",
+    "locations": "/kulturorte"
   },
   "localStorage": {
     "favKey": "tsb:favs"
+  },
+  "geocoder": {
+    "app_id": "",
+    "app_code": ""
   }
 }
