@@ -2,9 +2,9 @@ const px = d => `${d}px`;
 
 export default {
   fonts: {
-    sans: '"ClanPro", sans-serif',
-    serif: '"ClanPro", serif',
-    mono: '"ClanPro", monospace'
+    sans: 'Arial, sans-serif',
+    serif: 'Georgia, Times, Times New Roman, serif',
+    mono: 'monospace'
   },
   fontSizes: [12, 13, 15, 19, 24, 32, 48, 64].map(px),
   boxShadow: '0 0 50px rgba(0, 0, 0, 0.2)',
