@@ -24,7 +24,8 @@
     "flyToOptions": {
       "speed": 0.8
     },
-    "style": "https://maps.tilehosting.com/c/b3425739-d81e-44a0-9ab1-7259909a6d1c/styles/positron/style.json?key=IA1qWrAbZAe6JUuSfLgB"
+    "mapbox_token": "pk.eyJ1IjoidGVjaG5vbG9naWVzdGlmdHVuZyIsImEiOiJjazBudXA2ZTkwM2txM25wcG5jbGRvYTB3In0.l66l4GHq_63IXAdB6_83fw",
+    "style": "mapbox://styles/mapbox/light-v10"
   },
   "api": {
     "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
@@ -33,14 +34,14 @@
     "params": "?limit=0&fields=[\"_id\",\"name\",\"address\",\"location\",\"tags\",\"logo\",\"accessibility\",\"funded\",\"transportation\",\"openingHours\",\"twitter\",\"facebook\",\"instagram\",\"youtube\"]&published=true"
   },
   "cms": {
-    "base": "https://tsb-culture-admin.netlify.com",
+    "base": "https://kultur-b-digital-metadatengenerator.netlify.com",
     "locations": "/kulturorte"
   },
   "localStorage": {
     "favKey": "tsb:favs"
   },
   "geocoder": {
-    "app_id": "",
-    "app_code": ""
+    "app_id": "toQ6caOu4cXLy7aCxVhM",
+    "app_code": "zZzEOkSPSeTVpVDWSHDi2w"
   }
 }

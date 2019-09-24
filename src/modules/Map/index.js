@@ -25,7 +25,8 @@ const mapConfig = {
   maxBounds: [
     [10, 50],
     [15, 54]
-  ]
+  ],
+  accessToken: config.map.mapbox_token
 };
 
 const MapGL = ReactMapboxGl({ ...mapConfig });
