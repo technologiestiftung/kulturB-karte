@@ -18,6 +18,7 @@ class MapDetailCard extends PureComponent {
       <DetailCard
         onClose={() => this.onDetailClose()}
         data={detailData}
+        key={detailData.id}
       />
     );
   }
