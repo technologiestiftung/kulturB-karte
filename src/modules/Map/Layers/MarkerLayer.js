@@ -106,6 +106,8 @@ class MarkerLayer extends PureComponent {
       feat => feat.properties.id === detailId
     );
 
+    console.log(data.features.filter(d => !d.properties.isFiltered).map(feat => this.renderFeat(feat)))
+
     return (
       <Fragment>
         <Layer

@@ -17,6 +17,8 @@ class FilterView extends PureComponent {
   render() {
     const { data, detailData } = this.props;
 
+    console.log(data);
+
     return (
       <Fragment>
         <DistrictLayer />
