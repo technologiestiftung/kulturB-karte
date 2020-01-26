@@ -23,6 +23,7 @@ const Store = createStore({
   mapZoom: [10],
   mapBounds: false,
   tooltipData: false,
+  selectedData: false,
   detailData: false,
   highlightData: false,
   tooltipPos: [0, 0],

@@ -86,6 +86,8 @@ export const loadEntryData = Store => async (state, detailId) => {
   try {
     const data = await fetchJSON(`${config.api.base}${config.api.locations}/${detailId}`);
 
+    console.log('inside load entry data', detailId)
+
     data.location.coordinates.reverse();
     data.tags = data.tags.map(t => t.name);
     [data.mainCategory] = data.tags;
@@ -106,6 +108,7 @@ export const setDetailData = (state, detailData) => ({
 });
 
 export const setHighlightData = (state, highlightData) => ({ highlightData });
+export const setSelectedData = (state, selectedData) => ({ selectedData });
 
 const loadFilterData = Store => async () => {
   Store.setState({ isLoading: true });
@@ -258,6 +261,7 @@ export default Store => ({
   setHighlightData,
   setDetailRoute,
   setMapCenter,
+  setSelectedData,
   setMapView,
   setTooltipData,
   setTooltipPos,

@@ -15,7 +15,7 @@ const ListItems = styled.div``;
 
 class SidebarList extends PureComponent {
   render() {
-    const { data, setDetailRoute, setHighlightData } = this.props;
+    const { data, setDetailRoute, setHighlightData, detailData } = this.props;
 
     return (
       <Fragment>
@@ -39,5 +39,6 @@ class SidebarList extends PureComponent {
 }
 
 export default connect(state => ({
-  data: filteredListDataSelector(state)
+  data: filteredListDataSelector(state),
+  detailData: state.detailData
 }), Actions)(SidebarList);

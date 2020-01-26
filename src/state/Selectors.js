@@ -54,6 +54,8 @@ export const enrichedDataSelector = createSelector(
 
         properties.categoryFilter = filterCategories(properties, filter.categoryFilter);
 
+        console.log(properties.categoryFilter);
+
         properties.districtFilter = filterDistricts(
           feat,
           filter.districtFilter,
@@ -97,7 +99,7 @@ export const filteredDataSelector = createSelector(
         feat.properties.isFiltered = (
           feat.properties.categoryFilter
           || feat.properties.districtFilter
-          || feat.properties.locationFilter
+          || feat.properties.locationFilter 
           || feat.properties.a11yFilter
           || feat.properties.fundedFilter
         );

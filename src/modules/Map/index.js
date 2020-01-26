@@ -111,8 +111,8 @@ class Map extends PureComponent {
             <Route exact path={['/', '/suche', '/liste', '/favoriten', '/info']} component={FilterView} />
             <Route path="/liste" component={BoundingBoxToggle} />
             <Route path="/analyse" component={AnalysisView} />
-            <Tooltip />
             <ZoomControl position="bottom-left" />
+            <Tooltip />
           </MapGL>
         </MapProvider>
         <MapDetailCard />

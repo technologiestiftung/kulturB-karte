@@ -24,6 +24,8 @@ function syncLocation(state, location) {
     };
   }
 
+  console.log(parsedQuery);
+
   loadEntryDataAction(parsedQuery.location);
 
   return {};
@@ -40,6 +42,9 @@ const NotFoundRoute = () => (
 );
 
 class App extends Component {
+  componentDidUpdate() {
+    console.log(this.props.detailData)
+  }
   render() {
     return (
       <Router history={history}>

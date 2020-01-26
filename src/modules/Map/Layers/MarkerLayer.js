@@ -11,7 +11,7 @@ let clickTimeout = null;
 function getPaintProps(props) {
   const detailId = idx(props, _ => _.detailData.name) || idx(props, _ => _.highlightData.name) || '';
   const tooltipId = idx(props, _ => _.tooltipData.name) || '';
-  const activeExpr = ['case', ['==', ['string', ['get', 'name']], detailId], 10, 2];
+  const activeExpr = ['case', ['==', ['string', ['get', 'name']], detailId], 10, 5];
   const activeExprZoomedIn = ['case', ['==', ['string', ['get', 'name']], detailId], 16, isMobile ? 14 : 12];
 
   return {
@@ -105,8 +105,6 @@ class MarkerLayer extends PureComponent {
     const activeFeat = data.features.find(
       feat => feat.properties.id === detailId
     );
-
-    console.log(data.features.filter(d => !d.properties.isFiltered).map(feat => this.renderFeat(feat)))
 
     return (
       <Fragment>

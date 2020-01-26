@@ -77,7 +77,7 @@ const FavButton = styled(Button)`
 
 class CardHeader extends PureComponent {
   render() {
-    console.log(this.props)
+    
     const {
       data, className, isListMode, toggleFav, favs
     } = this.props;

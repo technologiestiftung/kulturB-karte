@@ -25,6 +25,7 @@ const StyledRoundButton = styled(RoundButton)`
 
 class ZoomControl extends PureComponent {
   zoomIn() {
+    console.log(this.props);
     if (this.props.map) {
       this.props.map.zoomIn();
     }
