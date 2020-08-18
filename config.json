@@ -28,13 +28,13 @@
     "style": "mapbox://styles/mapbox/light-v10"
   },
   "api": {
-    "base": "https://tsb-metadata-generator.herokuapp.com/api/v1",
+    "base": "https://tsb-kulturb-api.herokuapp.com/api/v1",
     "locations": "/locations",
     "edit": "/change",
     "params": "?limit=0&fields=[\"_id\",\"name\",\"address\",\"location\",\"tags\",\"logo\",\"accessibility\",\"funded\",\"transportation\",\"openingHours\",\"twitter\",\"facebook\",\"instagram\",\"youtube\"]&published=true"
   },
   "cms": {
-    "base": "https://kultur-b-digital-metadatengenerator.netlify.com",
+    "base": "https://kulturb-cms.netlify.com",
     "locations": "/kulturorte"
   },
   "localStorage": {
