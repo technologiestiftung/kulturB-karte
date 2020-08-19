@@ -28,7 +28,7 @@
     "style": "mapbox://styles/mapbox/light-v10"
   },
   "api": {
-    "base": "https://tsb-kulturb-api.herokuapp.com/api/v1",
+    "base": "https://kulturb-api-v1.herokuapp.com/api/v1",
     "locations": "/locations",
     "edit": "/change",
     "params": "?limit=0&fields=[\"_id\",\"name\",\"address\",\"location\",\"tags\",\"logo\",\"accessibility\",\"funded\",\"transportation\",\"openingHours\",\"twitter\",\"facebook\",\"instagram\",\"youtube\"]&published=true"
